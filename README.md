@@ -1,46 +1,67 @@
-# Sayit
+﻿# SayIt! 🎤📚
 
-Projeto Django com app `core` e SQLite, configurado para desenvolvimento local.
+Progressive Web App educacional para auxiliar crianças dos anos iniciais do Ensino Fundamental na aprendizagem de vocabulário e pronúncia da língua inglesa.
 
-## Executar
+## Objetivo
 
-Na pasta `sayit`, com o ambiente virtual ativado:
+O SayIt! combina:
 
-```shell
-python -m pip install -r requirements.txt
-python manage.py migrate
-python manage.py createsuperuser
-python manage.py runserver
-```
+- imagens
+- áudio
+- microfone
+- reconhecimento de voz
+- feedback imediato
+- acompanhamento de progresso
 
-Administração disponível em http://127.0.0.1:8000/admin/.
+A proposta é ajudar o aluno a relacionar palavra escrita, significado, som e pronúncia.
 
-## Carregar a trilha oficial
+## Público-alvo
 
-```shell
-python manage.py migrate
-python manage.py popular_sayit
-```
+Crianças dos anos iniciais do Ensino Fundamental.
 
-Carrega os 10 módulos e as 71 palavras da trilha, incluindo traduções. O comando usa o título como `Modulo.nome`, o número como `Modulo.ordem` e a palavra como `Palavra.texto`. As traduções ficam em `Palavra.traducao` e o indicador de ativação em `Palavra.ativa`.
+Projeto acadêmico desenvolvido para o curso de Sistemas de Informação.
 
-Executar novamente atualiza os módulos pelo nome e as palavras pelo par módulo/texto, sem duplicá-los. Não remova nem renomeie esses identificadores se quiser que a próxima execução reconheça os mesmos registros. Dicas e registros extras são preservados. A carga inteira ocorre em uma transação: qualquer falha desfaz as alterações dessa execução.
+## Cliente fictício
 
-## Modelos
+Instituto Martin Luther King.
 
-- `Usuario`: herda de `AbstractUser`, com `data_nascimento` opcional. `AUTH_USER_MODEL = 'core.Usuario'`.
-- `Modulo`: nome, descrição, ordem e indicador ativo.
-- `Palavra`: pertence a um módulo; texto único dentro dele, dica e ordem.
-- `Progresso`: percentual de 0 a 100, único por usuário e módulo; 100 representa conclusão.
-- `Sessao`: pertence a um usuário, com início e fim opcional; fim não pode anteceder início.
-- `Tentativa`: pertence diretamente a um usuário e a uma palavra, com sessão opcional. Registra `resposta_reconhecida`, `resultado` (`correto`, `incorreto` ou `nao_reconhecido`), `pontuacao` inteira não negativa, `feedback` e `data_hora`. Resposta e feedback podem ficar vazios.
+Instituição fictícia criada exclusivamente para fins acadêmicos.
 
-Quando houver sessão, a validação do modelo (`full_clean()`, também executada pelos formulários do admin) exige que ela pertença ao usuário da tentativa. Ao gravar diretamente pelo ORM, execute `full_clean()` antes de `save()` para validar essa relação. Os resultados permitidos e a unicidade do progresso também são garantidos no SQLite.
+## Conteúdo pedagógico
 
-A migração de atualização preserva respostas e datas anteriores, copia o usuário da sessão e converte `acertou` em `correto` ou `incorreto`.
+A trilha possui 10 módulos:
 
-Uma sessão pode conter palavras de diferentes módulos. O progresso é armazenado explicitamente e não é calculado automaticamente a partir das tentativas. A exclusão de palavras com tentativas é protegida para preservar o histórico. Excluir um usuário remove suas sessões, tentativas e progressos.
+1. Magic E: mudança do som do A
+2. Magic E: mudança do som do I
+3. Magic E: mudança do som do O
+4. Magic E: mudança do som do U
+5. SH
+6. CH
+7. TH
+8. PH
+9. OO
+10. Revisão geral
 
-Os campos e relacionamentos usam recursos compatíveis com SQLite. A migração inicial inclui o usuário personalizado antes da criação das tabelas de autenticação dependentes.
+## Tecnologias
 
-Configurações geradas para uso local (`DEBUG=True`); ajuste segredo, hosts e demais configurações antes de publicar.
+- Python
+- Django
+- SQLite
+- HTML5
+- CSS3
+- JavaScript
+- Pillow
+- PWA
+
+## Estado atual
+
+- 10 módulos cadastrados
+- 71 registros de palavras
+- 58 palavras distintas
+- 13 comparações didáticas
+- banco base populado
+- comando de associação de imagens implementado
+
+## Status
+
+Projeto em desenvolvimento.
