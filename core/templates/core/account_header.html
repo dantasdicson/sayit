@@ -1,0 +1,9 @@
+<header class="topbar"><span class="brand">SayIt!<span aria-hidden="true"> ✦</span></span>
+  {% if request.user.is_authenticated %}
+  <nav class="account-nav" aria-label="Minha conta">
+    <a href="{% url 'home' %}">Home</a><a href="{% url 'trilha' %}">Trilha</a>
+    <a href="{% url 'progresso' %}">Progresso</a><a href="{% url 'perfil' %}">Perfil</a>
+    <form method="post" action="{% url 'logout' %}">{% csrf_token %}<button class="logout-button" type="submit">Sair</button></form>
+  </nav>
+  {% else %}<span>Aprender, ouvir e descobrir</span>{% endif %}
+</header>

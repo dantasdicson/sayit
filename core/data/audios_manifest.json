@@ -1,0 +1,526 @@
+{
+  "audios": [
+    {
+      "palavra": "alphabet",
+      "traducao": "alfabeto",
+      "arquivo": "palavras/audios/alphabet.mp3",
+      "texto_falado": "alphabet",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "bath",
+      "traducao": "banho",
+      "arquivo": "palavras/audios/bath.mp3",
+      "texto_falado": "bath",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "beach",
+      "traducao": "praia",
+      "arquivo": "palavras/audios/beach.mp3",
+      "texto_falado": "beach",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "bit",
+      "traducao": "pedaço",
+      "arquivo": "palavras/audios/bit.mp3",
+      "texto_falado": "bit",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "bite",
+      "traducao": "mordida",
+      "arquivo": "palavras/audios/bite.mp3",
+      "texto_falado": "bite",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "book",
+      "traducao": "livro",
+      "arquivo": "palavras/audios/book.mp3",
+      "texto_falado": "book",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "cake",
+      "traducao": "bolo",
+      "arquivo": "palavras/audios/cake.mp3",
+      "texto_falado": "cake",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "cap",
+      "traducao": "boné",
+      "arquivo": "palavras/audios/cap.mp3",
+      "texto_falado": "cap",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "cape",
+      "traducao": "capa",
+      "arquivo": "palavras/audios/cape.mp3",
+      "texto_falado": "cape",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "cat",
+      "traducao": "gato",
+      "arquivo": "palavras/audios/cat.mp3",
+      "texto_falado": "cat",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "chair",
+      "traducao": "cadeira",
+      "arquivo": "palavras/audios/chair.mp3",
+      "texto_falado": "chair",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "cheese",
+      "traducao": "queijo",
+      "arquivo": "palavras/audios/cheese.mp3",
+      "texto_falado": "cheese",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "chicken",
+      "traducao": "galinha",
+      "arquivo": "palavras/audios/chicken.mp3",
+      "texto_falado": "chicken",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "child",
+      "traducao": "criança",
+      "arquivo": "palavras/audios/child.mp3",
+      "texto_falado": "child",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "chip",
+      "traducao": "chip",
+      "arquivo": "palavras/audios/chip.mp3",
+      "texto_falado": "chip",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "chocolate",
+      "traducao": "chocolate",
+      "arquivo": "palavras/audios/chocolate.mp3",
+      "texto_falado": "chocolate",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "cub",
+      "traducao": "filhote",
+      "arquivo": "palavras/audios/cub.mp3",
+      "texto_falado": "cub",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "cube",
+      "traducao": "cubo",
+      "arquivo": "palavras/audios/cube.mp3",
+      "texto_falado": "cube",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "cut",
+      "traducao": "cortar",
+      "arquivo": "palavras/audios/cut.mp3",
+      "texto_falado": "cut",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "cute",
+      "traducao": "fofo",
+      "arquivo": "palavras/audios/cute.mp3",
+      "texto_falado": "cute",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "dolphin",
+      "traducao": "golfinho",
+      "arquivo": "palavras/audios/dolphin.mp3",
+      "texto_falado": "dolphin",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "elephant",
+      "traducao": "elefante",
+      "arquivo": "palavras/audios/elephant.mp3",
+      "texto_falado": "elephant",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "fin",
+      "traducao": "barbatana",
+      "arquivo": "palavras/audios/fin.mp3",
+      "texto_falado": "fin",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "fine",
+      "traducao": "bem",
+      "arquivo": "palavras/audios/fine.mp3",
+      "texto_falado": "fine",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "fish",
+      "traducao": "peixe",
+      "arquivo": "palavras/audios/fish.mp3",
+      "texto_falado": "fish",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "food",
+      "traducao": "comida",
+      "arquivo": "palavras/audios/food.mp3",
+      "texto_falado": "food",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "foot",
+      "traducao": "pé",
+      "arquivo": "palavras/audios/foot.mp3",
+      "texto_falado": "foot",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "good",
+      "traducao": "bom",
+      "arquivo": "palavras/audios/good.mp3",
+      "texto_falado": "good",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "hop",
+      "traducao": "pular",
+      "arquivo": "palavras/audios/hop.mp3",
+      "texto_falado": "hop",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "hope",
+      "traducao": "esperança",
+      "arquivo": "palavras/audios/hope.mp3",
+      "texto_falado": "hope",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "kit",
+      "traducao": "kit",
+      "arquivo": "palavras/audios/kit.mp3",
+      "texto_falado": "kit",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "kite",
+      "traducao": "pipa",
+      "arquivo": "palavras/audios/kite.mp3",
+      "texto_falado": "kite",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "look",
+      "traducao": "olhar",
+      "arquivo": "palavras/audios/look.mp3",
+      "texto_falado": "look",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "mad",
+      "traducao": "zangado",
+      "arquivo": "palavras/audios/mad.mp3",
+      "texto_falado": "mad",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "made",
+      "traducao": "feito",
+      "arquivo": "palavras/audios/made.mp3",
+      "texto_falado": "made",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "moon",
+      "traducao": "lua",
+      "arquivo": "palavras/audios/moon.mp3",
+      "texto_falado": "moon",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "mother",
+      "traducao": "mãe",
+      "arquivo": "palavras/audios/mother.mp3",
+      "texto_falado": "mother",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "not",
+      "traducao": "não",
+      "arquivo": "palavras/audios/not.mp3",
+      "texto_falado": "not",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "note",
+      "traducao": "nota",
+      "arquivo": "palavras/audios/note.mp3",
+      "texto_falado": "note",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "phone",
+      "traducao": "telefone",
+      "arquivo": "palavras/audios/phone.mp3",
+      "texto_falado": "phone",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "photo",
+      "traducao": "foto",
+      "arquivo": "palavras/audios/photo.mp3",
+      "texto_falado": "photo",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "rob",
+      "traducao": "roubar",
+      "arquivo": "palavras/audios/rob.mp3",
+      "texto_falado": "rob",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "robe",
+      "traducao": "roupão",
+      "arquivo": "palavras/audios/robe.mp3",
+      "texto_falado": "robe",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "room",
+      "traducao": "quarto",
+      "arquivo": "palavras/audios/room.mp3",
+      "texto_falado": "room",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "school",
+      "traducao": "escola",
+      "arquivo": "palavras/audios/school.mp3",
+      "texto_falado": "school",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "sheep",
+      "traducao": "ovelha",
+      "arquivo": "palavras/audios/sheep.mp3",
+      "texto_falado": "sheep",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "shell",
+      "traducao": "concha",
+      "arquivo": "palavras/audios/shell.mp3",
+      "texto_falado": "shell",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "ship",
+      "traducao": "navio",
+      "arquivo": "palavras/audios/ship.mp3",
+      "texto_falado": "ship",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "shoe",
+      "traducao": "sapato",
+      "arquivo": "palavras/audios/shoe.mp3",
+      "texto_falado": "shoe",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "shop",
+      "traducao": "loja",
+      "arquivo": "palavras/audios/shop.mp3",
+      "texto_falado": "shop",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "tap",
+      "traducao": "tocar",
+      "arquivo": "palavras/audios/tap.mp3",
+      "texto_falado": "tap",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "tape",
+      "traducao": "fita",
+      "arquivo": "palavras/audios/tape.mp3",
+      "texto_falado": "tape",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "that",
+      "traducao": "aquilo",
+      "arquivo": "palavras/audios/that.mp3",
+      "texto_falado": "that",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "think",
+      "traducao": "pensar",
+      "arquivo": "palavras/audios/think.mp3",
+      "texto_falado": "think",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "this",
+      "traducao": "isto",
+      "arquivo": "palavras/audios/this.mp3",
+      "texto_falado": "this",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "three",
+      "traducao": "três",
+      "arquivo": "palavras/audios/three.mp3",
+      "texto_falado": "three",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "tub",
+      "traducao": "banheira",
+      "arquivo": "palavras/audios/tub.mp3",
+      "texto_falado": "tub",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "tube",
+      "traducao": "tubo",
+      "arquivo": "palavras/audios/tube.mp3",
+      "texto_falado": "tube",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    }
+  ]
+}

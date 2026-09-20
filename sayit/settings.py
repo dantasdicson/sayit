@@ -1,3 +1,10 @@
+import os
+from pathlib import Path
+
+from dotenv import load_dotenv
+
+load_dotenv()
+
 """
 Django settings for sayit project.
 
@@ -9,8 +16,6 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-
-from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,9 +30,12 @@ SECRET_KEY = 'django-insecure-s0gig8kqprn1x^69t3_v$a7f__xb3dt)nl4(xlgn-d0a5o62q=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
-
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    "10.0.0.150",
+    ".trycloudflare.com",
+]
 # Application definition
 
 INSTALLED_APPS = [
@@ -104,6 +112,10 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
 AUTH_USER_MODEL = 'core.Usuario'
+AUTHENTICATION_BACKENDS = ['core.auth_backends.UsuarioOuEmailBackend']
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'login'
 
 LANGUAGE_CODE = 'pt-br'
 
@@ -122,7 +134,9 @@ STATIC_URL = 'static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+

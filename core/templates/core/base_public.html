@@ -1,0 +1,22 @@
+{% load static %}
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}SayIt!{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'core/design_system.css' %}?v=1">
+  <link rel="stylesheet" href="{% static 'core/auth.css' %}?v=2">
+</head>
+<body class="sayit-public">
+  <main class="public-shell">
+    <section class="public-intro" aria-label="Conheça o SayIt!">
+      <a class="discovery-brand" href="{% url 'login' %}">SayIt!<span aria-hidden="true">✦</span></a>
+      <p class="public-tagline">Aprender, ouvir<br>e descobrir</p>
+      <p class="public-description">Uma palavra de cada vez.<br>Uma descoberta a cada som.</p>
+      <div class="public-art" aria-hidden="true"><span></span><span></span><span></span><span>✦</span></div>
+    </section>
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

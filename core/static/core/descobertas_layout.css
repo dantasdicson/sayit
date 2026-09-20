@@ -1,0 +1,52 @@
+/* Discovery-specific composition. Shared rules live in design_system.css. */
+.discovery-steps{display:flex;width:min(340px,100%);padding:0;margin:20px auto 22px;list-style:none}
+.discovery-steps li{display:flex;align-items:center;flex:1}
+.discovery-steps li:last-child{flex:0}
+.discovery-steps li:not(:last-child)::after{content:"";flex:1;height:2px;margin:0 8px;background:#dfd9f6}
+.discovery-steps li>span:first-child{display:grid;place-items:center;flex:0 0 36px;height:36px;border-radius:50%;border:2px solid #ded7f8;background:#f5f2ff;color:#75699b;font-size:15px;font-weight:800}
+.discovery-steps li[aria-current]>span:first-child{border-color:var(--sayit-primary);background:var(--sayit-primary);color:white;box-shadow:0 0 0 4px var(--sayit-primary-light)}
+.word-pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:stretch;gap:24px}
+.word-card{--accent:var(--sayit-blue);--tint:var(--sayit-blue-light);position:relative;min-width:0;margin:0;padding:20px 24px 16px;border:1px solid #dce6fc;border-radius:var(--sayit-radius);background:var(--sayit-card);text-align:center;box-shadow:var(--sayit-shadow)}
+.word-card:nth-child(2){--accent:var(--sayit-coral);--tint:var(--sayit-pink-light);border-color:#ffe0e5}
+.word-card h3{color:var(--accent);margin:0 0 12px;font-size:36px;font-weight:900;letter-spacing:2px;line-height:1.1}
+.word-card img{display:block;width:100%;max-width:196px;height:auto;aspect-ratio:1;object-fit:contain;border-radius:20px;margin:0 auto 16px}
+.word-actions{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:12px}
+.word-actions button{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:var(--sayit-control-height);flex:1 1 100px;max-width:176px;min-width:0;padding:12px 14px;border:1px solid transparent;border-radius:var(--sayit-control-radius);background:var(--tint);color:#17164A;font-size:16px;font-weight:800;line-height:1.25}
+.word-actions button svg{flex:0 0 22px}
+.word-actions button[data-audio]{color:#355ec4}
+.word-card:nth-child(2) button[data-audio]{color:#bf3249}
+.word-actions .speak{background:var(--accent);color:white}
+.word-actions button:hover:not(:disabled){filter:brightness(.95)}
+.word-actions button:disabled{opacity:.6}
+.word-actions audio{max-width:100%;width:100%;flex-basis:100%}
+.speech-feedback{margin:12px 0 0;min-height:22px;font-size:15px;color:#71718a;line-height:1.5;overflow-wrap:anywhere}
+.speech-title{display:block;color:#17164A}
+.speech-title:empty{display:none}
+.speech-message{margin:0}
+.word-complete{margin:6px 0 0;color:var(--sayit-primary);font-size:15px;font-weight:800}
+.word-card[data-state=correct]{border-color:var(--sayit-primary)}
+.word-card[data-state=correct] .speech-title{display:none}
+.word-card[data-state=listening] .speak,.word-card[data-state=processing] .speak{background:var(--sayit-primary);opacity:1}
+.word-card[data-state=retry] .speech-title,.word-card[data-state=error] .speech-message{color:#b73549}
+.discovery-bottom-bar{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:16px 20px;border-radius:18px;background:var(--sayit-primary-light)}
+.discovery-tip{display:flex;align-items:center;gap:12px;margin:0;color:#635c81;font-size:15px;line-height:1.6}
+.discovery-tip strong{color:#17164A;font-weight:700}
+.tip-icon{display:grid;place-items:center;flex:0 0 40px;height:40px;border-radius:12px;background:#fff5d9;font-size:23px}
+#speech-status{margin:10px 0 0;text-align:center;color:#71718a;font-size:14px;line-height:1.5}
+@media(max-width:1050px) and (min-width:801px){.word-card{padding-inline:14px}
+.word-pair{gap:16px}
+.word-actions{gap:8px}
+.discovery-bottom-bar{padding-inline:14px;gap:12px}
+}
+@media(max-width:800px){.word-card{padding-inline:16px}
+.word-pair{gap:18px}
+.word-actions{gap:8px}
+}
+@media(max-width:520px){.discovery-steps{max-width:290px;margin:18px auto 22px}
+.word-pair{grid-template-columns:minmax(0,1fr);gap:18px}
+.word-card{padding:20px 20px 16px}
+.word-card img{max-width:170px}
+.word-actions button{padding-inline:10px}
+.discovery-bottom-bar{flex-direction:column;align-items:stretch;gap:14px;padding:16px}
+.discovery-tip{font-size:15px;gap:10px}
+}

@@ -18,8 +18,29 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
+from core.auth_views import EntrarView, SairView, area, cadastro
+from core import progresso_views
+from core.views import (
+    conclusao_modulo_1, descoberta_modulo_1, explicacao_modulo_1, pratica_modulo_1,
+    resumo_modulo,
+)
 
 urlpatterns = [
+    path('', area, name='home'),
+    path('cadastro/', cadastro, name='cadastro'),
+    path('login/', EntrarView.as_view(), name='login'),
+    path('logout/', SairView.as_view(), name='logout'),
+    path('trilha/', area, {'pagina': 'trilha'}, name='trilha'),
+    path('modulos/', area, {'pagina': 'modulos'}, name='modulos'),
+    path('progresso/', area, {'pagina': 'progresso'}, name='progresso'),
+    path('perfil/', area, {'pagina': 'perfil'}, name='perfil'),
+    path('modulos/<int:numero>/progresso/acertos/', progresso_views.registrar_acerto, name='registrar_acerto'),
+    path('modulos/<int:numero>/progresso/concluir/', progresso_views.concluir_modulo, name='concluir_modulo'),
+    path('modulos/1/pratica/', pratica_modulo_1, name='pratica_modulo_1'),
+    path('modulos/1/explicacao/', explicacao_modulo_1, name='explicacao_modulo_1'),
+    path('modulos/1/descoberta/<int:numero>/', descoberta_modulo_1, name='descoberta_modulo_1'),
+    path('modulos/1/conclusao/', conclusao_modulo_1, name='conclusao_modulo_1'),
+    path('modulos/1/resumo/', resumo_modulo, {'numero': 1}, name='resumo_modulo_1'),
     path('admin/', admin.site.urls),
 ]
 

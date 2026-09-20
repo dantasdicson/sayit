@@ -47,6 +47,6 @@ class Migration(migrations.Migration):
         ),
         migrations.AddConstraint(
             model_name='comparacao',
-            constraint=models.CheckConstraint(condition=models.Q(('palavra_base', models.F('palavra_comparada')), _negated=True), name='comparacao_palavras_diferentes'),
+            constraint=models.CheckConstraint(check=models.Q(('palavra_base', models.F('palavra_comparada')), _negated=True), name='comparacao_palavras_diferentes'),
         ),
     ]

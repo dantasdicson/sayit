@@ -1,0 +1,52 @@
+{% extends 'core/base_trilha_modulo_1.html' %}
+{% load static %}
+{% block title %}Resumo · Módulo {{ modulo.numero }} | SayIt!{% endblock %}
+{% block scripts %}
+<link rel="stylesheet" href="{% static 'core/resumo_modulo.css' %}?v=2">
+{% if audio_url %}<script src="{% static 'core/resumo_audio.js' %}" defer></script>{% endif %}
+{% endblock %}
+{% block content %}
+<div class="module-summary">
+<section class="intro" aria-labelledby="titulo">
+  <p class="eyebrow">MÓDULO {{ modulo.numero }} · RESUMO</p>
+  <h1 id="titulo">O que você aprendeu?</h1>
+  <h2>{{ resumo.subtitulo }}</h2>
+  {% if modulo.numero == 1 %}
+  <p class="explanation">{{ resumo.paragrafos.0 }}</p>
+  <p class="summary-rule"><strong>O E final fica silencioso e muda o som do A.</strong></p>
+  {% else %}
+  {% for paragrafo in resumo.paragrafos %}<p class="explanation">{{ paragrafo }}</p>{% endfor %}
+  {% endif %}
+  {% if audio_url %}
+  <div class="word-card">
+    <audio id="summary-audio" src="{{ audio_url }}" controls preload="none" aria-label="Explicação do resumo do módulo {{ modulo.numero }}"></audio>
+    <button id="summary-listen" class="sayit-button" type="button" hidden aria-controls="summary-audio" aria-describedby="audio-status" aria-pressed="false"><span aria-hidden="true">🔊</span> <span id="summary-listen-label">Ouvir explicação</span></button>
+  </div>
+  <p id="audio-status" role="status" aria-live="polite" aria-atomic="true"></p>
+  {% endif %}
+</section>
+<section class="summary-examples" aria-labelledby="pares-titulo">
+  <h2 id="pares-titulo">Veja novamente as palavras que você aprendeu.</h2>
+  <div class="summary-grid">
+  {% for cards in pares %}
+  <div class="comparison">
+    <div class="pair-label">PAR {{ forloop.counter }}</div>
+    <div class="pair">
+      {% for card in cards %}
+      <article class="word-card">
+        <h3 lang="en">{{ card.palavra.palavra|upper }}</h3>
+        {% if card.imagem_url %}<img src="{{ card.imagem_url }}" alt="{{ card.palavra.traducao }}" width="1254" height="1254" loading="lazy">{% endif %}
+      </article>
+      {% if forloop.first %}<span class="arrow" aria-hidden="true">→</span>{% endif %}
+      {% endfor %}
+    </div>
+  </div>
+  {% endfor %}
+  </div>
+</section>
+<p class="summary-reinforcement">{% if modulo.numero == 1 %}Muito bem! Você terminou a revisão do Magic E.{% else %}{{ resumo.reforco }}{% endif %}</p>
+<nav class="practice-start" aria-label="Concluir a trilha">
+  <a class="practice-link" href="{{ conclusao_url }}">Concluir módulo</a>
+</nav>
+</div>
+{% endblock %}

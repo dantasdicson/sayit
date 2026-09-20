@@ -1,0 +1,28 @@
+﻿{% extends 'core/base_app.html' %}
+{% block title %}{{ titulo }} | SayIt!{% endblock %}
+{% block content %}
+<header class="page-heading">
+  <p class="eyebrow">SAYIT! • APRENDER E DESCOBRIR</p>
+  {% if pagina == 'home' %}<h1>Olá, {{ request.user.first_name|default:request.user.username }}!</h1><p class="page-description">Vamos continuar aprendendo inglês?</p>
+  {% else %}<h1>{{ titulo }}</h1>{% if pagina == 'trilha' or pagina == 'modulos' %}<p class="page-description">Explore os sons do inglês, uma descoberta de cada vez.</p>{% endif %}{% endif %}
+</header>
+{% if pagina == 'home' %}
+<section class="dashboard-grid" aria-label="Explore o SayIt!">
+  <article class="sayit-card dashboard-card"><span class="card-symbol" aria-hidden="true">↗</span><h2>Continuar aprendendo</h2><p>Explore a trilha e descubra novos sons.</p><a class="sayit-button" href="{% url 'trilha' %}">Explorar minha trilha →</a></article>
+  <article class="sayit-card dashboard-card"><span class="card-symbol tone-blue" aria-hidden="true">▦</span><h2>Meus Módulos</h2><p>Conheça os temas e encontre sua próxima descoberta.</p><a class="sayit-button sayit-button--secondary" href="{% url 'modulos' %}">Ver módulos</a></article>
+  <article class="sayit-card dashboard-card"><span class="card-symbol tone-pink" aria-hidden="true">☆</span><h2>Meu Progresso</h2><p>Um espaço para acompanhar sua jornada.</p><a class="sayit-button sayit-button--secondary" href="{% url 'progresso' %}">Ver meu progresso</a></article>
+</section>
+{% elif pagina == 'trilha' or pagina == 'modulos' %}
+<section class="modules-grid" aria-label="Módulos disponíveis">
+  {% for modulo in modulos %}<article class="sayit-card module-card"><span class="module-number">MÓDULO {{ modulo.numero }}</span><h2>{{ modulo.titulo }}</h2><p>{{ modulo.descricao }}</p>
+    {% if modulo.numero == 1 %}<a class="sayit-button" href="{% url 'explicacao_modulo_1' %}">Explorar módulo →</a>{% else %}<span class="availability">Em breve</span>{% endif %}
+  </article>{% empty %}<p>Os módulos estarão disponíveis em breve.</p>{% endfor %}
+</section>
+{% elif pagina == 'perfil' %}
+<section class="sayit-card profile-card" aria-label="Seus dados">
+  <dl class="profile-grid"><div><dt>Nome completo</dt><dd>{{ request.user.get_full_name|default:request.user.username }}</dd></div>
+  <div><dt>Nome de usuário</dt><dd>{{ request.user.username }}</dd></div><div><dt>E-mail</dt><dd>{{ request.user.email|default:'Não informado' }}</dd></div>
+  <div><dt>Data de nascimento</dt><dd>{{ request.user.data_nascimento|date:'d/m/Y'|default:'Não informada' }}</dd></div></dl>
+</section>
+{% else %}<section class="sayit-card empty-state"><span class="card-symbol tone-yellow" aria-hidden="true">☆</span><h2>Cada descoberta faz parte da sua jornada</h2><p>Seu acompanhamento de progresso estará disponível em breve.</p><a class="sayit-button sayit-button--secondary" href="{% url 'trilha' %}">Explorar minha trilha</a></section>{% endif %}
+{% endblock %}

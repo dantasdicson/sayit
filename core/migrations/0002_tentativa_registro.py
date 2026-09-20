@@ -47,6 +47,6 @@ class Migration(migrations.Migration):
         ),
         migrations.AddConstraint(
             model_name="tentativa",
-            constraint=models.CheckConstraint(condition=models.Q(resultado__in=["correto", "incorreto", "nao_reconhecido"]), name="tentativa_resultado_valido"),
+            constraint=models.CheckConstraint(check=models.Q(resultado__in=["correto", "incorreto", "nao_reconhecido"]), name="tentativa_resultado_valido"),
         ),
     ]

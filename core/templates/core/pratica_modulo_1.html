@@ -1,0 +1,45 @@
+{% extends 'core/base_app.html' %}
+{% load static %}
+{% block title %}Prática · Módulo 1 | SayIt!{% endblock %}
+{% block page_styles %}<link rel="stylesheet" href="{% static 'core/pratica_modulo_1.css' %}?v=2">{% endblock %}
+{% block scripts %}<script src="{% static 'core/pratica_modulo_1.js' %}" defer></script>{% endblock %}
+{% block content %}
+    <section class="intro" aria-labelledby="titulo">
+      <p class="eyebrow">MÓDULO 1 · VAMOS PRATICAR</p>
+      <h1 id="titulo">Agora é a sua vez!</h1>
+      <p id="instruction" class="explanation">Ouça e depois fale a palavra.</p>
+    </section>
+    <noscript><p>Ative o JavaScript para praticar com o microfone.</p></noscript>
+    {% if palavras %}
+    <section id="practice" class="comparison practice-card" hidden aria-label="Prática de pronúncia">
+      <p id="progress" class="eyebrow"></p>
+      <div class="word-card">
+        <h2 id="word" lang="en" tabindex="-1"></h2>
+        <img id="word-image" alt="" width="1254" height="1254">
+        <audio id="word-audio" preload="none"></audio>
+        <div class="practice-actions">
+          <button id="listen" class="sayit-button sayit-button--blue" type="button" aria-label="Ouvir a palavra"><span aria-hidden="true">♫</span> Ouvir</button>
+          <button id="microphone" class="sayit-button" type="button" aria-label="Falar a palavra usando o microfone" aria-describedby="instruction mic-status" data-state="idle">
+            <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10v2a7 7 0 0 0 14 0v-2M12 19v3M8 22h8"/></svg>
+            <span id="mic-label">Falar · microfone parado</span>
+          </button>
+        </div>
+      </div>
+      <p id="mic-status" role="status" aria-live="polite" aria-atomic="true"></p>
+      <div id="feedback" role="status" aria-live="polite" aria-atomic="true">
+        <h2 id="feedback-title" lang="en"></h2>
+        <p id="feedback-text"></p>
+      </div>
+      <div class="practice-actions">
+        <button id="retry" class="practice-link" type="button" hidden>Tentar novamente</button>
+        <button id="next" class="practice-link" type="button" hidden>Próxima palavra</button>
+      </div>
+    </section>
+    <section id="complete" class="comparison practice-card" hidden>
+      <h2 tabindex="-1">Você praticou todas as palavras!</h2>
+      <p>Uma descoberta a cada som. Até a próxima!</p>
+    </section>
+    {{ palavras|json_script:'practice-words' }}
+    {% else %}<p role="status">As palavras desta prática ainda não estão disponíveis.</p>{% endif %}
+    <p class="back-link"><a href="{% url 'explicacao_modulo_1' %}">Voltar à explicação</a></p>
+{% endblock %}

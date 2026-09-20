@@ -1,0 +1,16 @@
+﻿{% extends 'core/base_trilha_modulo_1.html' %}
+{% block title %}Introdução · Módulo 1 | SayIt!{% endblock %}
+{% block content %}
+<section class="intro" aria-labelledby="titulo">
+  <p class="eyebrow">MÓDULO 1 • MAGIC E — SOM DO A</p>
+  <h1 id="titulo">Magic E: mudança do som do A</h1>
+</section>
+<section class="sayit-card education-card" aria-label="Conheça o Magic E">
+  <p class="explanation">Observe o E no final! Em muitas palavras em inglês, ele pode fazer a vogal mudar de som.</p>
+  <div class="word-transformation" aria-label="Compare cat e cake"><span lang="en">CAT</span><span class="transform-arrow" aria-hidden="true">→</span><span lang="en">CAKE</span></div>
+  <p class="tip">Uma trilha com 4 descobertas.</p>
+  <nav class="practice-start" aria-label="Iniciar descobertas">
+    <a class="practice-link" href="{% url 'descoberta_modulo_1' 1 %}">Começar descoberta <span aria-hidden="true">→</span></a>
+  </nav>
+</section>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'core/base_public.html' %}
+{% block title %}{% if cadastro %}Crie sua conta{% else %}Bem-vindo de volta!{% endif %} | SayIt!{% endblock %}
+{% block content %}
+<section class="auth-card" aria-labelledby="auth-title">
+  <p class="eyebrow">{% if cadastro %}VAMOS COMEÇAR{% else %}QUE BOM TER VOCÊ AQUI{% endif %}</p>
+  <h1 id="auth-title">{% if cadastro %}Crie sua conta{% else %}Bem-vindo de volta!{% endif %}</h1>
+  <p class="auth-subtitle">{% if cadastro %}Uma nova descoberta começa aqui.{% else %}Continue sua jornada de aprendizado.{% endif %}</p>
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
+    {% if form.errors %}<p class="form-error" role="alert">Confira os campos abaixo para continuar.</p>{% endif %}
+    {% for error in form.non_field_errors %}<p class="form-error" role="alert">{{ error }}</p>{% endfor %}
+    {% for field in form %}
+    <div class="form-field">
+      {{ field.label_tag }}
+      {{ field }}
+      {% if field.help_text %}<p class="field-help" id="{{ field.auto_id }}_helptext">{{ field.help_text }}</p>{% endif %}
+      {% if field.errors %}<ul class="errorlist" id="{{ field.auto_id }}_error">{% for error in field.errors %}<li>{{ error }}</li>{% endfor %}</ul>{% endif %}
+    </div>
+    {% endfor %}
+    <button class="practice-link auth-submit" type="submit">{{ acao }}</button>
+  </form>
+  <p class="auth-alternative">{% if cadastro %}Já possui uma conta? <a href="{% url 'login' %}">Entrar</a>{% else %}Ainda não tem uma conta? <a href="{% url 'cadastro' %}">Criar conta</a>{% endif %}</p>
+</section>
+{% endblock %}

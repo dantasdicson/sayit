@@ -18,11 +18,11 @@ class PopularSayitTests(TestCase):
         self.assertEqual(Modulo.objects.count(), 10)
         self.assertEqual(Palavra.objects.count(), 71)
         modulo = Modulo.objects.get(ordem=1)
-        palavra = modulo.palavras.get(texto="cat")
+        palavra = modulo.palavras.get(palavra="cat")
         ids = list(Palavra.objects.order_by("pk").values_list("pk", flat=True))
         palavra.traducao = "alterada"
         palavra.ativa = False
-        palavra.dica = "Dica personalizada"
+        palavra.observacao = "Observação personalizada"
         palavra.save()
         call_command("popular_sayit", stdout=StringIO())
         palavra.refresh_from_db()
@@ -30,8 +30,9 @@ class PopularSayitTests(TestCase):
         self.assertEqual(list(Palavra.objects.order_by("pk").values_list("pk", flat=True)), ids)
         self.assertEqual(palavra.traducao, "gato")
         self.assertTrue(palavra.ativa)
-        self.assertEqual(palavra.dica, "Dica personalizada")
-        self.assertEqual(Palavra.objects.filter(texto="cat").count(), 2)
+        # A carga atual redefine a observação junto com os demais dados didáticos.
+        self.assertEqual(palavra.observacao, "")
+        self.assertEqual(Palavra.objects.filter(palavra="cat").count(), 2)
         self.assertEqual(Modulo.objects.get(ordem=10).palavras.count(), 14)
 
     def test_falha_desfaz_populacao(self):
@@ -45,10 +46,14 @@ class PopularSayitTests(TestCase):
 class ModelosTests(TestCase):
     def setUp(self):
         self.usuario = get_user_model().objects.create_user(
-            username="ana", password="senha-teste", data_nascimento=date(2000, 1, 1)
+            username="ana", email="ana@example.com", password="senha-teste", data_nascimento=date(2000, 1, 1)
         )
-        self.modulo = Modulo.objects.create(nome="Básico")
-        self.palavra = Palavra.objects.create(modulo=self.modulo, texto="Olá")
+        self.modulo = Modulo.objects.create(
+            numero=1, titulo="Básico", descricao="Módulo de teste", ordem=1
+        )
+        self.palavra = Palavra.objects.create(
+            modulo=self.modulo, palavra="Olá", traducao="Olá", ordem=1
+        )
 
     def test_fluxo_com_usuario_personalizado(self):
         self.assertTrue(self.usuario.check_password("senha-teste"))
@@ -87,7 +92,7 @@ class ModelosTests(TestCase):
             lambda: Tentativa.objects.create(usuario=self.usuario, palavra=self.palavra, pontuacao=-1),
             lambda: Progresso.objects.create(usuario=self.usuario, modulo=self.modulo),
             lambda: Progresso.objects.filter(usuario=self.usuario).update(percentual=101),
-            lambda: Palavra.objects.create(modulo=self.modulo, texto="Olá"),
+            lambda: Palavra.objects.create(modulo=self.modulo, palavra="Olá", traducao="Olá", ordem=2),
             lambda: Sessao.objects.create(usuario=self.usuario, finalizada_em=timezone.now() - timedelta(days=1)),
         ]
         for criar in invalidos:

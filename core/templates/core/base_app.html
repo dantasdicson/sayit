@@ -1,0 +1,41 @@
+{% load static %}
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}SayIt!{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'core/design_system.css' %}?v=1">
+  {% block page_styles %}{% endblock %}
+  {% block scripts %}{% endblock %}
+</head>
+<body class="{% block body_class %}sayit-app{% endblock %}">
+  <a class="skip-content" href="#discovery-content">Ir para a atividade</a>
+  <svg class="nav-symbols" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <defs>
+      <symbol id="nav-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/></symbol>
+      <symbol id="nav-trail" viewBox="0 0 24 24"><circle cx="6" cy="5" r="2"/><circle cx="18" cy="19" r="2"/><path d="M8 5h7a4 4 0 0 1 0 8H9a3 3 0 0 0 0 6h7"/></symbol>
+      <symbol id="nav-modules" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></symbol>
+      <symbol id="nav-progress" viewBox="0 0 24 24"><path d="M4 4v16h17M9 15v-4m5 4V8m5 7V5"/></symbol>
+      <symbol id="nav-profile" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M4 21v-2a8 8 0 0 1 16 0v2"/></symbol>
+      <symbol id="nav-logout" viewBox="0 0 24 24"><path d="M10 4H4v16h6m5-13 5 5-5 5m-6-5h11"/></symbol>
+    </defs>
+  </svg>
+  <aside class="discovery-sidebar" aria-label="Navegação lateral">
+    <a class="discovery-brand" href="{% url 'home' %}">SayIt!<span aria-hidden="true">✦</span></a>
+    <p class="sidebar-caption">Uma descoberta a cada som.</p>
+    {% include 'core/discovery_navigation.html' %}
+  </aside>
+  <header class="discovery-mobile-header">
+    <a class="discovery-brand" href="{% url 'home' %}">SayIt!<span aria-hidden="true">✦</span></a>
+    <details class="discovery-menu">
+      <summary><span aria-hidden="true">☰</span> Menu</summary>
+      <div class="mobile-menu-panel">{% include 'core/discovery_navigation.html' %}</div>
+    </details>
+  </header>
+  <main id="discovery-content" class="discovery-main" tabindex="-1">
+    {% block content %}{% endblock %}
+    <footer>Uma palavra de cada vez. Uma descoberta a cada som. <span aria-hidden="true">✦</span></footer>
+  </main>
+</body>
+</html>

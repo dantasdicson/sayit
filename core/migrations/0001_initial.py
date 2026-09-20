@@ -117,10 +117,10 @@ class Migration(migrations.Migration):
         ),
         migrations.AddConstraint(
             model_name='progresso',
-            constraint=models.CheckConstraint(condition=models.Q(('percentual__lte', 100)), name='progresso_percentual_ate_100'),
+            constraint=models.CheckConstraint(check=models.Q(('percentual__lte', 100)), name='progresso_percentual_ate_100'),
         ),
         migrations.AddConstraint(
             model_name='sessao',
-            constraint=models.CheckConstraint(condition=models.Q(('finalizada_em__isnull', True), ('finalizada_em__gte', models.F('iniciada_em')), _connector='OR'), name='sessao_fim_apos_inicio'),
+            constraint=models.CheckConstraint(check=models.Q(('finalizada_em__isnull', True), ('finalizada_em__gte', models.F('iniciada_em')), _connector='OR'), name='sessao_fim_apos_inicio'),
         ),
     ]

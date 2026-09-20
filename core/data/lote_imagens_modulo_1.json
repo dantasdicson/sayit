@@ -1,0 +1,68 @@
+{
+    "imagens":  [
+                    {
+                        "palavra":  "cat",
+                        "traducao":  "gato",
+                        "arquivo":  "palavras/imagens/cat.webp",
+                        "descricao_visual":  "Um gato simpático sentado, com cauda e bigodes bem visíveis. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d\u0027água ou logotipos.",
+                        "prompt_imagem":  "Crie uma ilustração educativa para crianças dos anos iniciais do Ensino Fundamental, para o projeto SayIt!. Um gato simpático sentado, com cauda e bigodes bem visíveis. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d\u0027água ou logotipos. Use proporção 1:1, enquadramento com margens livres, contornos suaves e espessura uniforme, paleta pastel consistente e fundo liso creme claro. Mantenha o objeto ou a ação principal facilmente reconhecível. Não inclua letras, números, frases, a palavra-alvo escrita na imagem, marcas-d\u0027água ou logotipos.",
+                        "status":  "pronto_para_gerar"
+                    },
+                    {
+                        "palavra":  "cake",
+                        "traducao":  "bolo",
+                        "arquivo":  "palavras/imagens/cake.webp",
+                        "descricao_visual":  "Um bolo redondo com cobertura e morangos. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d\u0027água ou logotipos.",
+                        "prompt_imagem":  "Crie uma ilustração educativa para crianças dos anos iniciais do Ensino Fundamental, para o projeto SayIt!. Um bolo redondo com cobertura e morangos. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d\u0027água ou logotipos. Use proporção 1:1, enquadramento com margens livres, contornos suaves e espessura uniforme, paleta pastel consistente e fundo liso creme claro. Mantenha o objeto ou a ação principal facilmente reconhecível. Não inclua letras, números, frases, a palavra-alvo escrita na imagem, marcas-d\u0027água ou logotipos.",
+                        "status":  "pronto_para_gerar"
+                    },
+                    {
+                        "palavra":  "cap",
+                        "traducao":  "boné",
+                        "arquivo":  "palavras/imagens/cap.webp",
+                        "descricao_visual":  "Um boné colorido com a aba bem visível. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d\u0027água ou logotipos.",
+                        "prompt_imagem":  "Crie uma ilustração educativa para crianças dos anos iniciais do Ensino Fundamental, para o projeto SayIt!. Um boné colorido com a aba bem visível. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d\u0027água ou logotipos. Use proporção 1:1, enquadramento com margens livres, contornos suaves e espessura uniforme, paleta pastel consistente e fundo liso creme claro. Mantenha o objeto ou a ação principal facilmente reconhecível. Não inclua letras, números, frases, a palavra-alvo escrita na imagem, marcas-d\u0027água ou logotipos.",
+                        "status":  "pronto_para_gerar"
+                    },
+                    {
+                        "palavra":  "cape",
+                        "traducao":  "capa",
+                        "arquivo":  "palavras/imagens/cape.webp",
+                        "descricao_visual":  "Uma criança de costas usando uma capa colorida esvoaçante. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d\u0027água ou logotipos.",
+                        "prompt_imagem":  "Crie uma ilustração educativa para crianças dos anos iniciais do Ensino Fundamental, para o projeto SayIt!. Uma criança de costas usando uma capa colorida esvoaçante. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d\u0027água ou logotipos. Use proporção 1:1, enquadramento com margens livres, contornos suaves e espessura uniforme, paleta pastel consistente e fundo liso creme claro. Mantenha o objeto ou a ação principal facilmente reconhecível. Não inclua letras, números, frases, a palavra-alvo escrita na imagem, marcas-d\u0027água ou logotipos.",
+                        "status":  "pronto_para_gerar"
+                    },
+                    {
+                        "palavra":  "tap",
+                        "traducao":  "tocar",
+                        "arquivo":  "palavras/imagens/tap.webp",
+                        "descricao_visual":  "Uma criança tocando suavemente um tambor com a ponta dos dedos. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d\u0027água ou logotipos.",
+                        "prompt_imagem":  "Crie uma ilustração educativa para crianças dos anos iniciais do Ensino Fundamental, para o projeto SayIt!. Uma criança tocando suavemente um tambor com a ponta dos dedos. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d\u0027água ou logotipos. Use proporção 1:1, enquadramento com margens livres, contornos suaves e espessura uniforme, paleta pastel consistente e fundo liso creme claro. Mantenha o objeto ou a ação principal facilmente reconhecível. Não inclua letras, números, frases, a palavra-alvo escrita na imagem, marcas-d\u0027água ou logotipos. Mostre claramente a ponta dos dedos tocando suavemente a superfície do tambor, sem baquetas.",
+                        "status":  "pronto_para_gerar"
+                    },
+                    {
+                        "palavra":  "tape",
+                        "traducao":  "fita",
+                        "arquivo":  "palavras/imagens/tape.webp",
+                        "descricao_visual":  "Um rolo de fita adesiva com uma ponta desenrolada. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d\u0027água ou logotipos.",
+                        "prompt_imagem":  "Crie uma ilustração educativa para crianças dos anos iniciais do Ensino Fundamental, para o projeto SayIt!. Um rolo de fita adesiva com uma ponta desenrolada. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d\u0027água ou logotipos. Use proporção 1:1, enquadramento com margens livres, contornos suaves e espessura uniforme, paleta pastel consistente e fundo liso creme claro. Mantenha o objeto ou a ação principal facilmente reconhecível. Não inclua letras, números, frases, a palavra-alvo escrita na imagem, marcas-d\u0027água ou logotipos.",
+                        "status":  "pronto_para_gerar"
+                    },
+                    {
+                        "palavra":  "mad",
+                        "traducao":  "zangado",
+                        "arquivo":  "palavras/imagens/mad.webp",
+                        "descricao_visual":  "Uma criança com expressão zangada, sobrancelhas franzidas e braços cruzados. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d\u0027água ou logotipos.",
+                        "prompt_imagem":  "Crie uma ilustração educativa para crianças dos anos iniciais do Ensino Fundamental, para o projeto SayIt!. Uma criança com expressão zangada, sobrancelhas franzidas e braços cruzados. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d\u0027água ou logotipos. Use proporção 1:1, enquadramento com margens livres, contornos suaves e espessura uniforme, paleta pastel consistente e fundo liso creme claro. Mantenha o objeto ou a ação principal facilmente reconhecível. Não inclua letras, números, frases, a palavra-alvo escrita na imagem, marcas-d\u0027água ou logotipos. A expressão deve comunicar que a criança está zangada, sem aparência assustadora, agressividade ou gestos de violência.",
+                        "status":  "pronto_para_gerar"
+                    },
+                    {
+                        "palavra":  "made",
+                        "traducao":  "feito",
+                        "arquivo":  "palavras/imagens/made.webp",
+                        "descricao_visual":  "Uma criança ao lado de uma casinha de blocos recém-construída e finalizada, demonstrando satisfação. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d\u0027água ou logotipos.",
+                        "prompt_imagem":  "Crie uma ilustração educativa para crianças dos anos iniciais do Ensino Fundamental, para o projeto SayIt!. Uma criança ao lado de uma casinha de blocos recém-construída e finalizada, demonstrando satisfação. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d\u0027água ou logotipos. Use proporção 1:1, enquadramento com margens livres, contornos suaves e espessura uniforme, paleta pastel consistente e fundo liso creme claro. Mantenha o objeto ou a ação principal facilmente reconhecível. Não inclua letras, números, frases, a palavra-alvo escrita na imagem, marcas-d\u0027água ou logotipos. Mostre a casinha de blocos completa e estável, destacando o resultado recém-construído e finalizado.",
+                        "status":  "pronto_para_gerar"
+                    }
+                ]
+}
