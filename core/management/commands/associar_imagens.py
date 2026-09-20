@@ -15,6 +15,7 @@ class Command(BaseCommand):
     help = "Associa arquivos WebP existentes às palavras, sem copiar arquivos."
 
     def add_arguments(self, parser):
+        parser.add_argument('--modulo', type=int, help='Limita ao número do módulo informado.')
         parser.add_argument('--dry-run', action='store_true', help='Simula sem alterar o banco.')
         parser.add_argument('--sobrescrever', action='store_true', help='Permite substituir imagens cadastradas.')
 
@@ -29,6 +30,8 @@ class Command(BaseCommand):
 
         with nullcontext() if simular else transaction.atomic():
             registros = Palavra.objects.select_related('modulo').order_by('pk')
+            if options.get('modulo') is not None:
+                registros = registros.filter(modulo__numero=options['modulo'])
             for palavra in registros.iterator():
                 examinados += 1
                 identificacao = f'{palavra.palavra} (ID {palavra.pk}, módulo {palavra.modulo.numero})'

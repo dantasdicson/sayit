@@ -9,6 +9,8 @@ from django.test import Client, TestCase
 from django.urls import reverse
 from django.utils import timezone
 
+from core.models import Palavra, Tentativa
+
 
 User = get_user_model()
 PASSWORD = 'Brisa!Laranja-4829'
@@ -180,7 +182,8 @@ class AutenticacaoTests(TestCase):
     def test_next_local_preservado(self):
         path = reverse('descoberta_modulo_1', args=[2])
         self.assertRedirects(self.client.get(path), reverse('login') + '?next=' + path)
-        self.assertRedirects(self.entrar(next=path), path)
+        # O login preserva o destino, mas não libera uma Descoberta pendente.
+        self.assertRedirects(self.entrar(next=path), path, target_status_code=409)
 
     def test_next_externo_rejeitado(self):
         for target in ('https://evil.example/', '//evil.example/', 'http://evil.example/', 'javascript:alert(1)'):
@@ -248,6 +251,12 @@ class ProtecaoTests(TestCase):
 
     def test_autenticado_acessa_todas_areas(self):
         self.client.force_login(self.user)
+        # Satisfazer a sequência pedagógica para testar apenas a autenticação.
+        Tentativa.objects.bulk_create([
+            Tentativa(usuario=self.user, palavra=palavra, resultado='correto',
+                      resposta_reconhecida=palavra.palavra)
+            for palavra in Palavra.objects.filter(modulo__numero=1)
+        ])
         paths = [reverse(name) for name in ('home', 'trilha', 'modulos', 'progresso', 'perfil',
             'explicacao_modulo_1', 'resumo_modulo_1', 'conclusao_modulo_1', 'pratica_modulo_1')]
         paths += [reverse('descoberta_modulo_1', args=[n]) for n in range(1, 5)]

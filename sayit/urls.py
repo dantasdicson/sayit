@@ -22,7 +22,7 @@ from core.auth_views import EntrarView, SairView, area, cadastro
 from core import progresso_views
 from core.views import (
     conclusao_modulo_1, descoberta_modulo_1, explicacao_modulo_1, pratica_modulo_1,
-    resumo_modulo,
+    resumo_modulo, explicacao_modulo_2, conclusao_modulo_2,
 )
 
 urlpatterns = [
@@ -41,6 +41,10 @@ urlpatterns = [
     path('modulos/1/descoberta/<int:numero>/', descoberta_modulo_1, name='descoberta_modulo_1'),
     path('modulos/1/conclusao/', conclusao_modulo_1, name='conclusao_modulo_1'),
     path('modulos/1/resumo/', resumo_modulo, {'numero': 1}, name='resumo_modulo_1'),
+    path('modulos/2/explicacao/', explicacao_modulo_2, name='explicacao_modulo_2'),
+    path('modulos/<int:modulo_numero>/descobertas/<int:numero>/', descoberta_modulo_1, name='descoberta_modulo'),
+    path('modulos/2/resumo/', resumo_modulo, {'numero': 2}, name='resumo_modulo_2'),
+    path('modulos/2/conclusao/', conclusao_modulo_2, name='conclusao_modulo_2'),
     path('admin/', admin.site.urls),
 ]
 

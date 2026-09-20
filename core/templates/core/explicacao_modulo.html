@@ -1,0 +1,16 @@
+{% extends 'core/base_trilha_modulo_1.html' %}
+{% block title %}Introdução · Módulo {{ modulo.numero }} | SayIt!{% endblock %}
+{% block content %}
+<section class="intro" aria-labelledby="titulo">
+  <p class="eyebrow">MÓDULO {{ modulo.numero }} • MAGIC E — SOM DO {{ vogal }}</p>
+  <h1 id="titulo">{{ modulo.titulo }}</h1>
+</section>
+<section class="sayit-card education-card" aria-label="Conheça o Magic E">
+  <p class="explanation">{{ modulo.conteudo_teorico }}</p>
+  <div class="word-transformation" aria-label="Compare {{ primeira.palavra_base.palavra }} e {{ primeira.palavra_comparada.palavra }}"><span lang="en">{{ primeira.palavra_base.palavra|upper }}</span><span class="transform-arrow" aria-hidden="true">→</span><span lang="en">{{ primeira.palavra_comparada.palavra|upper }}</span></div>
+  <p class="tip">Uma trilha com {{ total }} descobertas.</p>
+  <nav class="practice-start" aria-label="Iniciar descobertas">
+    <a class="practice-link" href="{% url 'descoberta_modulo' modulo.numero primeira.ordem %}">Começar descoberta <span aria-hidden="true">→</span></a>
+  </nav>
+</section>
+{% endblock %}

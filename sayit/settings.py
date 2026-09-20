@@ -36,6 +36,12 @@ ALLOWED_HOSTS = [
     "10.0.0.150",
     ".trycloudflare.com",
 ]
+
+CSRF_TRUSTED_ORIGINS = [
+     "https://*.trycloudflare.com",
+]
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -113,6 +119,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTH_USER_MODEL = 'core.Usuario'
 AUTHENTICATION_BACKENDS = ['core.auth_backends.UsuarioOuEmailBackend']
+
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'login'
@@ -122,7 +129,6 @@ LANGUAGE_CODE = 'pt-br'
 TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
-
 USE_TZ = True
 
 
@@ -139,4 +145,3 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-

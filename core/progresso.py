@@ -1,7 +1,7 @@
 """Persistência das Descobertas; não registra áudio nem eventos da Prática.
 
 Tentativa não possui origem/comparação: nesta etapa somente este serviço deve
-registrar acertos pedagógicos. O catálogo habilitado é o Módulo 1.
+registrar acertos pedagógicos. Os catálogos habilitados são os Módulos 1 e 2.
 """
 import re
 from contextlib import contextmanager
@@ -11,6 +11,9 @@ from django.db.models import F
 from django.utils import timezone
 
 from .models import Modulo, Palavra, Progresso, Tentativa
+from .pronuncia import corresponde
+
+DESCOBERTAS_POR_MODULO = {1: 4, 2: 3}
 
 
 class ErroProgresso(Exception):
@@ -35,7 +38,7 @@ def _validar_usuario(usuario):
 
 def _catalogo(numero):
     # Não habilitar progresso de módulos cuja experiência ainda não existe.
-    if numero != 1:
+    if numero not in DESCOBERTAS_POR_MODULO:
         raise ErroProgresso('Módulo indisponível.', 'modulo_inexistente', 404)
     try:
         modulo = Modulo.objects.get(numero=numero, ativo=True)
@@ -43,7 +46,7 @@ def _catalogo(numero):
         raise ErroProgresso('Módulo indisponível.', 'modulo_inexistente', 404)
     comparacoes = list(modulo.comparacoes.select_related(
         'palavra_base', 'palavra_comparada').order_by('ordem', 'pk'))
-    if [c.ordem for c in comparacoes] != [1, 2, 3, 4] or any(
+    if [c.ordem for c in comparacoes] != list(range(1, DESCOBERTAS_POR_MODULO[numero] + 1)) or any(
         c.palavra_base_id == c.palavra_comparada_id
         or c.palavra_base.modulo_id != modulo.pk
         or c.palavra_comparada.modulo_id != modulo.pk
@@ -57,7 +60,7 @@ def _catalogo(numero):
 @contextmanager
 def _escrita(usuario, numero):
     _validar_usuario(usuario)
-    if numero != 1:
+    if numero not in DESCOBERTAS_POR_MODULO:
         raise ErroProgresso('Módulo indisponível.', 'modulo_inexistente', 404)
     with transaction.atomic():
         # PRIMEIRA consulta da transação é uma escrita sem mudança de valor.
@@ -122,7 +125,7 @@ def consultar_meu_progresso(usuario):
     """Somente módulos implementados; consulta nunca cria registros."""
     _validar_usuario(usuario)
     return [consultar_progresso(usuario, m.numero)
-            for m in Modulo.objects.filter(numero=1, ativo=True)]
+            for m in Modulo.objects.filter(numero__in=DESCOBERTAS_POR_MODULO, ativo=True)]
 
 
 def contar_descobertas_concluidas(usuario, numero=1):
@@ -187,7 +190,7 @@ def registrar_acerto(usuario, numero, comparacao_id, palavra_id, transcricao):
         acertos = consultar_acertos(usuario, modulo)
         if not _permitida(comparacao, comparacoes, acertos):
             raise ErroProgresso('Conclua as Descobertas anteriores.', 'etapa_bloqueada', 409)
-        if not texto or texto != normalizar_texto(palavra.palavra):
+        if not corresponde(normalizar_texto(palavra.palavra), texto):
             raise ErroProgresso('A palavra reconhecida não corresponde à esperada.', 'transcricao_incorreta')
         criado = palavra.pk not in acertos
         if criado:
@@ -202,7 +205,7 @@ def concluir_modulo(usuario, numero=1):
     with _escrita(usuario, numero) as (modulo, comparacoes):
         estado = _estado(usuario, modulo, comparacoes)
         if estado['primeira_pendente'] is not None:
-            raise ErroProgresso('Conclua as quatro Descobertas antes de finalizar o módulo.', 'modulo_incompleto', 409)
+            raise ErroProgresso('Conclua todas as Descobertas antes de finalizar o módulo.', 'modulo_incompleto', 409)
         progresso = _recalcular(usuario, modulo, comparacoes)
         if progresso.concluido_em is None:
             progresso.concluido_em = timezone.now()

@@ -46,7 +46,9 @@
 </section>
 <p class="summary-reinforcement">{% if modulo.numero == 1 %}Muito bem! Você terminou a revisão do Magic E.{% else %}{{ resumo.reforco }}{% endif %}</p>
 <nav class="practice-start" aria-label="Concluir a trilha">
-  <a class="practice-link" href="{{ conclusao_url }}">Concluir módulo</a>
+  {% if modulo.numero == 2 %}
+  <form method="post" action="{{ conclusao_url }}">{% csrf_token %}<button class="practice-link" type="submit">Concluir módulo</button></form>
+  {% else %}<a class="practice-link" href="{{ conclusao_url }}">Concluir módulo</a>{% endif %}
 </nav>
 </div>
 {% endblock %}

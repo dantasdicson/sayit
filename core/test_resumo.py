@@ -7,7 +7,7 @@ from django.test import TestCase, override_settings
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 
-from core.models import Modulo
+from core.models import Modulo, Palavra, Tentativa
 
 
 class ResumoModuloTests(TestCase):
@@ -16,7 +16,14 @@ class ResumoModuloTests(TestCase):
         call_command('popular_sayit', stdout=StringIO())
 
     def setUp(self):
-        self.client.force_login(get_user_model().objects.create_user(username='aluno_resumo'))
+        usuario = get_user_model().objects.create_user(username='aluno_resumo')
+        self.client.force_login(usuario)
+        # O Resumo exige acertos persistidos; a mídia continua sendo testada à parte.
+        Tentativa.objects.bulk_create([
+            Tentativa(usuario=usuario, palavra=palavra, resultado='correto',
+                      resposta_reconhecida=palavra.palavra)
+            for palavra in Palavra.objects.filter(modulo__numero=1)
+        ])
         self.media = TemporaryDirectory()
         self.addCleanup(self.media.cleanup)
         override = override_settings(MEDIA_ROOT=self.media.name)
@@ -87,7 +94,7 @@ class ResumoModuloTests(TestCase):
     def test_modulo_inativo_e_resumos_nao_implementados_retornam_404(self):
         Modulo.objects.filter(numero=1).update(ativo=False)
         self.assertEqual(self.client.get(reverse('resumo_modulo_1')).status_code, 404)
-        for number in range(2, 11):
+        for number in range(3, 11):
             self.assertEqual(self.client.get(f'/modulos/{number}/resumo/').status_code, 404)
 
     def test_fluxo_completo_preserva_descobertas_e_conclusao(self):
@@ -97,7 +104,7 @@ class ResumoModuloTests(TestCase):
             response = self.client.get(reverse('descoberta_modulo_1', args=[number]))
             destination = reverse('descoberta_modulo_1', args=[number + 1]) if number < 4 else reverse('resumo_modulo_1')
             self.assertContains(response, f'data-next-url="{destination}"')
-            self.assertContains(response, 'type="button" disabled aria-describedby="speech-status"')
+            self.assertContains(response, 'type="button" aria-describedby="speech-status"')
             self.assertContains(response, 'data-practice-word=', count=2)
             self.assertNotContains(response, reverse('conclusao_modulo_1'))
         summary = self.client.get(reverse('resumo_modulo_1'))

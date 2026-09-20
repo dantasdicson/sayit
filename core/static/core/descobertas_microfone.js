@@ -3,10 +3,15 @@
   const next = document.getElementById('discovery-next');
   if (!next) return;
   const status = document.getElementById('speech-status');
+  const state = document.getElementById('discovery-state');
+  const csrf = state?.querySelector('[name=csrfmiddlewaretoken]')?.value;
+  const moduleNumber = Number(state?.dataset.modulo);
+  const comparisonId = Number(state?.dataset.comparacaoId);
   const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  const normalize = (text) => text.toLowerCase().replace(/[.,!?;:"'“”‘’…()[\]{}-]/g, '').replace(/\s+/g, ' ').trim();
+  const { normalize, select } = window.SayItPronuncia;
   const words = [...document.querySelectorAll('[data-practice-word]')].map((root) => ({
-    root, expected: normalize(root.dataset.practiceWord), done: false,
+    root, expected: normalize(root.dataset.practiceWord), done: root.dataset.acertada === 'true',
+    id: Number(root.dataset.palavraId),
     button: root.querySelector('.speak'), label: root.querySelector('.speak-label'),
     title: root.querySelector('.speech-title'), message: root.querySelector('.speech-message'),
     complete: root.querySelector('.word-complete'),
@@ -15,13 +20,56 @@
   const audioPlayers = [...document.querySelectorAll('audio')];
   const pair = words.map((word) => word.expected.toUpperCase()).join(' e ');
   let active = null;
-  let blocked = !Recognition;
+  const configured = !!csrf && !!state?.dataset.acertosUrl && Number.isSafeInteger(moduleNumber)
+    && moduleNumber > 0 && Number.isSafeInteger(comparisonId) && comparisonId > 0
+    && words.length === 2 && words.every((word) => Number.isSafeInteger(word.id) && word.id > 0)
+    && new Set(words.map((word) => word.id)).size === 2;
+  let blocked = !Recognition || !configured;
+  let discoveryComplete = state?.dataset.concluida === 'true';
   const permissionMessage = 'O microfone é necessário para continuar. Permita o acesso ao microfone no navegador.';
+
+  async function saveCorrect(word, transcript, session) {
+    session.controller = new AbortController();
+    let timeout;
+    try {
+      const data = await Promise.race([
+        (async () => {
+          const response = await fetch(state.dataset.acertosUrl, {
+            method: 'POST', credentials: 'same-origin', mode: 'same-origin', redirect: 'error',
+            headers: { 'Content-Type': 'application/json', 'X-CSRFToken': csrf },
+            body: JSON.stringify({ comparacao_id: comparisonId, palavra_id: word.id, transcricao: transcript }),
+            signal: session.controller.signal,
+          });
+          if (!response.ok || response.redirected) throw new Error('Falha ao salvar');
+          return response.json();
+        })(),
+        new Promise((_, reject) => {
+          timeout = setTimeout(() => {
+            session.controller.abort();
+            reject(new Error('Tempo esgotado'));
+          }, 15000);
+        }),
+      ]);
+      const ids = data?.palavras_acertadas;
+      const comparisons = data?.comparacoes_concluidas;
+      if (data?.modulo !== moduleNumber || !Number.isInteger(data?.percentual)
+          || data.percentual < 0 || data.percentual > 100
+          || !Array.isArray(ids) || !ids.every((id) => Number.isSafeInteger(id) && id > 0)
+          || !ids.includes(word.id) || !Array.isArray(comparisons)
+          || !comparisons.every((id) => Number.isSafeInteger(id) && id > 0)
+          || comparisons.includes(comparisonId) !== words.every((item) => ids.includes(item.id))) {
+        throw new Error('Resposta inválida');
+      }
+      return data;
+    } finally {
+      clearTimeout(timeout);
+    }
+  }
 
   function updateControls() {
     words.forEach((word) => { word.button.disabled = blocked || !!active || word.done; });
     audioButtons.forEach((button) => { button.disabled = !!active; });
-    next.disabled = blocked || !!active || words.length !== 2 || !words.every((word) => word.done);
+    next.disabled = !configured || !!active || !discoveryComplete || !words.every((word) => word.done);
     if (!next.disabled) status.textContent = `Você concluiu ${pair}! Pode continuar.`;
   }
 
@@ -52,20 +100,37 @@
       display(word, 'error', '', 'Não foi possível iniciar o microfone. Tente novamente.');
       return;
     }
-    const session = { recognition, word, settled: false, accepted: '', timer: null };
+    const session = { recognition, word, settled: false, accepted: '', timer: null, ending: false };
     active = session;
     const current = () => active === session;
     const unheard = () => {
       session.settled = true;
       display(word, 'waiting', '', 'Não consegui ouvir. Tente novamente.');
     };
-    const finish = (cancelled = false) => {
-      if (!current()) return;
+    const finish = async (cancelled = false) => {
+      if (!current() || session.ending) return;
+      session.ending = true;
       clearTimeout(session.timer);
-      // Commit only after a final matching result and a normal recognition end.
+      // A fala local só vira acerto após confirmação do servidor.
       if (session.accepted && !cancelled) {
-        word.done = true;
-        display(word, 'correct', 'Great job!', `Você falou: ${session.accepted}`);
+        display(word, 'processing', '', 'Salvando seu progresso...');
+        try {
+          const data = await saveCorrect(word, session.accepted, session);
+          if (!current()) return;
+          discoveryComplete = data.comparacoes_concluidas.includes(comparisonId);
+          state.dataset.percentual = String(data.percentual);
+          state.dataset.concluida = String(discoveryComplete);
+          words.forEach((item) => {
+            item.done = data.palavras_acertadas.includes(item.id);
+            item.root.dataset.acertada = String(item.done);
+            if (item.done) display(item, 'correct', 'Great job!', item === word
+              ? `Eu entendi: ${session.heard}` : 'Você já acertou esta palavra.');
+            else display(item, 'waiting', '', 'Aguardando sua vez.');
+          });
+        } catch (error) {
+          if (!current()) return;
+          display(word, 'error', '', 'Não foi possível salvar seu progresso. Tente novamente.');
+        }
       }
       if (!session.settled) unheard();
       active = null;
@@ -78,7 +143,7 @@
     recognition.lang = 'en-US';
     recognition.continuous = false;
     recognition.interimResults = false;
-    recognition.maxAlternatives = 1;
+    recognition.maxAlternatives = 3;
     recognition.onstart = () => {
       if (current() && !session.settled) display(word, 'listening', '', 'Estou ouvindo...');
     };
@@ -91,18 +156,19 @@
       if (!current() || session.settled) return;
       const result = event.results?.[event.resultIndex ?? 0];
       if (!result?.isFinal) return;
-      const transcript = result[0]?.transcript;
-      const text = typeof transcript === 'string' ? normalize(transcript) : '';
+      const { heard, accepted } = select(result, word.expected);
+      const text = normalize(heard);
+      session.heard = heard;
       session.settled = true;
-      if (!text) unheard();
-      else if (text === word.expected) {
-        session.accepted = text;
+      if (accepted) {
+        session.accepted = accepted;
         display(word, 'processing', '', 'Processando...');
-      } else display(word, 'retry', 'Try again!', `Eu entendi: ${text}`);
+      } else if (!text) unheard();
+      else display(word, 'retry', 'Try again!', `Eu entendi: ${heard}`);
     };
     recognition.onnomatch = () => { if (current() && !session.settled) unheard(); };
     recognition.onerror = (event) => {
-      if (!current()) return;
+      if (!current() || session.ending) return;
       session.accepted = '';
       if (event.error === 'not-allowed' || event.error === 'service-not-allowed') {
         session.settled = true;
@@ -136,7 +202,7 @@
 
   words.forEach((word) => word.button.addEventListener('click', () => start(word)));
   next.addEventListener('click', () => {
-    if (!blocked && !active && words.length === 2 && words.every((word) => word.done)) {
+    if (configured && !active && discoveryComplete && words.every((word) => word.done)) {
       window.location.assign(next.dataset.nextUrl);
     }
   });
@@ -146,11 +212,16 @@
     const session = active;
     active = null;
     clearTimeout(session.timer);
+    session.controller?.abort();
     session.recognition.abort();
     if (!session.word.done) display(session.word, 'waiting', '', 'Fale esta palavra');
     updateControls();
   });
-  if (!Recognition) block('Seu navegador não oferece suporte ao reconhecimento de voz necessário para esta atividade.');
+  // Ao voltar pelo histórico, consultar novamente o estado do usuário atual.
+  window.addEventListener('pageshow', (event) => { if (event.persisted) window.location.reload(); });
+  words.filter((word) => word.done).forEach((word) => display(word, 'correct', 'Great job!', 'Você já acertou esta palavra.'));
+  if (!configured) block('Não foi possível carregar a atividade. Atualize a página e tente novamente.');
+  else if (!Recognition) block('Seu navegador não oferece suporte ao reconhecimento de voz necessário para esta atividade.');
   else if (!window.isSecureContext) block('O microfone precisa de uma conexão segura. Abra este site por HTTPS ou localhost.');
   else updateControls();
 })();

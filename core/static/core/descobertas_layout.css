@@ -46,7 +46,12 @@
 .word-pair{grid-template-columns:minmax(0,1fr);gap:18px}
 .word-card{padding:20px 20px 16px}
 .word-card img{max-width:170px}
-.word-actions button{padding-inline:10px}
+.word-actions{flex-direction:column;align-items:center;gap:14px}
+.word-actions>p:not(.visually-hidden){margin:0;text-align:center}
+.word-actions button{flex:0 0 auto;width:100%;max-width:176px;padding-inline:10px}
+.speech-feedback{margin-top:18px;text-align:center}
+.speech-title:not(:empty){margin-bottom:6px}
+.word-complete{margin-top:10px;text-align:center}
 .discovery-bottom-bar{flex-direction:column;align-items:stretch;gap:14px;padding:16px}
 .discovery-tip{font-size:15px;gap:10px}
 }

@@ -2,25 +2,33 @@
 {% load static %}
 {% block title %}Descoberta {{ numero }} de {{ total }} | SayIt!{% endblock %}
 {% block scripts %}
+{{ pronuncia_variantes|json_script:'pronuncia-variantes' }}
+<script src="{% static 'core/pronuncia.js' %}" defer></script>
 <script src="{% static 'core/modulo_1.js' %}" defer></script>
 <script src="{% static 'core/descobertas_microfone.js' %}" defer></script>
 {% endblock %}
 {% block content %}
 <section class="intro" aria-labelledby="titulo">
-  <p class="eyebrow">MÓDULO 1 • MAGIC E — SOM DO A</p>
+  <p class="eyebrow">MÓDULO {{ modulo.numero }} • MAGIC E — SOM DO {{ vogal }}</p>
   <h1 id="titulo">Descoberta {{ numero }} de {{ total }}</h1>
   <p class="explanation">Ouça as duas palavras e perceba a diferença.</p>
 </section>
 <ol class="discovery-steps" aria-label="Etapas das Descobertas">
-  {% for step in '1234' %}
+  {% for step in etapas %}
   <li{% if forloop.counter == numero %} aria-current="step"{% endif %}><span aria-hidden="true">{{ step }}</span><span class="visually-hidden">Descoberta {{ step }}{% if forloop.counter == numero %}, etapa atual{% endif %}</span></li>
   {% endfor %}
 </ol>
-<section class="word-pair" aria-label="Comparação de palavras">
+<section class="word-pair" id="discovery-state" aria-label="Comparação de palavras"
+         data-modulo="{{ modulo.numero }}" data-comparacao-id="{{ comparacao.pk }}"
+         data-acertos-url="{% url 'registrar_acerto' modulo.numero %}"
+         data-percentual="{{ percentual }}" data-concluida="{{ descoberta_concluida|yesno:'true,false' }}">
+    {% csrf_token %}
     {% for card in cards %}
-    <article class="word-card word-practice" data-practice-word="{{ card.palavra.palavra }}" data-state="waiting">
+    <article class="word-card word-practice" data-practice-word="{{ card.palavra.palavra }}"
+             data-palavra-id="{{ card.palavra.pk }}" data-acertada="{{ card.acertada|yesno:'true,false' }}"
+             data-state="{% if card.acertada %}correct{% else %}waiting{% endif %}">
       <h3 lang="en">{{ card.palavra.palavra|upper }}</h3>
-      <img src="{{ card.imagem_url }}" alt="{{ card.palavra.traducao }}" width="1254" height="1254">
+      {% if card.imagem_url %}<img src="{{ card.imagem_url }}" alt="{{ card.palavra.traducao }}" width="1254" height="1254">{% else %}<p>Imagem indisponível</p>{% endif %}
       <div class="word-actions">
       {% if card.palavra.audio %}
       <audio id="audio-{{ card.palavra.pk }}" preload="none" src="{{ card.palavra.audio.url }}" controls></audio>
@@ -29,14 +37,14 @@
         <p class="visually-hidden" id="instruction-{{ card.palavra.pk }}">Fale esta palavra</p>
         <button type="button" class="speak" disabled aria-label="Falar {{ card.palavra.palavra }} usando o microfone" aria-describedby="instruction-{{ card.palavra.pk }} feedback-{{ card.palavra.pk }}">
           <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10v2a7 7 0 0 0 14 0v-2M12 19v3M8 22h8"/></svg>
-          <span class="speak-label">Falar</span>
+          <span class="speak-label">{% if card.acertada %}Concluído{% else %}Falar{% endif %}</span>
         </button>
       </div>
         <div id="feedback-{{ card.palavra.pk }}" class="speech-feedback" role="status" aria-live="polite" aria-atomic="true">
-          <strong class="speech-title" lang="en"></strong>
-          <p class="speech-message">Aguardando sua vez.</p>
+          <strong class="speech-title" lang="en">{% if card.acertada %}Great job!{% endif %}</strong>
+          <p class="speech-message">{% if card.acertada %}Você já acertou esta palavra.{% else %}Aguardando sua vez.{% endif %}</p>
         </div>
-        <p class="word-complete" hidden>✓ Muito bem!</p>
+        <p class="word-complete"{% if not card.acertada %} hidden{% endif %}>✓ Muito bem!</p>
     </article>
     {% endfor %}
 </section>
@@ -44,9 +52,9 @@
 <nav class="practice-start" aria-label="Continuar a trilha">
   <div class="discovery-bottom-bar">
     <p class="discovery-tip"><span class="tip-icon" aria-hidden="true">💡</span><span><strong>Preste atenção no som de cada palavra.</strong><br>Depois, fale e descubra!</span></p>
-    <button id="discovery-next" class="practice-link" type="button" disabled aria-describedby="speech-status" data-next-url="{% if proxima %}{% url 'descoberta_modulo_1' proxima %}{% else %}{% url 'resumo_modulo_1' %}{% endif %}">{% if proxima %}Próxima{% else %}Resumo do Módulo{% endif %} <span aria-hidden="true">→</span></button>
+    <button id="discovery-next" class="practice-link" type="button"{% if not descoberta_concluida %} disabled{% endif %} aria-describedby="speech-status" data-next-url="{{ proxima_url }}">{% if proxima %}Próxima{% else %}Resumo do Módulo{% endif %} <span aria-hidden="true">→</span></button>
   </div>
-  <p id="speech-status" role="status" aria-live="polite" aria-atomic="true">Fale {% for card in cards %}{{ card.palavra.palavra|upper }}{% if not forloop.last %} e {% endif %}{% endfor %} corretamente para continuar.</p>
+  <p id="speech-status" role="status" aria-live="polite" aria-atomic="true">{% if descoberta_concluida %}Você concluiu {% else %}Fale {% endif %}{% for card in cards %}{{ card.palavra.palavra|upper }}{% if not forloop.last %} e {% endif %}{% endfor %}{% if descoberta_concluida %}! Pode continuar.{% else %} corretamente para continuar.{% endif %}</p>
   <noscript><p>Ative o JavaScript para praticar com o microfone e continuar.</p></noscript>
 </nav>
 {% endblock %}

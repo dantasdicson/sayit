@@ -13,7 +13,7 @@
   const next = byId('next');
   const status = byId('mic-status');
   const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  const normalize = (text) => text.toLowerCase().replace(/[.,!?;:"'“”‘’…()[\]{}-]/g, '').replace(/\s+/g, ' ').trim();
+  const { normalize, select } = window.SayItPronuncia;
   let index = 0;
   let active = null;
   let blocked = false;
@@ -100,7 +100,7 @@
       recognition.lang = 'en-US';
       recognition.continuous = false;
       recognition.interimResults = false;
-      recognition.maxAlternatives = 1;
+      recognition.maxAlternatives = 3;
       recognition.onstart = () => {
         if (active === recognition && !settled) state('listening', 'Estou ouvindo...');
       };
@@ -114,11 +114,14 @@
       };
       recognition.onresult = (event) => {
         if (active !== recognition || settled) return;
-        const text = normalize(event.results[0]?.[0]?.transcript || '');
+        const result = event.results?.[event.resultIndex ?? 0];
+        if (!result?.isFinal) return;
+        const { heard, accepted } = select(result, words[index].palavra);
+        const text = normalize(heard);
         settled = true;
-        if (!text) silence();
-        else if (text === normalize(words[index].palavra)) feedback('correct', 'Great job!', `Você falou: ${text}`);
-        else feedback('incorrect', 'Try again!', `Eu entendi: ${text}`);
+        if (accepted) feedback('correct', 'Great job!', `Eu entendi: ${heard}`);
+        else if (!text) silence();
+        else feedback('incorrect', 'Try again!', `Eu entendi: ${heard}`);
       };
       recognition.onnomatch = () => {
         if (active === recognition && !settled) silence();

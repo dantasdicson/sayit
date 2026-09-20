@@ -31,7 +31,7 @@ class ProgressoTests(TestCase):
         cls.usuario = get_user_model().objects.create_user(username='progresso_a', email='a@teste.com')
         cls.outro = get_user_model().objects.create_user(username='progresso_b', email='b@teste.com')
         cls.modulo, cls.pares = criar_catalogo()
-        cls.outro_modulo = Modulo.objects.create(numero=2, ordem=2, titulo='Outro', descricao='Teste')
+        cls.outro_modulo = Modulo.objects.create(numero=3, ordem=3, titulo='Outro', descricao='Teste')
         cls.outra_palavra = Palavra.objects.create(modulo=cls.outro_modulo, palavra='kit', traducao='kit', ordem=1)
 
     def setUp(self):
@@ -273,12 +273,84 @@ class ProgressoTests(TestCase):
             self.assertEqual(self.client.get(reverse(nome, args=[1])).status_code, 405)
         self.assertFalse(Progresso.objects.exists())
 
-    def test_paginas_get_nao_gravam_e_preservam_fluxo_etapa_1(self):
-        for nome, args in [('explicacao_modulo_1', []), ('descoberta_modulo_1', [4]),
-                           ('resumo_modulo_1', []), ('conclusao_modulo_1', [])]:
+    def test_paginas_get_nao_gravam_e_respeitam_sequencia(self):
+        for nome, args in [('explicacao_modulo_1', []), ('descoberta_modulo_1', [1]),
+                           ('conclusao_modulo_1', [])]:
             self.assertEqual(self.client.get(reverse(nome, args=args)).status_code, 200)
+        for nome, args in [('descoberta_modulo_1', [4]), ('resumo_modulo_1', [])]:
+            self.assertEqual(self.client.get(reverse(nome, args=args)).status_code, 409)
         self.assertFalse(Progresso.objects.exists())
         self.assertFalse(Tentativa.objects.exists())
+
+    def test_urls_exigem_todas_as_descobertas_anteriores(self):
+        for etapa in range(4):
+            for indice in range(4):
+                with self.subTest(etapa=etapa, descoberta=indice + 1):
+                    resposta = self.client.get(reverse('descoberta_modulo_1', args=[indice + 1]))
+                    self.assertEqual(resposta.status_code, 200 if indice <= etapa else 409)
+            self.acertar(etapa, 0)
+            self.assertEqual(self.client.get(reverse('resumo_modulo_1')).status_code, 409)
+            if etapa < 3:
+                self.assertEqual(self.client.get(reverse('descoberta_modulo_1', args=[etapa + 2])).status_code, 409)
+            self.acertar(etapa, 1)
+        antes = list(Progresso.objects.values())
+        self.assertEqual(self.client.get(reverse('resumo_modulo_1')).status_code, 200)
+        self.assertEqual(list(Progresso.objects.values()), antes)
+        self.assertEqual(Tentativa.objects.count(), 8)
+        self.assertIsNone(Progresso.objects.get().concluido_em)
+
+    def test_urls_nao_usam_percentual_armazenado_para_liberar(self):
+        Progresso.objects.create(usuario=self.usuario, modulo=self.modulo, percentual=100)
+        self.assertEqual(self.client.get(reverse('descoberta_modulo_1', args=[2])).status_code, 409)
+        self.assertEqual(self.client.get(reverse('resumo_modulo_1')).status_code, 409)
+
+    def test_urls_nao_usam_acertos_de_outro_usuario(self):
+        self.completar(usuario=self.outro)
+        self.assertEqual(self.client.get(reverse('descoberta_modulo_1', args=[2])).status_code, 409)
+        self.assertEqual(self.client.get(reverse('resumo_modulo_1')).status_code, 409)
+        self.assertFalse(Progresso.objects.filter(usuario=self.usuario).exists())
+
+    def test_descobertas_seguem_ordem_do_catalogo_sem_lista_fixa(self):
+        Comparacao.objects.filter(pk=self.pares[0].pk).update(ordem=99)
+        Comparacao.objects.filter(pk=self.pares[1].pk).update(ordem=1)
+        Comparacao.objects.filter(pk=self.pares[0].pk).update(ordem=2)
+        primeira = self.client.get(reverse('descoberta_modulo_1', args=[1]))
+        self.assertEqual(primeira.status_code, 200)
+        self.assertEqual([c['palavra'].palavra for c in primeira.context['cards']], ['cap', 'cape'])
+        self.assertEqual(primeira.context['total'], 4)
+        self.assertEqual(self.client.get(reverse('descoberta_modulo_1', args=[2])).status_code, 409)
+        self.acertar(1, 0)
+        self.acertar(1, 1)
+        segunda = self.client.get(reverse('descoberta_modulo_1', args=[2]))
+        self.assertEqual(segunda.status_code, 200)
+        self.assertEqual([c['palavra'].palavra for c in segunda.context['cards']], ['cat', 'cake'])
+
+    def test_catalogo_incompleto_bloqueia_paginas_sem_erro_interno(self):
+        self.pares[3].delete()
+        self.assertEqual(self.client.get(reverse('descoberta_modulo_1', args=[1])).status_code, 409)
+        self.assertEqual(self.client.get(reverse('resumo_modulo_1')).status_code, 409)
+        self.assertFalse(Progresso.objects.exists())
+
+    def test_get_conclusao_nao_preenche_nem_altera_data(self):
+        self.completar()
+        antes = list(Progresso.objects.values())
+        self.assertEqual(self.client.get(reverse('conclusao_modulo_1')).status_code, 200)
+        self.assertEqual(list(Progresso.objects.values()), antes)
+        self.assertIsNone(Progresso.objects.get().concluido_em)
+        self.post_conclusao()
+        antes = list(Progresso.objects.values())
+        self.assertEqual(self.client.get(reverse('conclusao_modulo_1')).status_code, 200)
+        self.assertEqual(list(Progresso.objects.values()), antes)
+
+    def test_conclusao_com_csrf_valido(self):
+        self.completar()
+        cliente = Client(enforce_csrf_checks=True)
+        cliente.force_login(self.usuario)
+        cliente.get(reverse('home'))
+        resposta = cliente.post(reverse('concluir_modulo', args=[1]), {},
+            content_type='application/json', HTTP_X_CSRFTOKEN=cliente.cookies['csrftoken'].value)
+        self.assertEqual(resposta.status_code, 200)
+        self.assertIsNotNone(Progresso.objects.get().concluido_em)
 
     def test_modulo_inativo_ou_inexistente(self):
         self.modulo.ativo = False
