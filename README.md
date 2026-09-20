@@ -52,7 +52,7 @@ O **SayIt!** possui uma interface educacional responsiva, desenvolvida para torn
 
 A trilha de aprendizagem organiza os conteúdos em módulos de pronúncia. O primeiro módulo trabalha o **Magic E — mudança do som do A**, enquanto os módulos seguintes expandem o aprendizado para outros padrões fonéticos da língua inglesa.
 
-![Minha Trilha - SayIt!](docs/images/sayit-minha-trilha.png)
+![Minha Trilha - SayIt!](docs/images/sayit-minha-trilha-limpa.png)
 
 ### 🎤 Descobertas interativas
 
@@ -60,7 +60,7 @@ Nas atividades de descoberta, o aluno associa **palavra, imagem, áudio e pronú
 
 No exemplo abaixo, **CAT** e **CAKE** demonstram como o **E final silencioso** modifica o som da vogal A. O aluno utiliza o microfone para praticar a pronúncia antes de avançar para a próxima descoberta.
 
-![Descoberta CAT e CAKE - SayIt!](docs/images/sayit-descoberta-1.png)
+![Descoberta CAT e CAKE - SayIt!](docs/images/sayit-descoberta-1-limpa.png)
 
 ---
 
