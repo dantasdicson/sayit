@@ -31,7 +31,7 @@ class ProgressoTests(TestCase):
         cls.usuario = get_user_model().objects.create_user(username='progresso_a', email='a@teste.com')
         cls.outro = get_user_model().objects.create_user(username='progresso_b', email='b@teste.com')
         cls.modulo, cls.pares = criar_catalogo()
-        cls.outro_modulo = Modulo.objects.create(numero=3, ordem=3, titulo='Outro', descricao='Teste')
+        cls.outro_modulo = Modulo.objects.create(numero=4, ordem=4, titulo='Outro', descricao='Teste')
         cls.outra_palavra = Palavra.objects.create(modulo=cls.outro_modulo, palavra='kit', traducao='kit', ordem=1)
 
     def setUp(self):

@@ -45,6 +45,12 @@ urlpatterns = [
     path('modulos/<int:modulo_numero>/descobertas/<int:numero>/', descoberta_modulo_1, name='descoberta_modulo'),
     path('modulos/2/resumo/', resumo_modulo, {'numero': 2}, name='resumo_modulo_2'),
     path('modulos/2/conclusao/', conclusao_modulo_2, name='conclusao_modulo_2'),
+    path('modulos/3/explicacao/', explicacao_modulo_2, {'numero': 3}, name='explicacao_modulo_3'),
+    path('modulos/3/resumo/', resumo_modulo, {'numero': 3}, name='resumo_modulo_3'),
+    path('modulos/3/conclusao/', conclusao_modulo_2, {'numero': 3}, name='conclusao_modulo_3'),
+    path('modulos/4/explicacao/', explicacao_modulo_2, {'numero': 4}, name='explicacao_modulo_4'),
+    path('modulos/4/resumo/', resumo_modulo, {'numero': 4}, name='resumo_modulo_4'),
+    path('modulos/4/conclusao/', conclusao_modulo_2, {'numero': 4}, name='conclusao_modulo_4'),
     path('admin/', admin.site.urls),
 ]
 

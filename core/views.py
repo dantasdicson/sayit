@@ -20,7 +20,7 @@ def explicacao_modulo_1(request):
 @login_required
 @never_cache
 def descoberta_modulo_1(request, numero, modulo_numero=1):
-    if modulo_numero not in (1, 2):
+    if modulo_numero not in progresso.DESCOBERTAS_POR_MODULO:
         raise Http404('Módulo indisponível.')
     modulo = get_object_or_404(Modulo, numero=modulo_numero, ativo=True)
     par = get_object_or_404(
@@ -48,7 +48,7 @@ def descoberta_modulo_1(request, numero, modulo_numero=1):
         'modulo': modulo, 'comparacao': par, 'percentual': estado['percentual'],
         'descoberta_concluida': par.pk in estado['comparacoes_concluidas'],
         'proxima': numero + 1 if numero < total else None,
-        'etapas': range(1, total + 1), 'vogal': 'A' if modulo_numero == 1 else 'I',
+        'etapas': range(1, total + 1), 'vogal': {1: 'A', 2: 'I', 3: 'O', 4: 'U'}[modulo_numero],
         'proxima_url': (reverse('descoberta_modulo_1', args=[numero + 1]) if modulo_numero == 1
                         else reverse('descoberta_modulo', args=[modulo_numero, numero + 1]))
                        if numero < total else reverse(f'resumo_modulo_{modulo_numero}'),
@@ -108,30 +108,31 @@ def conclusao_modulo_1(request):
 
 
 @login_required
-def explicacao_modulo_2(request):
-    modulo = get_object_or_404(Modulo, numero=2, ativo=True)
+def explicacao_modulo_2(request, numero=2):
+    modulo = get_object_or_404(Modulo, numero=numero, ativo=True)
     comparacoes = list(modulo.comparacoes.select_related('palavra_base', 'palavra_comparada').order_by('ordem'))
     if not comparacoes:
         raise Http404('Descobertas indisponíveis.')
     return render(request, 'core/explicacao_modulo.html', {
-        'modulo': modulo, 'vogal': 'I', 'primeira': comparacoes[0], 'total': len(comparacoes),
+        'modulo': modulo, 'vogal': {2: 'I', 3: 'O', 4: 'U'}[numero], 'primeira': comparacoes[0], 'total': len(comparacoes),
     })
 
 
 @login_required
 @require_http_methods(['GET', 'POST'])
-def conclusao_modulo_2(request):
-    modulo = get_object_or_404(Modulo, numero=2, ativo=True)
+def conclusao_modulo_2(request, numero=2):
+    modulo = get_object_or_404(Modulo, numero=numero, ativo=True)
     try:
         if request.method == 'POST':
-            progresso.concluir_modulo(request.user, 2)
-            return redirect('conclusao_modulo_2')
-        estado = progresso.consultar_progresso(request.user, 2)
+            progresso.concluir_modulo(request.user, numero)
+            return redirect(f'conclusao_modulo_{numero}')
+        estado = progresso.consultar_progresso(request.user, numero)
         if estado['concluido_em'] is None or estado['primeira_pendente'] is not None:
             return HttpResponse('Conclua as Descobertas e finalize pelo Resumo.', status=409)
     except progresso.ErroProgresso as erro:
         return HttpResponse(str(erro), status=erro.status)
-    return render(request, 'core/conclusao_modulo.html', {'modulo': modulo, 'total': estado['total_descobertas']})
+    return render(request, 'core/conclusao_modulo.html', {'modulo': modulo, 'total': estado['total_descobertas'],
+        'vogal': {2: 'I', 3: 'O', 4: 'U'}[numero], 'introducao_url': reverse(f'explicacao_modulo_{numero}')})
 
 
 @login_required

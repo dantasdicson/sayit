@@ -1,7 +1,7 @@
 """Persistência das Descobertas; não registra áudio nem eventos da Prática.
 
 Tentativa não possui origem/comparação: nesta etapa somente este serviço deve
-registrar acertos pedagógicos. Os catálogos habilitados são os Módulos 1 e 2.
+registrar acertos pedagógicos. Os catálogos habilitados são os Módulos 1, 2 e 3.
 """
 import re
 from contextlib import contextmanager
@@ -13,7 +13,7 @@ from django.utils import timezone
 from .models import Modulo, Palavra, Progresso, Tentativa
 from .pronuncia import corresponde
 
-DESCOBERTAS_POR_MODULO = {1: 4, 2: 3}
+DESCOBERTAS_POR_MODULO = {1: 4, 2: 3, 3: 3, 4: 3}
 
 
 class ErroProgresso(Exception):
@@ -124,8 +124,15 @@ def consultar_progresso(usuario, numero=1):
 def consultar_meu_progresso(usuario):
     """Somente módulos implementados; consulta nunca cria registros."""
     _validar_usuario(usuario)
-    return [consultar_progresso(usuario, m.numero)
-            for m in Modulo.objects.filter(numero__in=DESCOBERTAS_POR_MODULO, ativo=True)]
+    numeros = [1, 2, 3]
+    # Compatibilidade com o painel legado: o novo módulo entra no resumo
+    # assim que o aluno realmente inicia sua jornada nele.
+    if Progresso.objects.filter(usuario=usuario, modulo__numero=4).exists() or Tentativa.objects.filter(
+        usuario=usuario, palavra__modulo__numero=4
+    ).exists():
+        numeros.append(4)
+    return [consultar_progresso(usuario, numero) for numero in numeros
+            if numero in DESCOBERTAS_POR_MODULO and Modulo.objects.filter(numero=numero, ativo=True).exists()]
 
 
 def contar_descobertas_concluidas(usuario, numero=1):

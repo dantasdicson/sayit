@@ -213,14 +213,14 @@
       "traducao": "pular",
       "arquivo": "palavras/imagens/hop.webp",
       "descricao_visual": "Uma criança pulando em um pé só, com pequena sombra abaixo para indicar o salto. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d'água ou logotipos.",
-      "status": "pendente"
+      "status": "gerada"
     },
     {
       "palavra": "hope",
       "traducao": "esperança",
       "arquivo": "palavras/imagens/hope.webp",
       "descricao_visual": "Uma criança olhando para uma estrela com expressão otimista. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d'água ou logotipos.",
-      "status": "pendente"
+      "status": "gerada"
     },
     {
       "palavra": "kit",
@@ -276,14 +276,14 @@
       "traducao": "não",
       "arquivo": "palavras/imagens/not.webp",
       "descricao_visual": "Uma criança balançando a cabeça em negação e mostrando a palma da mão, sem símbolos escritos. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d'água ou logotipos.",
-      "status": "pendente"
+      "status": "gerada"
     },
     {
       "palavra": "note",
       "traducao": "nota",
       "arquivo": "palavras/imagens/note.webp",
       "descricao_visual": "Uma pequena folha de anotação ao lado de um lápis, com um desenho simples de flor e sem escrita. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d'água ou logotipos.",
-      "status": "pendente"
+      "status": "gerada"
     },
     {
       "palavra": "phone",
@@ -304,14 +304,14 @@
       "traducao": "roubar",
       "arquivo": "palavras/imagens/rob.webp",
       "descricao_visual": "Um personagem retirando indevidamente um carrinho de brinquedo da cesta de outra criança sem que ela perceba, sem armas, violência ou cena assustadora. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d'água ou logotipos.",
-      "status": "pendente"
+      "status": "gerada"
     },
     {
       "palavra": "robe",
       "traducao": "roupão",
       "arquivo": "palavras/imagens/robe.webp",
       "descricao_visual": "Um roupão macio pendurado, com mangas, bolsos e faixa amarrada na cintura. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d'água ou logotipos.",
-      "status": "pendente"
+      "status": "gerada"
     },
     {
       "palavra": "room",
