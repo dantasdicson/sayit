@@ -3,14 +3,16 @@
 {% block content %}
 <section class="intro" aria-labelledby="titulo">
   <p class="eyebrow">MÓDULO {{ modulo.numero }} · {{ total }} DESCOBERTAS</p>
-  <h1 id="titulo">Você chegou ao final da trilha!</h1>
+  <h1 id="titulo">Você concluiu este módulo!</h1>
   <div class="sayit-card completion-card">
     <span class="card-symbol tone-yellow" aria-hidden="true">✦</span>
     <h2>{{ modulo.titulo }}</h2>
     <p class="explanation">Muito bem! Você terminou a revisão do Magic E — som do {{ vogal }}.</p>
   </div>
-  <nav class="practice-start" aria-label="Rever o módulo">
-    <a class="practice-link" href="{{ introducao_url }}">Voltar à introdução</a>
+  <nav class="practice-start" aria-label="Continuar a trilha">
+    {% if proximo_url %}<a class="practice-link" href="{{ proximo_url }}">Continuar para o próximo módulo →</a>
+    {% else %}<a class="practice-link" href="{% url 'trilha' %}">Voltar à trilha</a>{% endif %}
+    <a href="{{ introducao_url }}">Voltar à introdução</a>
   </nav>
 </section>
 {% endblock %}

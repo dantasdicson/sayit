@@ -131,7 +131,16 @@ def conclusao_modulo_2(request, numero=2):
             return HttpResponse('Conclua as Descobertas e finalize pelo Resumo.', status=409)
     except progresso.ErroProgresso as erro:
         return HttpResponse(str(erro), status=erro.status)
+    seguinte = numero + 1
+    proximo_url = None
+    if seguinte in progresso.DESCOBERTAS_POR_MODULO:
+        try:
+            proximo_estado = progresso.consultar_progresso(request.user, seguinte)
+            proximo_url = reverse(f'explicacao_modulo_{proximo_estado["modulo"].numero}')
+        except progresso.ErroProgresso:
+            pass
     return render(request, 'core/conclusao_modulo.html', {'modulo': modulo, 'total': estado['total_descobertas'],
+        'proximo_url': proximo_url,
         'vogal': {2: 'I', 3: 'O', 4: 'U'}[numero], 'introducao_url': reverse(f'explicacao_modulo_{numero}')})
 
 
