@@ -5,18 +5,18 @@ const path = require('node:path');
 const vm = require('node:vm');
 const source = fs.readFileSync(path.join(__dirname, '../pronuncia.js'), 'utf8') + '\n' + fs.readFileSync(path.join(__dirname, '../descobertas_microfone.js'), 'utf8');
 
-for (const transcript of ['fin', 'Finn', ' FIN! ', '  Finn...  ']) {
+for (const transcript of ['fin', 'Finn', ' FIN! ', '  Finn...  ', 'fine', 'ten', '10']) {
   test(`FIN aceita variante normalizada ${JSON.stringify(transcript)}`, async () => {
     const app = setup(['fin', 'fine'], { module: 2 });
     await app.say(0, transcript);
     assert.equal(app.done(0), true);
     app.locked();
     assert.equal(JSON.parse(app.requests[0].body).transcricao, transcript);
-    assert.equal(app.roots[0].children['speech-message'].textContent, `Eu entendi: ${transcript}`);
+    assert.equal(app.roots[0].children['speech-message'].textContent, 'Eu entendi: fin');
   });
 }
 
-for (const transcript of ['10', 'fine', 'fins', 'Finn fine']) {
+for (const transcript of ['fins', 'Finn fine']) {
   test(`FIN recusa ${transcript}`, async () => {
     const app = setup(['fin', 'fine']);
     await app.say(0, transcript);
@@ -33,7 +33,7 @@ for (const pair of [['cat', 'cake'], ['cap', 'cape'], ['kit', 'kite'], ['hop', '
   });
 }
 
-test('alternativa válida é enviada ao servidor; primeira transcrição permanece no feedback', async () => {
+test('alternativa válida é enviada ao servidor; feedback mostra a palavra esperada', async () => {
   const app = setup(['fin', 'fine']);
   const r = app.start(0);
   assert.equal(r.lang, 'en-US'); assert.equal(r.maxAlternatives, 3);
@@ -42,14 +42,14 @@ test('alternativa válida é enviada ao servidor; primeira transcrição permane
   r.onresult({ resultIndex: 0, results: [result] });
   await r.end();
   assert.equal(app.done(0), true); app.locked();
-  assert.equal(JSON.parse(app.requests[0].body).transcricao, 'Finn');
-  assert.equal(app.roots[0].children['speech-message'].textContent, 'Eu entendi: 10');
+  assert.equal(JSON.parse(app.requests[0].body).transcricao, '10');
+  assert.equal(app.roots[0].children['speech-message'].textContent, 'Eu entendi: fin');
 });
 
 test('alternativas parciais ou sem equivalência não enviam acerto', async () => {
   for (const final of [false, true]) {
     const app = setup(['fin', 'fine']); const r = app.start(0);
-    const result = [{ transcript: '10' }, { transcript: final ? 'fine' : 'Finn' }];
+    const result = [{ transcript: 'eleven' }, { transcript: final ? 'fins' : 'Finn' }];
     result.isFinal = final;
     r.onresult({ resultIndex: 0, results: [result] }); await r.end();
     assert.equal(app.requests.length, 0); app.locked();
@@ -384,4 +384,38 @@ test('Descoberta 4 usa os 100% retornados sem solicitar conclusão formal', asyn
   app.next.click(); assert.deepEqual(app.navigations, ['/modulos/1/resumo/']);
   assert.equal(app.requests.length, 2);
   assert.ok(app.requests.every(request => request.url.endsWith('/acertos/')));
+});
+
+for (const transcript of ['Matt', ' MATT! ']) {
+  test(`MAD apresenta mad ao aceitar ${transcript}`, async () => {
+    const app = setup(['mad', 'made']);
+    await app.say(0, transcript);
+    assert.equal(app.done(0), true);
+    assert.equal(app.roots[0].children['speech-message'].textContent, 'Eu entendi: mad');
+    assert.equal(JSON.parse(app.requests[0].body).transcricao, transcript);
+  });
+}
+test('MADE não esconde Matt quando a resposta é incorreta', async () => {
+  const app = setup(['mad', 'made']);
+  await app.say(1, 'Matt');
+  assert.equal(app.done(1), false);
+  assert.equal(app.requests.length, 0);
+  assert.equal(app.roots[1].children['speech-message'].textContent, 'Eu entendi: Matt');
+});
+
+for (const transcript of ['cats', 'Cats', ' CATS! ']) {
+  test(`CAT apresenta cat ao aceitar ${transcript}`, async () => {
+    const app = setup(['cat', 'cake']);
+    await app.say(0, transcript);
+    assert.equal(app.done(0), true);
+    assert.equal(app.roots[0].children['speech-message'].textContent, 'Eu entendi: cat');
+    assert.equal(JSON.parse(app.requests[0].body).transcricao, transcript);
+  });
+}
+test('CAKE não esconde cats quando a resposta é incorreta', async () => {
+  const app = setup(['cat', 'cake']);
+  await app.say(1, 'cats');
+  assert.equal(app.done(1), false);
+  assert.equal(app.requests.length, 0);
+  assert.equal(app.roots[1].children['speech-message'].textContent, 'Eu entendi: cats');
 });

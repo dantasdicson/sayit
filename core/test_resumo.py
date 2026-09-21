@@ -59,7 +59,7 @@ class ResumoModuloTests(TestCase):
         self.assertNotContains(response, '<audio')
         self.assertNotContains(response, 'resumo.mp3')
         self.assertNotContains(response, 'resumo_audio.js')
-        self.assertContains(response, f'href="{reverse("conclusao_modulo_1")}"')
+        self.assertContains(response, f'action="{reverse("conclusao_modulo_1")}"')
 
     @patch('core.views.default_storage')
     def test_audio_disponivel_renderiza_controle_acessivel(self, storage):
@@ -70,12 +70,12 @@ class ResumoModuloTests(TestCase):
         storage.exists.assert_called_once_with('modulos/1/resumo.mp3')
         storage.url.assert_called_once_with('modulos/1/resumo.mp3')
         self.assertContains(response, 'src="/media/modulos/1/resumo.mp3"')
-        self.assertContains(response, 'controls preload="none"')
+        self.assertContains(response, 'controls preload="auto"')
         self.assertContains(response, 'aria-controls="summary-audio"')
         self.assertContains(response, 'id="summary-listen"')
         self.assertContains(response, 'id="summary-audio"')
         self.assertContains(response, 'id="audio-status"')
-        self.assertContains(response, 'Ouvir explicação')
+        self.assertContains(response, 'Ouvir explicação novamente')
         self.assertContains(response, 'core/resumo_audio.js')
 
     @patch('core.views.default_storage')
@@ -108,10 +108,11 @@ class ResumoModuloTests(TestCase):
             self.assertContains(response, 'data-practice-word=', count=2)
             self.assertNotContains(response, reverse('conclusao_modulo_1'))
         summary = self.client.get(reverse('resumo_modulo_1'))
-        self.assertContains(summary, f'href="{reverse("conclusao_modulo_1")}"')
+        self.assertContains(summary, f'action="{reverse("conclusao_modulo_1")}"')
         conclusion = self.client.get(reverse('conclusao_modulo_1'))
         self.assertTemplateUsed(conclusion, 'core/conclusao_modulo_1.html')
-        self.assertContains(conclusion, f'href="{reverse("explicacao_modulo_1")}"')
+        self.assertContains(conclusion, f'action="{reverse("conclusao_modulo_1")}"')
+        self.assertRedirects(self.client.post(reverse("conclusao_modulo_1")), reverse("explicacao_modulo_2"))
 
     @patch('django.core.files.storage.FileSystemStorage.exists', return_value=True)
     def test_reutiliza_imagem_cadastrada_com_alt(self, exists):

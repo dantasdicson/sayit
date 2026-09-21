@@ -1,3 +1,14 @@
 {
-  "fin": ["finn"]
+  "cat": [
+    "cats"
+  ],
+  "fin": [
+    "finn",
+    "fine",
+    "ten",
+    "10"
+  ],
+  "mad": [
+    "matt"
+  ]
 }

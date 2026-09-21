@@ -28,49 +28,63 @@ test('sem áudio, o script não tenta reproduzir', () => {
   assert.equal(app.plays(), 0); assert.equal(app.button.hidden, true);
 });
 
-test('inicia por botão e fornece feedback textual e acessível', async () => {
+test('inicia automaticamente e permite repetir desde o início', async () => {
   const app = setup();
-  assert.equal(app.button.hidden, false);
-  await app.click();
+  await new Promise(setImmediate);
   assert.equal(app.plays(), 1);
-  assert.equal(app.button['aria-pressed'], 'true');
-  assert.equal(app.label.textContent, 'Interromper explicação');
+  assert.equal(app.button.hidden, false);
+  assert.equal(app.label.textContent, 'Ouvir explicação novamente');
+  assert.equal(app.status.textContent, 'Reproduzindo explicação.');
+  assert.equal(app.button['aria-busy'], undefined);
+  app.player.currentTime = 5;
+  await app.click();
+  assert.equal(app.pauses(), 1);
+  assert.equal(app.plays(), 2);
+  assert.equal(app.player.currentTime, 0);
+});
+
+test('bloqueio de autoplay permite iniciar pelo botão', async () => {
+  let first = true;
+  const app = setup({ play: () => {
+    if (first) { first = false; return Promise.reject(Object.assign(new Error(), { name: 'NotAllowedError' })); }
+    return Promise.resolve();
+  }});
+  await new Promise(setImmediate);
+  assert.match(app.status.textContent, /Toque em Ouvir explicação novamente/);
+  await app.click();
+  assert.equal(app.plays(), 2);
   assert.equal(app.status.textContent, 'Reproduzindo explicação.');
 });
 
-test('segundo clique interrompe, terceiro reproduz do início', async () => {
-  const app = setup(); await app.click(); app.player.currentTime = 5;
-  await app.click();
-  assert.equal(app.pauses(), 1); assert.equal(app.plays(), 1);
-  assert.equal(app.player.currentTime, 0); assert.equal(app.button['aria-pressed'], 'false');
-  await app.click(); assert.equal(app.plays(), 2);
-});
-
-test('cliques enquanto carrega não sobrepõem reprodução nem aceitam resposta tardia', async () => {
-  let resolve;
-  const app = setup({ play: () => new Promise(done => { resolve = done; }) });
-  const first = app.click(); await app.click(); resolve(); await first;
-  assert.equal(app.plays(), 1); assert.equal(app.pauses(), 1);
-  assert.equal(app.button['aria-pressed'], 'false');
-  assert.match(app.status.textContent, /interrompida/);
+test('resposta atrasada de autoplay não sobrescreve uma nova reprodução', async () => {
+  const pending = [];
+  const app = setup({ play: () => new Promise((resolve, reject) => pending.push({resolve, reject})) });
+  const next = app.click();
+  pending[1].resolve(); await next;
+  pending[0].reject(new Error('interrompido')); await new Promise(setImmediate);
+  assert.equal(app.status.textContent, 'Reproduzindo explicação.');
+  assert.equal(app.plays(), 2);
 });
 
 test('fim da narração permite ouvir novamente', async () => {
-  const app = setup(); await app.click(); app.player.listeners.ended();
-  assert.equal(app.label.textContent, 'Ouvir explicação');
+  const app = setup(); await new Promise(setImmediate); app.player.listeners.ended();
+  assert.equal(app.label.textContent, 'Ouvir explicação novamente');
   assert.equal(app.button['aria-busy'], undefined);
   await app.click(); assert.equal(app.plays(), 2);
 });
 
-test('falha de play ou erro de mídia mostra mensagem e permite nova tentativa', async () => {
+test('falha de mídia mostra mensagem e permite nova tentativa', async () => {
   const app = setup({ play: () => Promise.reject(new Error('media failure')) });
-  await app.click(); assert.match(app.status.textContent, /Não foi possível/);
-  assert.equal(app.button['aria-pressed'], 'false');
+  await new Promise(setImmediate); assert.match(app.status.textContent, /Não foi possível/);
   await app.click(); assert.equal(app.plays(), 2);
   app.player.listeners.error(); assert.match(app.status.textContent, /Tente novamente/);
 });
 
-test('sair da página interrompe a narração', async () => {
-  const app = setup(); await app.click(); app.window.listeners.pagehide();
-  assert.equal(app.pauses(), 1); assert.equal(app.button['aria-pressed'], 'false');
+test('sair da página interrompe inclusive autoplay pendente', async () => {
+  let resolve;
+  const app = setup({play: () => new Promise(done => { resolve = done; })});
+  app.window.listeners.pagehide(); resolve(); await new Promise(setImmediate);
+  assert.equal(app.pauses(), 1);
+  assert.equal(app.button['aria-pressed'], 'false');
+  assert.match(app.status.textContent, /interrompida/);
 });

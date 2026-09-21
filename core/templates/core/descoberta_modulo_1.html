@@ -3,7 +3,7 @@
 {% block title %}Descoberta {{ numero }} de {{ total }} | SayIt!{% endblock %}
 {% block scripts %}
 {{ pronuncia_variantes|json_script:'pronuncia-variantes' }}
-<script src="{% static 'core/pronuncia.js' %}" defer></script>
+<script src="{% static 'core/pronuncia.js' %}?v=4" defer></script>
 <script src="{% static 'core/modulo_1.js' %}" defer></script>
 <script src="{% static 'core/descobertas_microfone.js' %}" defer></script>
 {% endblock %}

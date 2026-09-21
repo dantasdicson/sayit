@@ -9,8 +9,9 @@
     <h2>{{ modulo.titulo }}</h2>
     <p class="explanation">Você descobriu como o E no final pode mudar o som da vogal. Continue ouvindo e descobrindo!</p>
   </div>
-  <nav class="practice-start" aria-label="Rever o módulo">
-    <a class="practice-link" href="{% url 'explicacao_modulo_1' %}">Voltar à introdução</a>
+  <nav class="practice-start" aria-label="Continuar a trilha">
+    <form method="post" action="{% url 'conclusao_modulo_1' %}">{% csrf_token %}<button class="practice-link" type="submit">Continuar para o próximo módulo</button></form>
+    <a href="{% url 'modulos' %}">Meus módulos</a>
   </nav>
 </section>
 {% endblock %}

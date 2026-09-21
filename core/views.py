@@ -93,8 +93,17 @@ def resumo_modulo(request, numero):
 
 
 @login_required
+@require_http_methods(['GET', 'POST'])
 def conclusao_modulo_1(request):
     modulo = get_object_or_404(Modulo, numero=1, ativo=True)
+    if request.method == 'POST':
+        try:
+            progresso.concluir_modulo(request.user, 1)
+        except progresso.ErroProgresso as erro:
+            return HttpResponse(str(erro), status=erro.status)
+        destino = 'explicacao_modulo_2' if Modulo.objects.filter(
+            numero=2, ativo=True, comparacoes__isnull=False).exists() else 'modulos'
+        return redirect(destino)
     return render(request, 'core/conclusao_modulo_1.html', {'modulo': modulo})
 
 

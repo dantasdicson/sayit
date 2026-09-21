@@ -11,7 +11,15 @@
   function select(result, expected) {
     const transcripts = Array.from(result || []).map(item => item?.transcript)
       .filter(text => typeof text === 'string');
-    return { heard: transcripts[0] || '', accepted: transcripts.find(text => matches(expected, text)) || '' };
+    const accepted = transcripts.find(text => matches(expected, text)) || '';
+    // As exceções aceitas são apresentadas como as palavras pedagógicas.
+    // A transcrição aceita permanece intacta para validação e registro no servidor.
+    const word = normalize(expected), text = normalize(accepted);
+    const displayExpected = (word === 'mad' && text === 'matt')
+      || (word === 'cat' && text === 'cats')
+      || (word === 'fin' && !!accepted);
+    const heard = displayExpected ? word : transcripts[0] || '';
+    return { heard, accepted };
   }
   window.SayItPronuncia = { normalize, matches, select };
 })();

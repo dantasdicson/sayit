@@ -12,10 +12,24 @@ from core.pronuncia import VARIANTES, corresponde
 
 class PronunciaTests(SimpleTestCase):
     def test_normalizacao_e_variantes(self):
-        for text in ['fin', 'Finn', ' FIN! ', '\t Finn... \n']:
+        for text in ['fine', 'ten', '10', 'fin', 'Finn', ' FIN! ', '\t Finn... \n']:
             self.assertTrue(corresponde('fin', progresso.normalizar_texto(text)))
-        for text in ['10', 'fine', 'fins', 'fin fine', '']:
+        for text in ['fins', 'fin fine', '']:
             self.assertFalse(corresponde('fin', progresso.normalizar_texto(text)))
+
+    def test_excecao_cats_apenas_para_cat(self):
+        for text in ['cats', 'Cats', ' CATS! ']:
+            self.assertTrue(corresponde('cat', progresso.normalizar_texto(text)))
+            self.assertFalse(corresponde('cake', progresso.normalizar_texto(text)))
+        for text in ['caps', 'cat cake', 'catfish']:
+            self.assertFalse(corresponde('cat', text))
+
+    def test_excecao_matt_apenas_para_mad(self):
+        for text in ['matt', 'Matt', ' MATT! ']:
+            self.assertTrue(corresponde('mad', progresso.normalizar_texto(text)))
+            self.assertFalse(corresponde('made', progresso.normalizar_texto(text)))
+        for text in ['made', 'mat', 'matt made']:
+            self.assertFalse(corresponde('mad', text))
 
     def test_pares_distintos(self):
         for a, b in [('cat', 'cake'), ('cap', 'cape'), ('kit', 'kite'), ('hop', 'hope'), ('cub', 'cube')]:
@@ -30,24 +44,34 @@ class PronunciaEndpointTests(TestCase):
         cls.usuario = get_user_model().objects.create_user(username='pronuncia')
         cls.modulo = Modulo.objects.get(numero=2)
 
-    def test_alias_backend_idempotente_e_numeral_recusado(self):
+    def test_alias_backend_idempotente_e_numeral_aceito(self):
         self.client.force_login(self.usuario)
         pares = list(self.modulo.comparacoes.select_related('palavra_base', 'palavra_comparada').order_by('ordem'))
         for par in pares[:2]:
             for p in [par.palavra_base, par.palavra_comparada]:
                 progresso.registrar_acerto(self.usuario, 2, par.pk, p.pk, p.palavra)
         par = pares[2]
-        payload = dict(comparacao_id=par.pk, palavra_id=par.palavra_base_id, transcricao='10')
+        payload = dict(comparacao_id=par.pk, palavra_id=par.palavra_base_id, transcricao='eleven')
         url = reverse('registrar_acerto', args=[2])
         self.assertEqual(self.client.post(url, payload, content_type='application/json').status_code, 400)
         self.assertEqual(Tentativa.objects.count(), 4)
-        for text in [' Finn! ', 'fin', 'Finn']:
+        for text in [' Finn! ', 'fin', 'Finn', 'fine', 'ten', '10']:
             payload['transcricao'] = text
             r = self.client.post(url, payload, content_type='application/json')
             self.assertEqual(r.status_code, 200)
             self.assertEqual(r.json()['percentual'], 66)
         self.assertEqual(Tentativa.objects.count(), 5)
         self.assertEqual(Tentativa.objects.get(palavra=par.palavra_base).resposta_reconhecida, 'finn')
+
+    def test_cats_registra_acerto_de_cat(self):
+        self.client.force_login(self.usuario)
+        par = Modulo.objects.get(numero=1).comparacoes.get(ordem=1)
+        response = self.client.post(reverse('registrar_acerto', args=[1]),
+            dict(comparacao_id=par.pk, palavra_id=par.palavra_base_id, transcricao='Cats!'),
+            content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(par.palavra_base_id, response.json()['palavras_acertadas'])
+        self.assertEqual(Tentativa.objects.get(usuario=self.usuario).resposta_reconhecida, 'cats')
 
     def test_variantes_servidas_nos_dois_fluxos(self):
         self.client.force_login(self.usuario)
