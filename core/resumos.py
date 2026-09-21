@@ -1,6 +1,17 @@
 """Conteúdo dos resumos habilitados; mídia relativa ao storage de MEDIA_ROOT."""
 
 RESUMOS = {
+    5: {
+        'subtitulo': 'O som SH',
+        'paragrafos': (
+            'Você ouviu e falou SHIP e FISH, SHOE e SHEEP, SHOP e SHELL.',
+            'S e H juntos fazem um som parecido com o pedido de silêncio: shhh!',
+            'Esse som aparece no começo de SHIP e no final de FISH. Escute e repita com calma!',
+        ),
+        'reforco': 'Muito bem! Você terminou a revisão do som SH.',
+        'audio': 'modulos/5/resumo.mp3',
+        'conclusao': 'conclusao_modulo_5',
+    },
     4: {
         'subtitulo': 'Magic E — Som do U',
         'paragrafos': (

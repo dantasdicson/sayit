@@ -2,10 +2,10 @@
 {% block title %}Introdução · Módulo {{ modulo.numero }} | SayIt!{% endblock %}
 {% block content %}
 <section class="intro" aria-labelledby="titulo">
-  <p class="eyebrow">MÓDULO {{ modulo.numero }} • MAGIC E — SOM DO {{ vogal }}</p>
+  <p class="eyebrow">MÓDULO {{ modulo.numero }} • {% if modulo.numero == 5 %}O SOM SH{% else %}MAGIC E — SOM DO {{ vogal }}{% endif %}</p>
   <h1 id="titulo">{{ modulo.titulo }}</h1>
 </section>
-<section class="sayit-card education-card" aria-label="Conheça o Magic E">
+<section class="sayit-card education-card" aria-label="Conheça {{ modulo.titulo }}">
   <p class="explanation">{{ modulo.conteudo_teorico }}</p>
   <div class="word-transformation" aria-label="Compare {{ primeira.palavra_base.palavra }} e {{ primeira.palavra_comparada.palavra }}"><span lang="en">{{ primeira.palavra_base.palavra|upper }}</span><span class="transform-arrow" aria-hidden="true">→</span><span lang="en">{{ primeira.palavra_comparada.palavra|upper }}</span></div>
   <p class="tip">Uma trilha com {{ total }} descobertas.</p>

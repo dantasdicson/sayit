@@ -89,7 +89,7 @@ function setup(pair = ['cat', 'cake'], options = {}) {
     saved.add(JSON.parse(request.body).palavra_id);
     const complete = roots.length === 2 && roots.every(root => saved.has(Number(root.dataset.palavraId)));
     return { ok: true, json: async () => ({ modulo: options.module || 1, palavras_acertadas: [...saved],
-      comparacoes_concluidas: complete ? [17] : [], percentual: complete ? ([2, 3].includes(options.module) ? 33 : 25) : 0 }) };
+      comparacoes_concluidas: complete ? [17] : [], percentual: complete ? ([2, 3, 4, 5].includes(options.module) ? 33 : 25) : 0 }) };
   };
   class Recognition {
     constructor() { if (options.constructorError) throw new Error('unavailable'); instances.push(this); }
@@ -480,3 +480,53 @@ for (const [index, pair] of [['cub', 'cube'], ['tub', 'tube'], ['cut', 'cute']].
     assert.deepEqual(app.navigations, [url]);
   });
 }
+
+for (const [index, pair] of [['ship', 'fish'], ['shoe', 'sheep'], ['shop', 'shell']].entries()) {
+  test(`Módulo 5 par ${index + 1}: erro, dois acertos independentes e avanço`, async () => {
+    const url = index === 2 ? '/modulos/5/resumo/' : `/modulos/5/descobertas/${index + 2}/`;
+    const app = setup(pair, { module: 5, url });
+    app.locked();
+    await app.say(0, pair[1]);
+    assert.equal(app.requests.length, 0); app.locked();
+    await app.say(0, `  ${pair[0].toUpperCase()}!... `);
+    assert.equal(app.done(0), true); assert.equal(app.done(1), false); app.locked();
+    assert.equal(app.requests[0].url, '/modulos/5/progresso/acertos/');
+    const restored = setup(pair, {module: 5, saved: [41], complete: false});
+    restored.locked(); assert.equal(restored.done(0), true); assert.equal(restored.done(1), false);
+    await app.say(1, pair[1]);
+    assert.equal(app.next.disabled, false); assert.equal(app.audio.disabled, false);
+    app.next.click(); assert.deepEqual(app.navigations, [url]);
+    const completed = setup(pair, {module: 5, saved: [41, 42], complete: true});
+    assert.equal(completed.next.disabled, false); assert.equal(completed.requests.length, 0);
+  });
+}
+
+for (const error of ['no-speech', 'not-allowed', 'service-not-allowed', 'audio-capture', 'network']) {
+  test(`Módulo 5: ${error} mantém acerto individual e bloqueio`, async () => {
+    const app = setup(['ship', 'fish'], {module: 5});
+    await app.say(0, 'ship');
+    const r = app.start(1); r.error(error); r.result('fish');
+    assert.equal(app.done(0), true); assert.equal(app.done(1), false);
+    app.locked(); assert.equal(app.requests.length, 1);
+  });
+}
+for (const options of [{unsupported: true}, {secure: false}]) {
+  test(`Módulo 5: ambiente indisponível ${JSON.stringify(options)}`, () => {
+    const app = setup(['ship', 'fish'], {module: 5, ...options});
+    app.locked(); assert.equal(app.roots[0].children.speak.disabled, true);
+    assert.equal(app.requests.length, 0);
+  });
+}
+test('Módulo 5: silêncio e fala parcial não contam como acerto', async () => {
+  const app = setup(['ship', 'fish'], {module: 5});
+  const r = app.start(0); r.result('ship', false); await r.end();
+  await app.say(0, '...'); app.locked(); assert.equal(app.requests.length, 0);
+});
+test('Módulo 5: alternativa correta usa seleção compartilhada', async () => {
+  const app = setup(['ship', 'fish'], {module: 5});
+  const r = app.start(0);
+  const result = [{transcript: 'sheep'}, {transcript: ' SHIP! '}]; result.isFinal = true;
+  r.onresult({resultIndex: 0, results: [result]}); await r.end();
+  assert.equal(app.done(0), true); app.locked();
+  assert.equal(JSON.parse(app.requests[0].body).transcricao, ' SHIP! ');
+});

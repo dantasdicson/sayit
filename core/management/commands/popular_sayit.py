@@ -167,16 +167,22 @@ PARES_DIDATICOS = {
     2: [("kit", "kite"), ("bit", "bite"), ("fin", "fine")],
     3: [("hop", "hope"), ("not", "note"), ("rob", "robe")],
     4: [("cub", "cube"), ("tub", "tube"), ("cut", "cute")],
+    5: [("ship", "fish"), ("shoe", "sheep"), ("shop", "shell")],
 }
 
 
 class Command(BaseCommand):
     help = "Popula o banco de dados com os módulos, palavras e comparações do SayIt!"
 
+    def add_arguments(self, parser):
+        parser.add_argument('--modulo', type=int, choices=range(1, 11),
+                            help='Limita a carga ao módulo informado.')
+
     def handle(self, *args, **options):
+        modulos = [m for m in MODULOS if options.get('modulo') in (None, m['numero'])]
         totais = {"modulos": 0, "palavras": 0, "comparacoes": 0}
         with transaction.atomic():
-            for dados_modulo in MODULOS:
+            for dados_modulo in modulos:
                 modulo, _ = Modulo.objects.update_or_create(
                     numero=dados_modulo["numero"],
                     defaults={
@@ -218,6 +224,9 @@ class Command(BaseCommand):
                             palavra_comparada=palavras_modulo[destino],
                         )
                     comparacao.explicacao = (
+                        f"Escute {base} e {destino}: procure o som SH nas duas palavras. "
+                        "S e H juntos fazem um som parecido com o pedido de silêncio: shhh!"
+                    ) if modulo.numero == 5 else (
                         f"Compare {base} e {destino}: o E final de {destino} "
                         "é silencioso e muda o som da vogal. "
                         "Observe também as outras letras e o significado de cada palavra."
@@ -227,7 +236,7 @@ class Command(BaseCommand):
                     comparacao.save()
                     totais["comparacoes"] += 1
 
-        for dados_modulo in MODULOS:
+        for dados_modulo in modulos:
             self.stdout.write(self.style.SUCCESS(
                 f'Módulo {dados_modulo["numero"]} - {dados_modulo["titulo"]} carregado.'
             ))

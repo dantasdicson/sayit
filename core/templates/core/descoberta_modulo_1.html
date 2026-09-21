@@ -1,4 +1,4 @@
-﻿{% extends 'core/base_descobertas.html' %}
+{% extends 'core/base_descobertas.html' %}
 {% load static %}
 {% block title %}Descoberta {{ numero }} de {{ total }} | SayIt!{% endblock %}
 {% block scripts %}
@@ -9,9 +9,9 @@
 {% endblock %}
 {% block content %}
 <section class="intro" aria-labelledby="titulo">
-  <p class="eyebrow">MÓDULO {{ modulo.numero }} • MAGIC E — SOM DO {{ vogal }}</p>
+  <p class="eyebrow">MÓDULO {{ modulo.numero }} • {% if modulo.numero == 5 %}O SOM SH{% else %}MAGIC E — SOM DO {{ vogal }}{% endif %}</p>
   <h1 id="titulo">Descoberta {{ numero }} de {{ total }}</h1>
-  <p class="explanation">Ouça as duas palavras e perceba a diferença.</p>
+  <p class="explanation">{% if modulo.numero == 5 %}Ouça as duas palavras e descubra o som SH.{% else %}Ouça as duas palavras e perceba a diferença.{% endif %}</p>
 </section>
 <ol class="discovery-steps" aria-label="Etapas das Descobertas">
   {% for step in etapas %}

@@ -1,0 +1,36 @@
+{
+  "ferramenta": "image_gen integrada",
+  "formato_final": "WebP RGB, 1254x1254, quality=90",
+  "imagens": [
+    {
+      "palavra": "ship",
+      "arquivo": "media/palavras/imagens/ship.webp",
+      "prompt": "Use case: illustration-story. Create one square educational vocabulary illustration for children, subject: a single friendly passenger ship with blue hull, cream upper decks, a few round portholes, floating on a small soft patch of calm water. Match a children's picture-book soft painted watercolor/gouache look with gentle brush texture, warm cream clean background, softly shaded rounded forms, centered large subject fully visible with generous margins. No scenery clutter, no text, no letters, no logo, no watermark. The image represents the English word ship. Output one image."
+    },
+    {
+      "palavra": "fish",
+      "arquivo": "media/palavras/imagens/fish.webp",
+      "prompt": "Use case: illustration-story. One square children's English vocabulary card illustration of a single friendly orange fish, complete body with tail and fins, looking cheerful, big gentle eye. Soft painted watercolor/gouache children's picture book, rounded softly shaded forms, subtle brush texture, clean warm cream background with only a tiny pale blue wash under the fish. Centered large subject fully visible with margins. No text, no lettering, no logos, no watermark, no other animals, no detailed scenery. Match a soft painted educational illustration collection. Output one image."
+    },
+    {
+      "palavra": "shoe",
+      "arquivo": "media/palavras/imagens/shoe.webp",
+      "prompt": "Use case: illustration-story. One square educational English vocabulary illustration for young children: a single small blue lace-up shoe, cream sole, rounded toe, viewed three-quarter side, full shoe visible centered. Soft painted watercolor and gouache children's picture book style, subtle brush texture, gentle warm light and soft ground shadow, clean warm cream background, large clear subject with generous margin. No person, no feet, no text, no logo, no watermark, no additional objects. Represents shoe. Output one image."
+    },
+    {
+      "palavra": "sheep",
+      "arquivo": "media/palavras/imagens/sheep.webp",
+      "prompt": "Use case: illustration-story. One square English vocabulary card illustration for young children: a single friendly fluffy white sheep, full body standing on four small hooves, rounded soft wool, gentle large brown eyes and small ears. Children's picture book soft painted gouache and watercolor, subtle brush texture, softly shaded, clean warm cream background and faint ground shadow only. Centered large subject fully visible with comfortable margin. No text, lettering, logo, watermark, no other animals, no scenery. Represents sheep. Output one image."
+    },
+    {
+      "palavra": "shop",
+      "arquivo": "media/palavras/imagens/shop.webp",
+      "prompt": "Use case: illustration-story. Create one square children's English vocabulary illustration representing shop: a single small welcoming neighborhood storefront, cream walls, blue-green framed display window and door, warm coral striped fabric awning, a few simple fruit baskets visible in window. Whole little shop centered and isolated, large clear subject fully in frame with comfortable margins. Soft painted watercolor/gouache children's picture book, subtle brush texture, rounded gentle forms, clean warm cream background and faint ground shadow. No words, no letters, no numbers, no signs with writing, no logos, no watermark, no people, no surrounding street. Output one image."
+    },
+    {
+      "palavra": "shell",
+      "arquivo": "media/palavras/imagens/shell.webp",
+      "prompt": "Use case: illustration-story. One square educational English vocabulary illustration for young children of a single beautiful scallop seashell, fan-shaped with clearly visible gentle ridges, peach and soft coral pink outside fading into cream. Whole shell centered large and fully visible with comfortable margins. Soft painted watercolor/gouache children's picture book style, gentle shading and subtle brush texture, clean warm cream background, a faint soft ground shadow only. No beach scenery, no animals, no other objects, no text, no lettering, no logo, no watermark. Represents shell. Output one image."
+    }
+  ]
+}

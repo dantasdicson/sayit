@@ -52,6 +52,9 @@ urlpatterns = [
     path('modulos/4/resumo/', resumo_modulo, {'numero': 4}, name='resumo_modulo_4'),
     path('modulos/4/conclusao/', conclusao_modulo_2, {'numero': 4}, name='conclusao_modulo_4'),
     path('admin/', admin.site.urls),
+    path('modulos/5/explicacao/', explicacao_modulo_2, {'numero': 5}, name='explicacao_modulo_5'),
+    path('modulos/5/resumo/', resumo_modulo, {'numero': 5}, name='resumo_modulo_5'),
+    path('modulos/5/conclusao/', conclusao_modulo_2, {'numero': 5}, name='conclusao_modulo_5'),
 ]
 
 if settings.DEBUG:
