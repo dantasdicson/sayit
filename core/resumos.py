@@ -1,6 +1,28 @@
 """Conteúdo dos resumos habilitados; mídia relativa ao storage de MEDIA_ROOT."""
 
 RESUMOS = {
+    8: {
+        'subtitulo': 'O som PH',
+        'paragrafos': (
+            'Você ouviu e falou PHONE e PHOTO, ELEPHANT e DOLPHIN, ALPHABET e TROPHY.',
+            'Nestas palavras, P e H trabalham juntos e fazem o som de F.',
+            'O PH pode aparecer no começo ou no meio das palavras. Escute e repita com calma!',
+        ),
+        'reforco': 'Muito bem! Você terminou a revisão do som PH.',
+        'audio': 'modulos/8/resumo.mp3',
+        'conclusao': 'conclusao_modulo_8',
+    },
+    7: {
+        'subtitulo': 'Os dois sons de TH',
+        'paragrafos': (
+            'Você ouviu e falou THINK e THIS, TOOTH e THAT, BATH e MOTHER.',
+            'Para fazer o som TH, coloque de leve a ponta da língua entre os dentes e sopre.',
+            'Em THINK, TOOTH e BATH, a garganta não vibra. Em THIS, THAT e MOTHER, ela vibra. Escute e repita com calma!',
+        ),
+        'reforco': 'Muito bem! Você terminou a revisão dos sons de TH.',
+        'audio': 'modulos/7/resumo.mp3',
+        'conclusao': 'conclusao_modulo_7',
+    },
     6: {
         'subtitulo': 'O som CH',
         'paragrafos': (

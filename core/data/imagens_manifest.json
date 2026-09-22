@@ -17,14 +17,14 @@
       "traducao": "alfabeto",
       "arquivo": "palavras/imagens/alphabet.webp",
       "descricao_visual": "Um conjunto de blocos educativos coloridos mostrando algumas letras grandes e simples do alfabeto, como A, B e C, ao lado de um livro infantil. Não escrever a palavra 'alphabet' nem qualquer frase. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem marca-d'água ou logotipos.",
-      "status": "pendente"
+      "status": "gerado"
     },
     {
       "palavra": "bath",
       "traducao": "banho",
       "arquivo": "palavras/imagens/bath.webp",
       "descricao_visual": "Uma criança tomando banho de espuma, com o corpo coberto pela espuma e um patinho de brinquedo. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d'água ou logotipos.",
-      "status": "pendente"
+      "status": "gerado"
     },
     {
       "palavra": "beach",
@@ -157,14 +157,14 @@
       "traducao": "golfinho",
       "arquivo": "palavras/imagens/dolphin.webp",
       "descricao_visual": "Um golfinho simpático saltando sobre uma pequena onda. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d'água ou logotipos.",
-      "status": "pendente"
+      "status": "gerado"
     },
     {
       "palavra": "elephant",
       "traducao": "elefante",
       "arquivo": "palavras/imagens/elephant.webp",
       "descricao_visual": "Um elefante simpático com orelhas grandes e tromba levantada. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d'água ou logotipos.",
-      "status": "pendente"
+      "status": "gerado"
     },
     {
       "palavra": "fin",
@@ -269,7 +269,7 @@
       "traducao": "mãe",
       "arquivo": "palavras/imagens/mother.webp",
       "descricao_visual": "Uma mãe abraçando carinhosamente sua criança. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d'água ou logotipos.",
-      "status": "pendente"
+      "status": "gerado"
     },
     {
       "palavra": "not",
@@ -290,14 +290,14 @@
       "traducao": "telefone",
       "arquivo": "palavras/imagens/phone.webp",
       "descricao_visual": "Um telefone com aparelho e base de botões lisos, sem números ou inscrições. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d'água ou logotipos.",
-      "status": "pendente"
+      "status": "gerado"
     },
     {
       "palavra": "photo",
       "traducao": "foto",
       "arquivo": "palavras/imagens/photo.webp",
       "descricao_visual": "Uma fotografia impressa com borda branca mostrando uma família sorridente, sem inscrições. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d'água ou logotipos.",
-      "status": "pendente"
+      "status": "gerado"
     },
     {
       "palavra": "rob",
@@ -328,17 +328,17 @@
       "status": "pendente"
     },
     {
+      "palavra": "shark",
+      "traducao": "tubarão",
+      "arquivo": "palavras/imagens/shark.webp",
+      "descricao_visual": "Um tubarão azul simpático, de corpo inteiro, nadando sobre uma pequena faixa de água. Ilustração infantil amigável com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d'água ou logotipos.",
+      "status": "gerado"
+    },
+    {
       "palavra": "sheep",
       "traducao": "ovelha",
       "arquivo": "palavras/imagens/sheep.webp",
       "descricao_visual": "Uma ovelha simpática com lã branca volumosa e pequenas patas. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d'água ou logotipos.",
-      "status": "gerado"
-    },
-    {
-      "palavra": "shovel",
-      "traducao": "pá",
-      "arquivo": "palavras/imagens/shovel.webp",
-      "descricao_visual": "Uma pequena pá de jardim azul com cabo curto de madeira, apoiada sobre um pouco de terra. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d'água ou logotipos.",
       "status": "gerado"
     },
     {
@@ -349,17 +349,17 @@
       "status": "gerado"
     },
     {
-      "palavra": "shark",
-      "traducao": "tubarão",
-      "arquivo": "palavras/imagens/shark.webp",
-      "descricao_visual": "Um tubarão azul simpático, de corpo inteiro, nadando sobre uma pequena faixa de água. Ilustração infantil amigável com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d'água ou logotipos.",
-      "status": "gerado"
-    },
-    {
       "palavra": "shop",
       "traducao": "loja",
       "arquivo": "palavras/imagens/shop.webp",
       "descricao_visual": "Uma pequena loja com toldo e vitrine de frutas, sem placas ou etiquetas escritas. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d'água ou logotipos.",
+      "status": "gerado"
+    },
+    {
+      "palavra": "shovel",
+      "traducao": "pá",
+      "arquivo": "palavras/imagens/shovel.webp",
+      "descricao_visual": "Uma pequena pá de jardim azul com cabo curto de madeira, apoiada sobre um pouco de terra. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d'água ou logotipos.",
       "status": "gerado"
     },
     {
@@ -381,21 +381,21 @@
       "traducao": "aquilo",
       "arquivo": "palavras/imagens/that.webp",
       "descricao_visual": "Uma criança apontando para uma bola mais distante, com espaço visível entre ela e o objeto. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d'água ou logotipos.",
-      "status": "pendente"
+      "status": "gerado"
     },
     {
       "palavra": "think",
       "traducao": "pensar",
       "arquivo": "palavras/imagens/think.webp",
       "descricao_visual": "Uma criança pensando, com a mão no queixo e um balão de pensamento contendo apenas a figura de uma maçã. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d'água ou logotipos.",
-      "status": "pendente"
+      "status": "gerado"
     },
     {
       "palavra": "this",
       "traducao": "isto",
       "arquivo": "palavras/imagens/this.webp",
       "descricao_visual": "Uma criança apontando para uma bola próxima, ao alcance da mão. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d'água ou logotipos.",
-      "status": "pendente"
+      "status": "gerado"
     },
     {
       "palavra": "three",
@@ -403,6 +403,20 @@
       "arquivo": "palavras/imagens/three.webp",
       "descricao_visual": "Exatamente três maçãs alinhadas e separadas, fáceis de contar, sem numerais. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d'água ou logotipos.",
       "status": "pendente"
+    },
+    {
+      "palavra": "tooth",
+      "traducao": "dente",
+      "arquivo": "palavras/imagens/tooth.webp",
+      "descricao_visual": "Um dente branco saudável, inteiro e centralizado. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-dágua ou logotipos.",
+      "status": "gerado"
+    },
+    {
+      "palavra": "trophy",
+      "traducao": "troféu",
+      "arquivo": "palavras/imagens/trophy.webp",
+      "descricao_visual": "Ilustração infantil de troféu, centralizada, com fundo simples e sem texto.",
+      "status": "gerado"
     },
     {
       "palavra": "tub",

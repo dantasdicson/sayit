@@ -58,6 +58,12 @@ urlpatterns = [
     path('modulos/6/explicacao/', explicacao_modulo_2, {'numero': 6}, name='explicacao_modulo_6'),
     path('modulos/6/resumo/', resumo_modulo, {'numero': 6}, name='resumo_modulo_6'),
     path('modulos/6/conclusao/', conclusao_modulo_2, {'numero': 6}, name='conclusao_modulo_6'),
+    path('modulos/7/explicacao/', explicacao_modulo_2, {'numero': 7}, name='explicacao_modulo_7'),
+    path('modulos/7/resumo/', resumo_modulo, {'numero': 7}, name='resumo_modulo_7'),
+    path('modulos/7/conclusao/', conclusao_modulo_2, {'numero': 7}, name='conclusao_modulo_7'),
+    path('modulos/8/explicacao/', explicacao_modulo_2, {'numero': 8}, name='explicacao_modulo_8'),
+    path('modulos/8/resumo/', resumo_modulo, {'numero': 8}, name='resumo_modulo_8'),
+    path('modulos/8/conclusao/', conclusao_modulo_2, {'numero': 8}, name='conclusao_modulo_8'),
 ]
 
 if settings.DEBUG:

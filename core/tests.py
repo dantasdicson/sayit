@@ -16,7 +16,7 @@ class PopularSayitTests(TestCase):
     def test_popula_e_atualiza_sem_duplicar(self):
         call_command("popular_sayit", stdout=StringIO())
         self.assertEqual(Modulo.objects.count(), 10)
-        self.assertEqual(Palavra.objects.count(), 71)
+        self.assertEqual(Palavra.objects.count(), 72)
         modulo = Modulo.objects.get(ordem=1)
         palavra = modulo.palavras.get(palavra="cat")
         ids = list(Palavra.objects.order_by("pk").values_list("pk", flat=True))

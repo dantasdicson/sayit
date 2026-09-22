@@ -89,7 +89,7 @@ function setup(pair = ['cat', 'cake'], options = {}) {
     saved.add(JSON.parse(request.body).palavra_id);
     const complete = roots.length === 2 && roots.every(root => saved.has(Number(root.dataset.palavraId)));
     return { ok: true, json: async () => ({ modulo: options.module || 1, palavras_acertadas: [...saved],
-      comparacoes_concluidas: complete ? [17] : [], percentual: complete ? ([2, 3, 4, 5, 6].includes(options.module) ? 33 : 25) : 0 }) };
+      comparacoes_concluidas: complete ? [17] : [], percentual: complete ? ([2, 3, 4, 5, 6, 7, 8].includes(options.module) ? 33 : 25) : 0 }) };
   };
   class Recognition {
     constructor() { if (options.constructorError) throw new Error('unavailable'); instances.push(this); }
@@ -512,6 +512,31 @@ for (const [index, pair] of [['chair', 'chicken'], ['cheese', 'beach'], ['child'
     assert.equal(app.requests[0].url, '/modulos/6/progresso/acertos/');
     await app.say(1, pair[1]);
     assert.equal(app.done(1), true); assert.equal(app.next.disabled, false);
+    app.next.click(); assert.deepEqual(app.navigations, [url]);
+  });
+}
+
+for (const [index, pair] of [['think', 'this'], ['tooth', 'that'], ['bath', 'mother']].entries()) {
+  test(`Módulo 7 par ${index + 1}: exige os dois sons de TH e avança`, async () => {
+    const url = index === 2 ? '/modulos/7/resumo/' : `/modulos/7/descobertas/${index + 2}/`;
+    const app = setup(pair, {module: 7, url});
+    await app.say(0, pair[1]);
+    assert.equal(app.requests.length, 0); app.locked();
+    await app.say(0, ` ${pair[0].toUpperCase()}! `);
+    assert.equal(app.done(0), true); assert.equal(app.done(1), false); app.locked();
+    await app.say(1, pair[1]);
+    assert.equal(app.done(1), true); assert.equal(app.next.disabled, false);
+    app.next.click(); assert.deepEqual(app.navigations, [url]);
+  });
+}
+
+for (const [index, pair] of [['phone', 'photo'], ['elephant', 'dolphin'], ['alphabet', 'trophy']].entries()) {
+  test(`Módulo 8 par ${index + 1}: exige os dois acertos e avança`, async () => {
+    const url = index === 2 ? '/modulos/8/resumo/' : `/modulos/8/descobertas/${index + 2}/`;
+    const app = setup(pair, {module: 8, url});
+    await app.say(0, pair[1]); assert.equal(app.requests.length, 0); app.locked();
+    await app.say(0, pair[0]); app.locked();
+    await app.say(1, pair[1]); assert.equal(app.next.disabled, false);
     app.next.click(); assert.deepEqual(app.navigations, [url]);
   });
 }

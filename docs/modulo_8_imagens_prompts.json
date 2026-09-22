@@ -1,0 +1,13 @@
+{
+  "modulo": 8,
+  "som": "PH",
+  "estilo": "Aquarela e guache infantil, composição clara, sem palavras, logotipo ou marca-d'água.",
+  "imagens": [
+    {"palavra": "phone", "arquivo": "media/palavras/imagens/phone.webp"},
+    {"palavra": "photo", "arquivo": "media/palavras/imagens/photo.webp"},
+    {"palavra": "elephant", "arquivo": "media/palavras/imagens/elephant.webp"},
+    {"palavra": "dolphin", "arquivo": "media/palavras/imagens/dolphin.webp"},
+    {"palavra": "alphabet", "arquivo": "media/palavras/imagens/alphabet.webp"},
+    {"palavra": "trophy", "arquivo": "media/palavras/imagens/trophy.webp"}
+  ]
+}

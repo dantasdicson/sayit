@@ -406,19 +406,19 @@
       "motor": "edge-tts"
     },
     {
-      "palavra": "sheep",
-      "traducao": "ovelha",
-      "arquivo": "palavras/audios/sheep.mp3",
-      "texto_falado": "sheep",
+      "palavra": "shark",
+      "traducao": "tubarão",
+      "arquivo": "palavras/audios/shark.mp3",
+      "texto_falado": "shark",
       "voz": "en-US-JennyNeural",
       "status": "gerado",
       "motor": "edge-tts"
     },
     {
-      "palavra": "shovel",
-      "traducao": "pá",
-      "arquivo": "palavras/audios/shovel.mp3",
-      "texto_falado": "shovel",
+      "palavra": "sheep",
+      "traducao": "ovelha",
+      "arquivo": "palavras/audios/sheep.mp3",
+      "texto_falado": "sheep",
       "voz": "en-US-JennyNeural",
       "status": "gerado",
       "motor": "edge-tts"
@@ -433,19 +433,19 @@
       "motor": "edge-tts"
     },
     {
-      "palavra": "shark",
-      "traducao": "tubarão",
-      "arquivo": "palavras/audios/shark.mp3",
-      "texto_falado": "shark",
+      "palavra": "shop",
+      "traducao": "loja",
+      "arquivo": "palavras/audios/shop.mp3",
+      "texto_falado": "shop",
       "voz": "en-US-JennyNeural",
       "status": "gerado",
       "motor": "edge-tts"
     },
     {
-      "palavra": "shop",
-      "traducao": "loja",
-      "arquivo": "palavras/audios/shop.mp3",
-      "texto_falado": "shop",
+      "palavra": "shovel",
+      "traducao": "pá",
+      "arquivo": "palavras/audios/shovel.mp3",
+      "texto_falado": "shovel",
       "voz": "en-US-JennyNeural",
       "status": "gerado",
       "motor": "edge-tts"
@@ -500,6 +500,24 @@
       "traducao": "três",
       "arquivo": "palavras/audios/three.mp3",
       "texto_falado": "three",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "tooth",
+      "traducao": "dente",
+      "arquivo": "palavras/audios/tooth.mp3",
+      "texto_falado": "tooth",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "trophy",
+      "traducao": "troféu",
+      "arquivo": "palavras/audios/trophy.mp3",
+      "texto_falado": "trophy",
       "voz": "en-US-JennyNeural",
       "status": "gerado",
       "motor": "edge-tts"

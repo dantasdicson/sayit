@@ -8,7 +8,7 @@ Fluxo implementado: Trilha → Explicação → 3 descobertas → Resumo → Con
 - Pares: chair/chicken, cheese/beach e child/chocolate.
 - Regra: C e H juntos fazem um som parecido com “tch”.
 - O Módulo 5 encaminha para a explicação do Módulo 6.
-- Como o Módulo 7 ainda não está implementado, a conclusão do Módulo 6 mantém o botão “Continuar para o próximo módulo” e retorna à trilha com o aviso de disponibilidade futura.
+- A conclusão do Módulo 6 encaminha para a explicação do Módulo 7.
 
 ## Mídias
 

@@ -1,0 +1,13 @@
+{
+  "modulo": 7,
+  "som": "TH",
+  "estilo": "Ilustração infantil em aquarela e guache, formas suaves, composição clara, sem texto, logotipo ou marca-d'água.",
+  "imagens": [
+    {"palavra": "think", "arquivo": "media/palavras/imagens/think.webp", "descricao": "Criança pensando com a mão no queixo e uma ideia em um balão."},
+    {"palavra": "tooth", "arquivo": "media/palavras/imagens/tooth.webp", "descricao": "Um dente branco saudável, inteiro e centralizado."},
+    {"palavra": "bath", "arquivo": "media/palavras/imagens/bath.webp", "descricao": "Banheira azul com água e algumas bolhas de sabão."},
+    {"palavra": "this", "arquivo": "media/palavras/imagens/this.webp", "descricao": "Criança apontando para uma bola vermelha próxima."},
+    {"palavra": "that", "arquivo": "media/palavras/imagens/that.webp", "descricao": "Criança apontando para uma bola vermelha distante."},
+    {"palavra": "mother", "arquivo": "media/palavras/imagens/mother.webp", "descricao": "Mãe abraçando sua criança com carinho."}
+  ]
+}
