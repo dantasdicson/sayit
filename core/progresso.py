@@ -36,6 +36,30 @@ def _validar_usuario(usuario):
         raise ErroProgresso('Entre na sua conta para continuar.', 'autenticacao', 403)
 
 
+def modulo_pode_ser_acessado(usuario, numero):
+    _validar_usuario(usuario)
+    if numero not in DESCOBERTAS_POR_MODULO:
+        return False
+    anteriores = [n for n in DESCOBERTAS_POR_MODULO if n < numero]
+    if not anteriores:
+        return True
+    concluidos = set(Progresso.objects.filter(
+        usuario=usuario, modulo__numero__in=anteriores,
+        concluido_em__isnull=False,
+    ).values_list('modulo__numero', flat=True))
+    return all(numero_anterior in concluidos for numero_anterior in anteriores)
+
+
+def exigir_modulo_desbloqueado(usuario, numero):
+    if numero not in DESCOBERTAS_POR_MODULO:
+        raise ErroProgresso('Módulo indisponível.', 'modulo_inexistente', 404)
+    if not modulo_pode_ser_acessado(usuario, numero):
+        raise ErroProgresso(
+            'Conclua os módulos anteriores para continuar.',
+            'modulo_bloqueado', 409,
+        )
+
+
 def _catalogo(numero):
     # Não habilitar progresso de módulos cuja experiência ainda não existe.
     if numero not in DESCOBERTAS_POR_MODULO:
@@ -222,6 +246,30 @@ def registrar_acerto(usuario, numero, comparacao_id, palavra_id, transcricao):
                 sessao=None, pontuacao=0, feedback='')
         _recalcular(usuario, modulo, comparacoes)
         return {**_estado(usuario, modulo, comparacoes), 'acerto_criado': criado}
+
+
+def registrar_erro(usuario, numero, comparacao_id, palavra_id, transcricao, resultado):
+    if resultado not in (Tentativa.Resultado.INCORRETO, Tentativa.Resultado.NAO_RECONHECIDO):
+        raise ErroProgresso('Informe um resultado de erro válido.')
+    if not isinstance(transcricao, str) or len(transcricao) > 255:
+        raise ErroProgresso('Informe uma transcrição de até 255 caracteres.')
+    texto = normalizar_texto(transcricao)
+    with _escrita(usuario, numero) as (modulo, comparacoes):
+        comparacao = next((c for c in comparacoes if c.pk == comparacao_id), None)
+        if comparacao is None:
+            raise ErroProgresso('Descoberta não encontrada neste módulo.', 'comparacao_invalida', 404)
+        palavra = Palavra.objects.filter(pk=palavra_id, modulo=modulo, ativa=True).first()
+        if palavra is None:
+            raise ErroProgresso('Palavra não encontrada neste módulo.', 'palavra_invalida', 404)
+        if palavra.pk not in (comparacao.palavra_base_id, comparacao.palavra_comparada_id):
+            raise ErroProgresso('Esta palavra não pertence à Descoberta.', 'palavra_fora_comparacao')
+        acertos = consultar_acertos(usuario, modulo)
+        if not _permitida(comparacao, comparacoes, acertos):
+            raise ErroProgresso('Conclua as Descobertas anteriores.', 'etapa_bloqueada', 409)
+        Tentativa.objects.create(
+            usuario=usuario, palavra=palavra, resultado=resultado,
+            resposta_reconhecida=texto, sessao=None, pontuacao=0, feedback='')
+        return {'registrado': True}
 
 
 def concluir_modulo(usuario, numero=1):

@@ -22,6 +22,9 @@ class Modulo5Tests(TestCase):
             'palavra_base', 'palavra_comparada').order_by('ordem'))
 
     def setUp(self):
+        acesso = patch('core.progresso.modulo_pode_ser_acessado', return_value=True)
+        acesso.start()
+        self.addCleanup(acesso.stop)
         self.client.force_login(self.usuario)
 
     def url(self, ordem):
@@ -51,7 +54,7 @@ class Modulo5Tests(TestCase):
         self.assertContains(r, self.modulo.conteudo_teorico)
         self.assertNotContains(r, 'Magic E')
         self.assertContains(r, self.url(1))
-        self.assertContains(self.client.get(reverse('trilha')), reverse('explicacao_modulo_5'))
+        self.assertNotContains(self.client.get(reverse('trilha')), reverse('explicacao_modulo_5'))
 
     def test_carga_idempotente_preserva_acertos_e_midias(self):
         self.acertar(0)

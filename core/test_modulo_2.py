@@ -20,6 +20,9 @@ class Modulo2Tests(TestCase):
         cls.pares = list(cls.modulo.comparacoes.select_related('palavra_base', 'palavra_comparada').order_by('ordem'))
 
     def setUp(self):
+        acesso = patch('core.progresso.modulo_pode_ser_acessado', return_value=True)
+        acesso.start()
+        self.addCleanup(acesso.stop)
         self.client.force_login(self.usuario)
 
     def url(self, ordem):
@@ -44,7 +47,7 @@ class Modulo2Tests(TestCase):
         self.assertContains(r, 'MAGIC E — SOM DO I')
         self.assertContains(r, self.modulo.conteudo_teorico)
         self.assertContains(r, self.url(1))
-        self.assertContains(self.client.get(reverse('trilha')), reverse('explicacao_modulo_2'))
+        self.assertNotContains(self.client.get(reverse('trilha')), reverse('explicacao_modulo_2'))
 
     def test_primeira_descoberta_reutiliza_template_e_estado(self):
         r = self.client.get(self.url(1))

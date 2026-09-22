@@ -1,4 +1,5 @@
 from io import StringIO
+from unittest.mock import patch
 
 from django.contrib.auth import get_user_model
 from django.core.management import call_command
@@ -43,6 +44,11 @@ class PronunciaEndpointTests(TestCase):
         call_command('popular_sayit', stdout=StringIO())
         cls.usuario = get_user_model().objects.create_user(username='pronuncia')
         cls.modulo = Modulo.objects.get(numero=2)
+
+    def setUp(self):
+        acesso = patch('core.progresso.modulo_pode_ser_acessado', return_value=True)
+        acesso.start()
+        self.addCleanup(acesso.stop)
 
     def test_alias_backend_idempotente_e_numeral_aceito(self):
         self.client.force_login(self.usuario)

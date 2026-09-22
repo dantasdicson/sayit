@@ -4,7 +4,7 @@
 <header class="page-heading">
   <p class="eyebrow">SAYIT! • APRENDER E DESCOBRIR</p>
   {% if pagina == 'home' %}<h1>Olá, {{ request.user.first_name|default:request.user.username }}!</h1><p class="page-description">Vamos continuar aprendendo inglês?</p>
-  {% else %}<h1>{{ titulo }}</h1>{% if pagina == 'trilha' or pagina == 'modulos' %}<p class="page-description">Explore os sons do inglês, uma descoberta de cada vez.</p>{% endif %}{% endif %}
+  {% else %}<h1>{{ titulo }}</h1>{% if pagina == 'trilha' %}<p class="page-description">Siga o caminho na ordem e avance uma descoberta de cada vez.</p>{% elif pagina == 'modulos' %}<p class="page-description">Veja o panorama do curso e retome exatamente de onde parou.</p>{% elif pagina == 'progresso' %}<p class="page-description">Acompanhe suas conquistas e a prática acumulada.</p>{% endif %}{% endif %}
 </header>
 {% if pagina == 'home' %}
 <section class="dashboard-grid" aria-label="Explore o SayIt!">
@@ -12,17 +12,42 @@
   <article class="sayit-card dashboard-card"><span class="card-symbol tone-blue" aria-hidden="true">▦</span><h2>Meus Módulos</h2><p>Conheça os temas e encontre sua próxima descoberta.</p><a class="sayit-button sayit-button--secondary" href="{% url 'modulos' %}">Ver módulos</a></article>
   <article class="sayit-card dashboard-card"><span class="card-symbol tone-pink" aria-hidden="true">☆</span><h2>Meu Progresso</h2><p>Um espaço para acompanhar sua jornada.</p><a class="sayit-button sayit-button--secondary" href="{% url 'progresso' %}">Ver meu progresso</a></article>
 </section>
-{% elif pagina == 'trilha' or pagina == 'modulos' %}
-<section class="modules-grid" aria-label="Módulos disponíveis">
-  {% for modulo in modulos %}<article class="sayit-card module-card"><span class="module-number">MÓDULO {{ modulo.numero }}</span><h2>{{ modulo.titulo }}</h2><p>{{ modulo.descricao }}</p>
-    {% if modulo.numero == 1 %}<a class="sayit-button" href="{% url 'explicacao_modulo_1' %}">Explorar módulo →</a>{% elif modulo.numero == 2 %}<a class="sayit-button" href="{% url 'explicacao_modulo_2' %}">Explorar módulo →</a>{% elif modulo.numero == 3 %}<a class="sayit-button" href="{% url 'explicacao_modulo_3' %}">Explorar módulo →</a>{% elif modulo.numero == 4 %}<a class="sayit-button" href="{% url 'explicacao_modulo_4' %}">Explorar módulo →</a>{% elif modulo.numero == 5 %}<a class="sayit-button" href="{% url 'explicacao_modulo_5' %}">Explorar módulo →</a>{% elif modulo.numero == 6 %}<a class="sayit-button" href="{% url 'explicacao_modulo_6' %}">Explorar módulo →</a>{% elif modulo.numero == 7 %}<a class="sayit-button" href="{% url 'explicacao_modulo_7' %}">Explorar módulo →</a>{% elif modulo.numero == 8 %}<a class="sayit-button" href="{% url 'explicacao_modulo_8' %}">Explorar módulo →</a>{% else %}<span class="availability">Em breve</span>{% endif %}
-  </article>{% empty %}<p>Os módulos estarão disponíveis em breve.</p>{% endfor %}
+{% elif pagina == 'trilha' %}
+<section class="trail-list" aria-label="Sua trilha de aprendizagem">
+  {% for item in modulos_estado %}<article class="sayit-card trail-step{% if item.bloqueado %} is-locked{% elif item.concluido %} is-complete{% elif item.iniciado %} is-current{% endif %}">
+    <div class="trail-marker" aria-hidden="true">{% if item.bloqueado %}🔒{% elif item.concluido %}✓{% else %}{{ item.modulo.numero }}{% endif %}</div>
+    <div class="trail-copy"><span class="module-number">MÓDULO {{ item.modulo.numero }}</span><h2>{{ item.modulo.titulo }}</h2><p>{{ item.modulo.descricao }}</p>
+      <div class="progress-track" role="progressbar" aria-label="Progresso do módulo {{ item.modulo.numero }}" aria-valuenow="{{ item.percentual }}" aria-valuemin="0" aria-valuemax="100"><span style="width:{{ item.percentual }}%"></span></div>
+      <small>{{ item.percentual }}% concluído</small>
+    </div>
+    {% if item.bloqueado %}<span class="availability">Conclua o módulo anterior</span>{% else %}<a class="sayit-button{% if item.concluido %} sayit-button--secondary{% endif %}" href="{{ item.url }}">{% if item.concluido %}Revisar{% elif item.iniciado %}Continuar{% else %}Começar{% endif %} →</a>{% endif %}
+  </article>{% endfor %}
 </section>
+{% elif pagina == 'modulos' %}
+<section class="course-overview sayit-card" aria-labelledby="course-progress-title">
+  <div><p class="module-number">VISÃO GERAL</p><h2 id="course-progress-title">{{ percentual_curso }}% do curso concluído</h2><p>{{ modulos_concluidos }} de {{ total_modulos }} módulos finalizados.</p></div>
+  <div class="course-ring" style="--progress:{{ percentual_curso }}" aria-label="{{ percentual_curso }}% do curso concluído"><strong>{{ percentual_curso }}%</strong></div>
+</section>
+<section class="stats-grid" aria-label="Resumo dos módulos">
+  <article class="sayit-card stat-card"><strong>{{ modulos_concluidos }}</strong><span>Concluídos</span></article>
+  <article class="sayit-card stat-card"><strong>{{ modulos_em_andamento }}</strong><span>Em andamento</span></article>
+  <article class="sayit-card stat-card"><strong>{{ total_modulos }}</strong><span>Disponíveis</span></article>
+</section>
+{% if proximo_modulo %}<section class="sayit-card next-module"><div><span class="module-number">PRÓXIMO PASSO</span><h2>{{ proximo_modulo.modulo.titulo }}</h2><p>Módulo {{ proximo_modulo.modulo.numero }} · {{ proximo_modulo.percentual }}% concluído</p></div><a class="sayit-button" href="{{ proximo_modulo.url }}">Continuar aprendendo →</a></section>{% endif %}
+<section class="module-summary-list" aria-label="Situação de cada módulo">{% for item in modulos_estado %}<article class="module-summary-row{% if item.bloqueado %} is-locked{% endif %}"><div><strong>Módulo {{ item.modulo.numero }} · {{ item.modulo.titulo }}</strong><span>{% if item.bloqueado %}🔒 Bloqueado — conclua o módulo anterior{% elif item.concluido %}Concluído{% elif item.iniciado %}Em andamento{% else %}Não iniciado{% endif %}</span></div><div class="progress-track"><span style="width:{{ item.percentual }}%"></span></div><b>{{ item.percentual }}%</b></article>{% endfor %}</section>
+{% elif pagina == 'progresso' %}
+<section class="stats-grid progress-stats" aria-label="Suas estatísticas">
+  <article class="sayit-card stat-card"><strong>{{ percentual_curso }}%</strong><span>Progresso geral</span></article>
+  <article class="sayit-card stat-card"><strong>{{ palavras_praticadas }}</strong><span>Palavras praticadas</span></article>
+  <article class="sayit-card stat-card"><strong>{{ total_acertos }}</strong><span>Acertos registrados</span></article>
+  <article class="sayit-card stat-card"><strong>{{ total_erros }}</strong><span>Erros registrados</span></article>
+</section>
+<section class="sayit-card progress-detail"><h2>Conquistas por módulo</h2><p class="muted">Cada descoberta concluída aumenta o progresso do módulo.</p>{% for item in modulos_estado %}<div class="progress-detail-row"><div><strong>{{ item.modulo.numero }}. {{ item.modulo.titulo }}</strong><span>{{ item.descobertas_concluidas }} de {{ item.total_descobertas }} descobertas</span></div><div class="progress-track"><span style="width:{{ item.percentual }}%"></span></div><b>{{ item.percentual }}%</b></div>{% endfor %}{% if ultima_atividade %}<p class="last-activity">Última atividade: {{ ultima_atividade|date:'d/m/Y H:i' }}</p>{% endif %}</section>
 {% elif pagina == 'perfil' %}
 <section class="sayit-card profile-card" aria-label="Seus dados">
   <dl class="profile-grid"><div><dt>Nome completo</dt><dd>{{ request.user.get_full_name|default:request.user.username }}</dd></div>
   <div><dt>Nome de usuário</dt><dd>{{ request.user.username }}</dd></div><div><dt>E-mail</dt><dd>{{ request.user.email|default:'Não informado' }}</dd></div>
   <div><dt>Data de nascimento</dt><dd>{{ request.user.data_nascimento|date:'d/m/Y'|default:'Não informada' }}</dd></div></dl>
 </section>
-{% else %}<section class="sayit-card empty-state"><span class="card-symbol tone-yellow" aria-hidden="true">☆</span><h2>Cada descoberta faz parte da sua jornada</h2><p>Seu acompanhamento de progresso estará disponível em breve.</p><a class="sayit-button sayit-button--secondary" href="{% url 'trilha' %}">Explorar minha trilha</a></section>{% endif %}
+{% endif %}
 {% endblock %}

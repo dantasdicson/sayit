@@ -22,6 +22,9 @@ class Modulo7Tests(TestCase):
             'palavra_base', 'palavra_comparada').order_by('ordem'))
 
     def setUp(self):
+        acesso = patch('core.progresso.modulo_pode_ser_acessado', return_value=True)
+        acesso.start()
+        self.addCleanup(acesso.stop)
         self.client.force_login(self.usuario)
 
     def url(self, ordem):
@@ -49,7 +52,7 @@ class Modulo7Tests(TestCase):
         self.assertContains(resposta, 'O SOM TH')
         self.assertContains(resposta, self.modulo.conteudo_teorico)
         self.assertContains(resposta, self.url(1))
-        self.assertContains(self.client.get(reverse('trilha')), reverse('explicacao_modulo_7'))
+        self.assertNotContains(self.client.get(reverse('trilha')), reverse('explicacao_modulo_7'))
 
     def test_tres_etapas_dois_acertos_independentes_e_persistencia(self):
         for indice in range(3):

@@ -2,14 +2,16 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView, LogoutView
 from django.db import IntegrityError, OperationalError, connection, transaction
+from django.db.models import Count, Max, Q
 from django.shortcuts import redirect, render
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.cache import never_cache
 from django.views.decorators.http import require_http_methods
 
 from .forms import CadastroForm, EntrarForm
-from .models import Modulo
+from . import progresso
+from .models import Modulo, Tentativa
 
 
 class EntrarView(LoginView):
@@ -64,9 +66,45 @@ def cadastro(request):
 
 @login_required
 def area(request, pagina='home'):
-    titulos = {'home': 'Vamos aprender?', 'trilha': 'Minha trilha', 'modulos': 'Módulos',
+    titulos = {'home': 'Vamos aprender?', 'trilha': 'Minha trilha', 'modulos': 'Meus módulos',
                'progresso': 'Meu progresso', 'perfil': 'Meu perfil'}
-    return render(request, 'core/area.html', {
-        'pagina': pagina, 'titulo': titulos[pagina],
-        'modulos': Modulo.objects.filter(ativo=True) if pagina in ('trilha', 'modulos') else [],
-    })
+    contexto = {'pagina': pagina, 'titulo': titulos[pagina]}
+    if pagina in ('trilha', 'modulos', 'progresso'):
+        numeros = sorted(progresso.DESCOBERTAS_POR_MODULO)
+        modulos = Modulo.objects.filter(ativo=True, numero__in=numeros).order_by('ordem')
+        estados = []
+        anteriores_concluidos = True
+        for modulo in modulos:
+            estado = progresso.consultar_progresso(request.user, modulo.numero)
+            percentual = estado['percentual']
+            estados.append({
+                'modulo': modulo, 'percentual': percentual,
+                'concluido': bool(estado['concluido_em']), 'iniciado': percentual > 0,
+                'bloqueado': not anteriores_concluidos,
+                'descobertas_concluidas': estado['descobertas_concluidas'],
+                'total_descobertas': estado['total_descobertas'],
+                'url': reverse(f'explicacao_modulo_{modulo.numero}'),
+            })
+            anteriores_concluidos = anteriores_concluidos and bool(estado['concluido_em'])
+        total = len(estados)
+        metricas = Tentativa.objects.filter(usuario=request.user).aggregate(
+            tentativas=Count('pk'), palavras=Count('palavra_id', distinct=True),
+            acertos=Count('pk', filter=Q(resultado=Tentativa.Resultado.CORRETO)),
+            erros=Count('pk', filter=Q(resultado__in=(
+                Tentativa.Resultado.INCORRETO, Tentativa.Resultado.NAO_RECONHECIDO))),
+            ultima_atividade=Max('data_hora'))
+        contexto.update({
+            'modulos_estado': estados,
+            'percentual_curso': sum(item['percentual'] for item in estados) // total if total else 0,
+            'modulos_concluidos': sum(item['concluido'] for item in estados),
+            'modulos_em_andamento': sum(item['iniciado'] and not item['concluido'] for item in estados),
+            'total_modulos': total,
+            'proximo_modulo': next((item for item in estados
+                                    if not item['concluido'] and not item['bloqueado']), None),
+            'total_tentativas': metricas['tentativas'] or 0,
+            'total_acertos': metricas['acertos'] or 0,
+            'total_erros': metricas['erros'] or 0,
+            'palavras_praticadas': metricas['palavras'] or 0,
+            'ultima_atividade': metricas['ultima_atividade'],
+        })
+    return render(request, 'core/area.html', contexto)

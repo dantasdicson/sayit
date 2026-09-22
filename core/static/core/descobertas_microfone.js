@@ -28,6 +28,14 @@
   let discoveryComplete = state?.dataset.concluida === 'true';
   const permissionMessage = 'O microfone é necessário para continuar. Permita o acesso ao microfone no navegador.';
 
+  function recordError(word, transcript, result) {
+    if (typeof window.CustomEvent !== 'function' || typeof window.dispatchEvent !== 'function') return;
+    window.dispatchEvent(new window.CustomEvent('sayit:attempt-error', { detail: {
+      url: state.dataset.errosUrl, csrf, moduleNumber, comparisonId,
+      wordId: word.id, transcript, result,
+    } }));
+  }
+
   async function saveCorrect(word, transcript, session) {
     session.controller = new AbortController();
     let timeout;
@@ -105,6 +113,7 @@
     const current = () => active === session;
     const unheard = () => {
       session.settled = true;
+      recordError(word, '', 'nao_reconhecido');
       display(word, 'waiting', '', 'Não consegui ouvir. Tente novamente.');
     };
     const finish = async (cancelled = false) => {
@@ -164,7 +173,10 @@
         session.accepted = accepted;
         display(word, 'processing', '', 'Processando...');
       } else if (!text) unheard();
-      else display(word, 'retry', 'Try again!', `Eu entendi: ${heard}`);
+      else {
+        recordError(word, heard, 'incorreto');
+        display(word, 'retry', 'Try again!', `Eu entendi: ${heard}`);
+      }
     };
     recognition.onnomatch = () => { if (current() && !session.settled) unheard(); };
     recognition.onerror = (event) => {

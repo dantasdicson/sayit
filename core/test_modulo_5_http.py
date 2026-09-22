@@ -3,6 +3,7 @@ from http.cookies import SimpleCookie
 from io import StringIO
 import json
 import re
+from unittest.mock import patch
 from urllib.request import Request, urlopen
 
 from django.conf import settings
@@ -25,6 +26,9 @@ class Modulo5HTTPTests(StaticLiveServerTestCase):
     host = '127.0.0.1'
 
     def test_fluxo_http_completo_com_assets_e_csrf(self):
+        acesso = patch('core.progresso.modulo_pode_ser_acessado', return_value=True)
+        acesso.start()
+        self.addCleanup(acesso.stop)
         call_command('popular_sayit', stdout=StringIO())
         call_command('associar_imagens', modulo=5, stdout=StringIO())
         call_command('associar_audios', modulo=5, stdout=StringIO())
@@ -59,7 +63,7 @@ class Modulo5HTTPTests(StaticLiveServerTestCase):
                 checked_assets.add(asset)
             return html
 
-        self.assertIn('/modulos/5/explicacao/', page('/trilha/'))
+        self.assertNotIn('/modulos/5/explicacao/', page('/trilha/'))
         self.assertIn('/modulos/5/descobertas/1/', page('/modulos/5/explicacao/'))
         pares = Modulo.objects.get(numero=5).comparacoes.select_related('palavra_base', 'palavra_comparada')
         for par in pares:

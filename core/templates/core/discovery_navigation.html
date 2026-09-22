@@ -1,6 +1,6 @@
 ﻿{% with current=request.resolver_match.url_name %}
-<nav class="discovery-navigation" aria-label="Ãreas do SayIt!">
-  <a href="{% url 'home' %}"{% if current == 'home' %} aria-current="page"{% endif %}><svg aria-hidden="true" focusable="false"><use href="#nav-home"/></svg>InÃ­cio</a>
+<nav class="discovery-navigation" aria-label="Áreas do SayIt!">
+  <a href="{% url 'home' %}"{% if current == 'home' %} aria-current="page"{% endif %}><svg aria-hidden="true" focusable="false"><use href="#nav-home"/></svg>Início</a>
   <a href="{% url 'trilha' %}"{% if current == 'trilha' %} aria-current="page"{% endif %}><svg aria-hidden="true" focusable="false"><use href="#nav-trail"/></svg>Trilha</a>
   <a href="{% url 'modulos' %}"{% if current == 'modulos' %} aria-current="page"{% elif current == 'descoberta_modulo_1' or current == 'explicacao_modulo_1' or current == 'pratica_modulo_1' or current == 'resumo_modulo_1' or current == 'conclusao_modulo_1' or current == 'descoberta_modulo' or current == 'explicacao_modulo_2' or current == 'resumo_modulo_2' or current == 'conclusao_modulo_2' or current == 'explicacao_modulo_3' or current == 'resumo_modulo_3' or current == 'conclusao_modulo_3' or current == 'explicacao_modulo_5' or current == 'resumo_modulo_5' or current == 'conclusao_modulo_5' or current == 'explicacao_modulo_6' or current == 'resumo_modulo_6' or current == 'conclusao_modulo_6' or current == 'explicacao_modulo_7' or current == 'resumo_modulo_7' or current == 'conclusao_modulo_7' or current == 'explicacao_modulo_8' or current == 'resumo_modulo_8' or current == 'conclusao_modulo_8' %} aria-current="location"{% endif %}><svg aria-hidden="true" focusable="false"><use href="#nav-modules"/></svg>Meus Módulos</a>
   <a href="{% url 'progresso' %}"{% if current == 'progresso' %} aria-current="page"{% endif %}><svg aria-hidden="true" focusable="false"><use href="#nav-progress"/></svg>Meu Progresso</a>
@@ -8,7 +8,7 @@
 </nav>
 {% endwith %}
 <div class="discovery-account">
-  <p>OlÃ¡, <strong>{{ request.user.first_name|default:request.user.username }}</strong></p>
+  <p>Olá, <strong>{{ request.user.first_name|default:request.user.username }}</strong></p>
   <form method="post" action="{% url 'logout' %}">
     {% csrf_token %}
     <button type="submit"><svg aria-hidden="true" focusable="false"><use href="#nav-logout"/></svg>Sair</button>

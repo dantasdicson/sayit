@@ -12,15 +12,17 @@ function setup({ missing = false, play } = {}) {
     setAttribute(name, value) { this[name] = value; },
     removeAttribute(name) { delete this[name]; },
   });
-  const player = element(), button = element(), label = element(), status = element();
+  const player = element(), button = element(), label = element(), status = element(), complete = element();
   let plays = 0, pauses = 0;
   player.controls = true;
   player.play = () => { plays++; return play ? play() : Promise.resolve(); };
   player.pause = () => { pauses++; player.listeners.pause?.(); };
   const window = element();
-  const elements = { 'summary-audio': player, 'summary-listen': button, 'summary-listen-label': label, 'audio-status': status };
+  const elements = { 'summary-audio': player, 'summary-listen': button, 'summary-listen-label': label,
+    'audio-status': status, 'summary-complete': complete };
   runInNewContext(source, { window, document: { getElementById: id => missing ? null : elements[id] } });
-  return { player, button, label, status, window, click: () => button.listeners.click(), plays: () => plays, pauses: () => pauses };
+  return { player, button, complete, label, status, window,
+    click: () => button.listeners.click(), plays: () => plays, pauses: () => pauses };
 }
 
 test('sem áudio, o script não tenta reproduzir', () => {
@@ -36,6 +38,7 @@ test('inicia automaticamente e permite repetir desde o início', async () => {
   assert.equal(app.label.textContent, 'Ouvir explicação novamente');
   assert.equal(app.status.textContent, 'Reproduzindo explicação.');
   assert.equal(app.button['aria-busy'], undefined);
+  assert.equal(app.complete.disabled, true);
   app.player.currentTime = 5;
   await app.click();
   assert.equal(app.pauses(), 1);
@@ -54,6 +57,7 @@ test('bloqueio de autoplay permite iniciar pelo botão', async () => {
   await app.click();
   assert.equal(app.plays(), 2);
   assert.equal(app.status.textContent, 'Reproduzindo explicação.');
+  assert.equal(app.complete.disabled, true);
 });
 
 test('resposta atrasada de autoplay não sobrescreve uma nova reprodução', async () => {
@@ -66,16 +70,18 @@ test('resposta atrasada de autoplay não sobrescreve uma nova reprodução', asy
   assert.equal(app.plays(), 2);
 });
 
-test('fim da narração permite ouvir novamente', async () => {
+test('fim da narração libera a conclusão e uma nova reprodução bloqueia durante a fala', async () => {
   const app = setup(); await new Promise(setImmediate); app.player.listeners.ended();
   assert.equal(app.label.textContent, 'Ouvir explicação novamente');
   assert.equal(app.button['aria-busy'], undefined);
-  await app.click(); assert.equal(app.plays(), 2);
+  assert.equal(app.complete.disabled, false);
+  await app.click(); assert.equal(app.plays(), 2); assert.equal(app.complete.disabled, true);
 });
 
 test('falha de mídia mostra mensagem e permite nova tentativa', async () => {
   const app = setup({ play: () => Promise.reject(new Error('media failure')) });
   await new Promise(setImmediate); assert.match(app.status.textContent, /Não foi possível/);
+  assert.equal(app.complete.disabled, true);
   await app.click(); assert.equal(app.plays(), 2);
   app.player.listeners.error(); assert.match(app.status.textContent, /Tente novamente/);
 });

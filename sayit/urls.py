@@ -35,6 +35,7 @@ urlpatterns = [
     path('progresso/', area, {'pagina': 'progresso'}, name='progresso'),
     path('perfil/', area, {'pagina': 'perfil'}, name='perfil'),
     path('modulos/<int:numero>/progresso/acertos/', progresso_views.registrar_acerto, name='registrar_acerto'),
+    path('modulos/<int:numero>/progresso/erros/', progresso_views.registrar_erro, name='registrar_erro'),
     path('modulos/<int:numero>/progresso/concluir/', progresso_views.concluir_modulo, name='concluir_modulo'),
     path('modulos/1/pratica/', pratica_modulo_1, name='pratica_modulo_1'),
     path('modulos/1/explicacao/', explicacao_modulo_1, name='explicacao_modulo_1'),

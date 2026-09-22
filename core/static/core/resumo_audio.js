@@ -2,10 +2,12 @@
   'use strict';
   const player = document.getElementById('summary-audio');
   const button = document.getElementById('summary-listen');
-  if (!player || !button) return;
+  const complete = document.getElementById('summary-complete');
+  if (!player || !button || !complete) return;
   const label = document.getElementById('summary-listen-label');
   const status = document.getElementById('audio-status');
   let active = false;
+  let heard = false;
   let attempt = 0;
 
   function reset(message = '') {
@@ -15,6 +17,7 @@
     button.removeAttribute('aria-busy');
     label.textContent = 'Ouvir explicação novamente';
     status.textContent = message;
+    complete.disabled = !heard;
   }
 
   function stop() {
@@ -27,6 +30,7 @@
     if (active) stop();
     const current = ++attempt;
     active = true;
+    complete.disabled = true;
     button.setAttribute('aria-pressed', 'true');
     button.setAttribute('aria-busy', 'true');
     label.textContent = 'Ouvir explicação novamente';
@@ -45,11 +49,15 @@
     }
   }
   button.addEventListener('click', () => playExplanation());
-  player.addEventListener('ended', () => reset('Você ouviu a explicação. Pode ouvir novamente ou concluir o módulo.'));
+  player.addEventListener('ended', () => {
+    heard = true;
+    reset('Você ouviu a explicação. Pode ouvir novamente ou concluir o módulo.');
+  });
   player.addEventListener('error', () => reset('Não foi possível ouvir agora. Tente novamente.'));
   player.addEventListener('pause', () => { if (active && player.paused) reset('Reprodução interrompida. Você pode ouvir novamente.'); });
   window.addEventListener('pagehide', stop);
   player.controls = false;
   button.hidden = false;
+  complete.disabled = true;
   void playExplanation(true);
 })();

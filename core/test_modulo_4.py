@@ -1,4 +1,5 @@
 from io import StringIO
+from unittest.mock import patch
 
 from django.contrib.auth import get_user_model
 from django.core.management import call_command
@@ -17,6 +18,9 @@ class Modulo4Tests(TestCase):
         cls.pares = list(cls.modulo.comparacoes.select_related('palavra_base', 'palavra_comparada').order_by('ordem'))
 
     def setUp(self):
+        acesso = patch('core.progresso.modulo_pode_ser_acessado', return_value=True)
+        acesso.start()
+        self.addCleanup(acesso.stop)
         self.client.force_login(self.usuario)
 
     def completar(self):
@@ -33,7 +37,7 @@ class Modulo4Tests(TestCase):
         resposta = self.client.get(reverse('explicacao_modulo_4'))
         self.assertContains(resposta, 'MAGIC E — SOM DO U')
         self.assertContains(resposta, 'cub')
-        self.assertContains(self.client.get(reverse('trilha')), reverse('explicacao_modulo_4'))
+        self.assertNotContains(self.client.get(reverse('trilha')), reverse('explicacao_modulo_4'))
 
     def test_descobertas_bloqueiam_e_exigem_as_duas_palavras(self):
         self.assertEqual(self.client.get(reverse('descoberta_modulo', args=[4, 2])).status_code, 409)

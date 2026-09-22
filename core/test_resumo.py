@@ -55,11 +55,13 @@ class ResumoModuloTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(response, 'A explicação em áudio ainda não está disponível')
         self.assertNotContains(response, 'Ouvir explicação')
-        self.assertNotContains(response, 'id="audio-status"')
+        self.assertContains(response, 'id="audio-status"')
+        self.assertContains(response, 'A narração deste resumo não está disponível')
         self.assertNotContains(response, '<audio')
         self.assertNotContains(response, 'resumo.mp3')
         self.assertNotContains(response, 'resumo_audio.js')
         self.assertContains(response, f'action="{reverse("conclusao_modulo_1")}"')
+        self.assertContains(response, 'id="summary-complete" class="practice-link" type="submit" disabled')
 
     @patch('core.views.default_storage')
     def test_audio_disponivel_renderiza_controle_acessivel(self, storage):
@@ -77,6 +79,7 @@ class ResumoModuloTests(TestCase):
         self.assertContains(response, 'id="audio-status"')
         self.assertContains(response, 'Ouvir explicação novamente')
         self.assertContains(response, 'core/resumo_audio.js')
+        self.assertContains(response, 'id="summary-complete" class="practice-link" type="submit" disabled')
 
     @patch('core.views.default_storage')
     def test_audio_vazio_ou_inacessivel_nao_impede_resumo(self, storage):

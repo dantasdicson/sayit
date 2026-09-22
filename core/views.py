@@ -23,6 +23,10 @@ def descoberta_modulo_1(request, numero, modulo_numero=1):
     if modulo_numero not in progresso.DESCOBERTAS_POR_MODULO:
         raise Http404('Módulo indisponível.')
     modulo = get_object_or_404(Modulo, numero=modulo_numero, ativo=True)
+    try:
+        progresso.exigir_modulo_desbloqueado(request.user, modulo_numero)
+    except progresso.ErroProgresso as erro:
+        return HttpResponse(str(erro), status=erro.status, content_type='text/plain; charset=utf-8')
     par = get_object_or_404(
         modulo.comparacoes.select_related('palavra_base', 'palavra_comparada'),
         ordem=numero,
@@ -62,6 +66,7 @@ def resumo_modulo(request, numero):
         raise Http404('Resumo indisponível.')
     modulo = get_object_or_404(Modulo, numero=numero, ativo=True)
     try:
+        progresso.exigir_modulo_desbloqueado(request.user, numero)
         if not progresso.resumo_pode_ser_acessado(request.user, numero):
             raise progresso.ErroProgresso(
                 'Conclua todas as Descobertas antes de acessar o Resumo.', 'etapa_bloqueada', 409)
@@ -110,6 +115,10 @@ def conclusao_modulo_1(request):
 @login_required
 def explicacao_modulo_2(request, numero=2):
     modulo = get_object_or_404(Modulo, numero=numero, ativo=True)
+    try:
+        progresso.exigir_modulo_desbloqueado(request.user, numero)
+    except progresso.ErroProgresso as erro:
+        return HttpResponse(str(erro), status=erro.status, content_type='text/plain; charset=utf-8')
     comparacoes = list(modulo.comparacoes.select_related('palavra_base', 'palavra_comparada').order_by('ordem'))
     if not comparacoes:
         raise Http404('Descobertas indisponíveis.')
@@ -123,6 +132,7 @@ def explicacao_modulo_2(request, numero=2):
 def conclusao_modulo_2(request, numero=2):
     modulo = get_object_or_404(Modulo, numero=numero, ativo=True)
     try:
+        progresso.exigir_modulo_desbloqueado(request.user, numero)
         if request.method == 'POST':
             progresso.concluir_modulo(request.user, numero)
             return redirect(f'conclusao_modulo_{numero}')

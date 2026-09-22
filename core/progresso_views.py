@@ -49,6 +49,7 @@ def _responder(operacao):
 @csrf_protect
 def registrar_acerto(request, numero):
     def operacao():
+        progresso.exigir_modulo_desbloqueado(request.user, numero)
         dados = _payload(request, ('comparacao_id', 'palavra_id', 'transcricao'))
         return progresso.registrar_acerto(request.user, numero, **dados)
     return _responder(operacao)
@@ -57,8 +58,22 @@ def registrar_acerto(request, numero):
 @login_required
 @require_POST
 @csrf_protect
+def registrar_erro(request, numero):
+    try:
+        progresso.exigir_modulo_desbloqueado(request.user, numero)
+        dados = _payload(request, ('comparacao_id', 'palavra_id', 'transcricao', 'resultado'))
+        resposta = progresso.registrar_erro(request.user, numero, **dados)
+    except progresso.ErroProgresso as erro:
+        return JsonResponse({'erro': erro.codigo, 'mensagem': str(erro)}, status=erro.status)
+    return JsonResponse(resposta, status=201)
+
+
+@login_required
+@require_POST
+@csrf_protect
 def concluir_modulo(request, numero):
     def operacao():
+        progresso.exigir_modulo_desbloqueado(request.user, numero)
         _payload(request, ())
         return progresso.concluir_modulo(request.user, numero)
     return _responder(operacao)
