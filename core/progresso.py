@@ -13,7 +13,7 @@ from django.utils import timezone
 from .models import Modulo, Palavra, Progresso, Tentativa
 from .pronuncia import corresponde
 
-DESCOBERTAS_POR_MODULO = {1: 4, 2: 3, 3: 3, 4: 3, 5: 3}
+DESCOBERTAS_POR_MODULO = {1: 4, 2: 3, 3: 3, 4: 3, 5: 3, 6: 3}
 
 
 class ErroProgresso(Exception):
@@ -135,6 +135,10 @@ def consultar_meu_progresso(usuario):
         usuario=usuario, palavra__modulo__numero=5
     ).exists():
         numeros.append(5)
+    if Progresso.objects.filter(usuario=usuario, modulo__numero=6).exists() or Tentativa.objects.filter(
+        usuario=usuario, palavra__modulo__numero=6
+    ).exists():
+        numeros.append(6)
     return [consultar_progresso(usuario, numero) for numero in numeros
             if numero in DESCOBERTAS_POR_MODULO and Modulo.objects.filter(numero=numero, ativo=True).exists()]
 

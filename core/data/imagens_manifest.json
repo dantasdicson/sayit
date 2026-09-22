@@ -31,7 +31,7 @@
       "traducao": "praia",
       "arquivo": "palavras/imagens/beach.webp",
       "descricao_visual": "Uma praia com areia clara, mar calmo e um pequeno guarda-sol. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d'água ou logotipos.",
-      "status": "pendente"
+      "status": "gerado"
     },
     {
       "palavra": "bit",
@@ -87,28 +87,28 @@
       "traducao": "cadeira",
       "arquivo": "palavras/imagens/chair.webp",
       "descricao_visual": "Uma cadeira de madeira com encosto e quatro pernas visíveis. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d'água ou logotipos.",
-      "status": "pendente"
+      "status": "gerado"
     },
     {
       "palavra": "cheese",
       "traducao": "queijo",
       "arquivo": "palavras/imagens/cheese.webp",
       "descricao_visual": "Uma fatia triangular de queijo amarelo com pequenos furos. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d'água ou logotipos.",
-      "status": "pendente"
+      "status": "gerado"
     },
     {
       "palavra": "chicken",
       "traducao": "galinha",
       "arquivo": "palavras/imagens/chicken.webp",
       "descricao_visual": "Uma galinha simpática com penas claras e crista vermelha. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d'água ou logotipos.",
-      "status": "pendente"
+      "status": "gerado"
     },
     {
       "palavra": "child",
       "traducao": "criança",
       "arquivo": "palavras/imagens/child.webp",
       "descricao_visual": "Uma criança sorridente em pé, acenando. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d'água ou logotipos.",
-      "status": "pendente"
+      "status": "gerado"
     },
     {
       "palavra": "chip",
@@ -122,7 +122,7 @@
       "traducao": "chocolate",
       "arquivo": "palavras/imagens/chocolate.webp",
       "descricao_visual": "Uma barra de chocolate dividida em quadradinhos, parcialmente envolvida em embalagem lisa. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d'água ou logotipos.",
-      "status": "pendente"
+      "status": "gerado"
     },
     {
       "palavra": "cub",
@@ -335,10 +335,10 @@
       "status": "gerado"
     },
     {
-      "palavra": "shell",
-      "traducao": "concha",
-      "arquivo": "palavras/imagens/shell.webp",
-      "descricao_visual": "Uma concha do mar em formato de leque, com sulcos bem visíveis. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d'água ou logotipos.",
+      "palavra": "shovel",
+      "traducao": "pá",
+      "arquivo": "palavras/imagens/shovel.webp",
+      "descricao_visual": "Uma pequena pá de jardim azul com cabo curto de madeira, apoiada sobre um pouco de terra. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d'água ou logotipos.",
       "status": "gerado"
     },
     {
@@ -349,10 +349,10 @@
       "status": "gerado"
     },
     {
-      "palavra": "shoe",
-      "traducao": "sapato",
-      "arquivo": "palavras/imagens/shoe.webp",
-      "descricao_visual": "Um sapato infantil colorido visto de lado, com sola e cadarços visíveis. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d'água ou logotipos.",
+      "palavra": "shark",
+      "traducao": "tubarão",
+      "arquivo": "palavras/imagens/shark.webp",
+      "descricao_visual": "Um tubarão azul simpático, de corpo inteiro, nadando sobre uma pequena faixa de água. Ilustração infantil amigável com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d'água ou logotipos.",
       "status": "gerado"
     },
     {

@@ -1,0 +1,13 @@
+{
+  "modulo": 6,
+  "som": "CH",
+  "estilo": "Ilustração infantil em aquarela e guache, formas suaves, composição clara, sem texto, logotipo ou marca-d'água.",
+  "imagens": [
+    {"palavra": "chair", "arquivo": "media/palavras/imagens/chair.webp", "descricao": "Cadeira pequena de madeira, assento azul, centralizada em fundo creme."},
+    {"palavra": "chicken", "arquivo": "media/palavras/imagens/chicken.webp", "descricao": "Galinha simpática de corpo inteiro, penas douradas e crista vermelha."},
+    {"palavra": "cheese", "arquivo": "media/palavras/imagens/cheese.webp", "descricao": "Fatia de queijo amarelo com furos, centralizada em fundo creme."},
+    {"palavra": "beach", "arquivo": "media/palavras/imagens/beach.webp", "descricao": "Praia ensolarada com mar calmo, guarda-sol e castelo de areia."},
+    {"palavra": "child", "arquivo": "media/palavras/imagens/child.webp", "descricao": "Criança sorridente com camiseta amarela e jardineira azul."},
+    {"palavra": "chocolate", "arquivo": "media/palavras/imagens/chocolate.webp", "descricao": "Barra de chocolate parcialmente aberta em embalagem lisa."}
+  ]
+}

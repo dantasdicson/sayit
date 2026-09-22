@@ -13,9 +13,9 @@
       "prompt": "Use case: illustration-story. One square children's English vocabulary card illustration of a single friendly orange fish, complete body with tail and fins, looking cheerful, big gentle eye. Soft painted watercolor/gouache children's picture book, rounded softly shaded forms, subtle brush texture, clean warm cream background with only a tiny pale blue wash under the fish. Centered large subject fully visible with margins. No text, no lettering, no logos, no watermark, no other animals, no detailed scenery. Match a soft painted educational illustration collection. Output one image."
     },
     {
-      "palavra": "shoe",
-      "arquivo": "media/palavras/imagens/shoe.webp",
-      "prompt": "Use case: illustration-story. One square educational English vocabulary illustration for young children: a single small blue lace-up shoe, cream sole, rounded toe, viewed three-quarter side, full shoe visible centered. Soft painted watercolor and gouache children's picture book style, subtle brush texture, gentle warm light and soft ground shadow, clean warm cream background, large clear subject with generous margin. No person, no feet, no text, no logo, no watermark, no additional objects. Represents shoe. Output one image."
+      "palavra": "shark",
+      "arquivo": "media/palavras/imagens/shark.webp",
+      "prompt": "Use case: illustration-story. One square educational English vocabulary illustration for young children: a single friendly smiling blue shark, full body visible from nose to tail, rounded non-threatening shape, small white teeth, cheerful gentle eyes, swimming above a small soft blue water wash. Children's picture-book watercolor and gouache style, subtle brush texture, soft shading, clean warm cream background, centered large subject with comfortable margins. No text, no lettering, no logo, no watermark, no other animals, no detailed underwater scenery, nothing scary. Represents the English word shark. Output one image."
     },
     {
       "palavra": "sheep",
@@ -28,9 +28,9 @@
       "prompt": "Use case: illustration-story. Create one square children's English vocabulary illustration representing shop: a single small welcoming neighborhood storefront, cream walls, blue-green framed display window and door, warm coral striped fabric awning, a few simple fruit baskets visible in window. Whole little shop centered and isolated, large clear subject fully in frame with comfortable margins. Soft painted watercolor/gouache children's picture book, subtle brush texture, rounded gentle forms, clean warm cream background and faint ground shadow. No words, no letters, no numbers, no signs with writing, no logos, no watermark, no people, no surrounding street. Output one image."
     },
     {
-      "palavra": "shell",
-      "arquivo": "media/palavras/imagens/shell.webp",
-      "prompt": "Use case: illustration-story. One square educational English vocabulary illustration for young children of a single beautiful scallop seashell, fan-shaped with clearly visible gentle ridges, peach and soft coral pink outside fading into cream. Whole shell centered large and fully visible with comfortable margins. Soft painted watercolor/gouache children's picture book style, gentle shading and subtle brush texture, clean warm cream background, a faint soft ground shadow only. No beach scenery, no animals, no other objects, no text, no lettering, no logo, no watermark. Represents shell. Output one image."
+      "palavra": "shovel",
+      "arquivo": "media/palavras/imagens/shovel.webp",
+      "prompt": "Use case: illustration-story. One square educational English vocabulary illustration for young children: a single small garden shovel with a rounded blue metal blade and short warm wooden handle, placed diagonally but fully visible, friendly rounded proportions. Children's picture-book watercolor and gouache style, subtle brush texture, soft shading, clean warm cream background with a faint ground shadow and a tiny patch of loose soil only. Centered large subject with comfortable margins. No person, no hands, no text, no lettering, no logo, no watermark, no other tools, no detailed scenery. Represents the English word shovel. Output one image."
     }
   ]
 }

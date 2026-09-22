@@ -89,7 +89,7 @@ function setup(pair = ['cat', 'cake'], options = {}) {
     saved.add(JSON.parse(request.body).palavra_id);
     const complete = roots.length === 2 && roots.every(root => saved.has(Number(root.dataset.palavraId)));
     return { ok: true, json: async () => ({ modulo: options.module || 1, palavras_acertadas: [...saved],
-      comparacoes_concluidas: complete ? [17] : [], percentual: complete ? ([2, 3, 4, 5].includes(options.module) ? 33 : 25) : 0 }) };
+      comparacoes_concluidas: complete ? [17] : [], percentual: complete ? ([2, 3, 4, 5, 6].includes(options.module) ? 33 : 25) : 0 }) };
   };
   class Recognition {
     constructor() { if (options.constructorError) throw new Error('unavailable'); instances.push(this); }
@@ -481,7 +481,7 @@ for (const [index, pair] of [['cub', 'cube'], ['tub', 'tube'], ['cut', 'cute']].
   });
 }
 
-for (const [index, pair] of [['ship', 'fish'], ['shoe', 'sheep'], ['shop', 'shell']].entries()) {
+for (const [index, pair] of [['ship', 'fish'], ['shark', 'sheep'], ['shop', 'shovel']].entries()) {
   test(`Módulo 5 par ${index + 1}: erro, dois acertos independentes e avanço`, async () => {
     const url = index === 2 ? '/modulos/5/resumo/' : `/modulos/5/descobertas/${index + 2}/`;
     const app = setup(pair, { module: 5, url });
@@ -498,6 +498,21 @@ for (const [index, pair] of [['ship', 'fish'], ['shoe', 'sheep'], ['shop', 'shel
     app.next.click(); assert.deepEqual(app.navigations, [url]);
     const completed = setup(pair, {module: 5, saved: [41, 42], complete: true});
     assert.equal(completed.next.disabled, false); assert.equal(completed.requests.length, 0);
+  });
+}
+
+for (const [index, pair] of [['chair', 'chicken'], ['cheese', 'beach'], ['child', 'chocolate']].entries()) {
+  test(`Módulo 6 par ${index + 1}: exige os dois acertos e avança`, async () => {
+    const url = index === 2 ? '/modulos/6/resumo/' : `/modulos/6/descobertas/${index + 2}/`;
+    const app = setup(pair, {module: 6, url});
+    await app.say(0, pair[1]);
+    assert.equal(app.requests.length, 0); app.locked();
+    await app.say(0, ` ${pair[0].toUpperCase()}! `);
+    assert.equal(app.done(0), true); assert.equal(app.done(1), false); app.locked();
+    assert.equal(app.requests[0].url, '/modulos/6/progresso/acertos/');
+    await app.say(1, pair[1]);
+    assert.equal(app.done(1), true); assert.equal(app.next.disabled, false);
+    app.next.click(); assert.deepEqual(app.navigations, [url]);
   });
 }
 

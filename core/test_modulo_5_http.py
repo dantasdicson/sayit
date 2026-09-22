@@ -78,7 +78,7 @@ class Modulo5HTTPTests(StaticLiveServerTestCase):
         self.assertIn('/media/modulos/5/resumo.mp3', page('/modulos/5/resumo/'))
         content, _ = request('/modulos/5/conclusao/', {}, form=True)
         self.assertIn('Continuar para o próximo módulo', content.decode())
-        self.assertIn('O próximo módulo estará disponível em breve.', content.decode())
+        self.assertIn('/modulos/6/explicacao/', content.decode())
         page('/trilha/')
         estado = Progresso.objects.get(usuario=usuario, modulo__numero=5)
         self.assertEqual(estado.percentual, 100)

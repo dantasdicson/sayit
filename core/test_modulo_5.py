@@ -6,7 +6,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.management import call_command
 from django.test import Client, TestCase
-from django.urls import path, reverse
+from django.urls import reverse
 
 from core import progresso
 from core.models import Modulo, Progresso, Tentativa
@@ -42,9 +42,9 @@ class Modulo5Tests(TestCase):
 
     def test_catalogo_explicacao_e_trilha(self):
         self.assertEqual(list(self.modulo.palavras.values_list('palavra', flat=True)),
-                         ['ship', 'fish', 'shoe', 'sheep', 'shop', 'shell'])
+                         ['ship', 'fish', 'shark', 'sheep', 'shop', 'shovel'])
         self.assertEqual([(p.palavra_base.palavra, p.palavra_comparada.palavra) for p in self.pares],
-                         [('ship', 'fish'), ('shoe', 'sheep'), ('shop', 'shell')])
+                         [('ship', 'fish'), ('shark', 'sheep'), ('shop', 'shovel')])
         r = self.client.get(reverse('explicacao_modulo_5'))
         self.assertTemplateUsed(r, 'core/explicacao_modulo.html')
         self.assertContains(r, 'O SOM SH')
@@ -153,51 +153,18 @@ class Modulo5Tests(TestCase):
             self.assertNotContains(r, '<audio')
             self.assertContains(r, 'Concluir módulo')
 
-    def test_continuar_com_modulo_6_nao_implementado_ou_inativo(self):
+    def test_continuar_para_modulo_6_implementado_e_fallback_se_inativo(self):
         self.completar()
         self.client.post(reverse('conclusao_modulo_5'))
-        for ativo in (True, False):
-            Modulo.objects.filter(numero=6).update(ativo=ativo)
-            r = self.client.get(reverse('conclusao_modulo_5'))
-            self.assertContains(r, 'Continuar para o próximo módulo')
-            self.assertContains(r, 'O próximo módulo estará disponível em breve.')
-            self.assertContains(r, f'class="practice-link" href="{reverse("trilha")}"')
-            self.assertEqual(self.client.get(reverse('trilha')).status_code, 200)
-            self.assertNotContains(r, '/modulos/6/explicacao/')
-
-    def test_proximo_modulo_futuro_usa_catalogo_e_rota(self):
-        # Simula a implementação futura sem habilitar o Módulo 6 em produção.
-        from django.http import HttpResponse
-        from sayit.urls import urlpatterns
-        urls = type('UrlsFuturas', (), {'urlpatterns': urlpatterns + [
-            path('modulos/6/explicacao/', lambda request: HttpResponse('CH'), name='explicacao_modulo_6')
-        ]})
-        self.completar()
-        self.client.post(reverse('conclusao_modulo_5'))
-        consultar_real = progresso.consultar_progresso
-        with self.settings(ROOT_URLCONF=urls), patch.dict(progresso.DESCOBERTAS_POR_MODULO, {6: 3}), patch(
-            'core.views.progresso.consultar_progresso'
-        ) as consulta:
-            # Somente a consulta do próximo catálogo é simulada.
-            consulta.side_effect = lambda usuario, numero: {'modulo': Modulo.objects.get(numero=6)} if numero == 6 else consultar_real(usuario, numero)
-            r = self.client.get(reverse('conclusao_modulo_5'))
-            destino = reverse('explicacao_modulo_6')
-            self.assertEqual(r.context['proximo_url'], destino)
-            self.assertEqual(self.client.get(destino).status_code, 200)
-
-    def test_proximo_modulo_sem_rota_ou_catalogo_completo_volta_a_trilha(self):
-        self.completar()
-        self.client.post(reverse('conclusao_modulo_5'))
-        with patch.dict(progresso.DESCOBERTAS_POR_MODULO, {6: 3}):
-            self.assertIsNone(self.client.get(reverse('conclusao_modulo_5')).context['proximo_url'])
-        consultar_real = progresso.consultar_progresso
-        with patch.dict(progresso.DESCOBERTAS_POR_MODULO, {6: 3}), patch(
-            'core.views.progresso.consultar_progresso'
-        ) as consulta:
-            consulta.side_effect = lambda usuario, numero: {'modulo': Modulo.objects.get(numero=6)} if numero == 6 else consultar_real(usuario, numero)
-            r = self.client.get(reverse('conclusao_modulo_5'))
-            self.assertContains(r, 'Continuar para o próximo módulo')
-            self.assertIsNone(r.context['proximo_url'])
+        r = self.client.get(reverse('conclusao_modulo_5'))
+        destino = reverse('explicacao_modulo_6')
+        self.assertContains(r, f'href="{destino}"')
+        self.assertEqual(r.context['proximo_url'], destino)
+        self.assertEqual(self.client.get(destino).status_code, 200)
+        Modulo.objects.filter(numero=6).update(ativo=False)
+        r = self.client.get(reverse('conclusao_modulo_5'))
+        self.assertContains(r, 'O próximo módulo estará disponível em breve.')
+        self.assertContains(r, f'class="practice-link" href="{reverse("trilha")}"')
 
     def test_midias_reais_associacao_e_renderizacao(self):
         from core.management.commands.associar_audios import Command as Audios

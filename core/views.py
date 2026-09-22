@@ -48,7 +48,7 @@ def descoberta_modulo_1(request, numero, modulo_numero=1):
         'modulo': modulo, 'comparacao': par, 'percentual': estado['percentual'],
         'descoberta_concluida': par.pk in estado['comparacoes_concluidas'],
         'proxima': numero + 1 if numero < total else None,
-        'etapas': range(1, total + 1), 'vogal': {1: 'A', 2: 'I', 3: 'O', 4: 'U', 5: 'SH'}[modulo_numero],
+        'etapas': range(1, total + 1), 'vogal': {1: 'A', 2: 'I', 3: 'O', 4: 'U', 5: 'SH', 6: 'CH'}[modulo_numero],
         'proxima_url': (reverse('descoberta_modulo_1', args=[numero + 1]) if modulo_numero == 1
                         else reverse('descoberta_modulo', args=[modulo_numero, numero + 1]))
                        if numero < total else reverse(f'resumo_modulo_{modulo_numero}'),
@@ -114,7 +114,7 @@ def explicacao_modulo_2(request, numero=2):
     if not comparacoes:
         raise Http404('Descobertas indisponíveis.')
     return render(request, 'core/explicacao_modulo.html', {
-        'modulo': modulo, 'vogal': {2: 'I', 3: 'O', 4: 'U', 5: 'SH'}[numero], 'primeira': comparacoes[0], 'total': len(comparacoes),
+        'modulo': modulo, 'vogal': {2: 'I', 3: 'O', 4: 'U', 5: 'SH', 6: 'CH'}[numero], 'primeira': comparacoes[0], 'total': len(comparacoes),
     })
 
 
@@ -141,7 +141,7 @@ def conclusao_modulo_2(request, numero=2):
             pass
     return render(request, 'core/conclusao_modulo.html', {'modulo': modulo, 'total': estado['total_descobertas'],
         'proximo_url': proximo_url,
-        'vogal': {2: 'I', 3: 'O', 4: 'U', 5: 'SH'}[numero], 'introducao_url': reverse(f'explicacao_modulo_{numero}')})
+        'vogal': {2: 'I', 3: 'O', 4: 'U', 5: 'SH', 6: 'CH'}[numero], 'introducao_url': reverse(f'explicacao_modulo_{numero}')})
 
 
 @login_required

@@ -1,10 +1,21 @@
 """Conteúdo dos resumos habilitados; mídia relativa ao storage de MEDIA_ROOT."""
 
 RESUMOS = {
+    6: {
+        'subtitulo': 'O som CH',
+        'paragrafos': (
+            'Você ouviu e falou CHAIR e CHICKEN, CHEESE e BEACH, CHILD e CHOCOLATE.',
+            'Nestas palavras, C e H juntos fazem um som parecido com tch.',
+            'O som CH pode aparecer no começo, como em CHAIR, ou no final, como em BEACH. Escute e repita com calma!',
+        ),
+        'reforco': 'Muito bem! Você terminou a revisão do som CH.',
+        'audio': 'modulos/6/resumo.mp3',
+        'conclusao': 'conclusao_modulo_6',
+    },
     5: {
         'subtitulo': 'O som SH',
         'paragrafos': (
-            'Você ouviu e falou SHIP e FISH, SHOE e SHEEP, SHOP e SHELL.',
+            'Você ouviu e falou SHIP e FISH, SHARK e SHEEP, SHOP e SHOVEL.',
             'S e H juntos fazem um som parecido com o pedido de silêncio: shhh!',
             'Esse som aparece no começo de SHIP e no final de FISH. Escute e repita com calma!',
         ),

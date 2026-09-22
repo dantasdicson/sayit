@@ -55,6 +55,9 @@ urlpatterns = [
     path('modulos/5/explicacao/', explicacao_modulo_2, {'numero': 5}, name='explicacao_modulo_5'),
     path('modulos/5/resumo/', resumo_modulo, {'numero': 5}, name='resumo_modulo_5'),
     path('modulos/5/conclusao/', conclusao_modulo_2, {'numero': 5}, name='conclusao_modulo_5'),
+    path('modulos/6/explicacao/', explicacao_modulo_2, {'numero': 6}, name='explicacao_modulo_6'),
+    path('modulos/6/resumo/', resumo_modulo, {'numero': 6}, name='resumo_modulo_6'),
+    path('modulos/6/conclusao/', conclusao_modulo_2, {'numero': 6}, name='conclusao_modulo_6'),
 ]
 
 if settings.DEBUG:

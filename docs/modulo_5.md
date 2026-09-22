@@ -20,7 +20,7 @@ na ordem abaixo. Não havia comparações. A teoria foi preservada:
 > esse som em ship e fish. Ele pode aparecer no começo ou no final.
 
 As três descobertas novas agrupam as palavras cadastradas, sem inventar
-vocabulário: ship/fish, shoe/sheep, shop/shell. São pares de prática de SH,
+vocabulário: ship/fish, shark/sheep, shop/shovel. São pares de prática de SH,
 não transformações de Magic E. Os textos específicos foram adaptados.
 
 ## Fluxo e reutilização
@@ -57,10 +57,10 @@ Todos os caminhos abaixo são relativos a `MEDIA_ROOT`, que corresponde a
 |---|---|---|---|---|
 | 1 | ship | navio | palavras/imagens/ship.webp | palavras/audios/ship.mp3 |
 | 2 | fish | peixe | palavras/imagens/fish.webp | palavras/audios/fish.mp3 |
-| 3 | shoe | sapato | palavras/imagens/shoe.webp | palavras/audios/shoe.mp3 |
+| 3 | shark | tubarão | palavras/imagens/shark.webp | palavras/audios/shark.mp3 |
 | 4 | sheep | ovelha | palavras/imagens/sheep.webp | palavras/audios/sheep.mp3 |
 | 5 | shop | loja | palavras/imagens/shop.webp | palavras/audios/shop.mp3 |
-| 6 | shell | concha | palavras/imagens/shell.webp | palavras/audios/shell.mp3 |
+| 6 | shovel | pá | palavras/imagens/shovel.webp | palavras/audios/shovel.mp3 |
 
 Imagens: seis ilustrações novas, inspecionadas visualmente, em WebP RGB,
 1254 × 1254, qualidade 90. Geração pela ferramenta integrada `image_gen`,
@@ -76,7 +76,7 @@ O manifesto de imagens agora marca essas seis entradas como `gerado`.
 e associados com `associar_audios --modulo 5`, após dry-run sem erros.
 Nenhum áudio anterior foi recriado ou alterado.
 
-Resumo: `media/modulos/5/resumo.mp3`, **35,88 segundos**, MP3 mono, 24 kHz.
+Resumo: `media/modulos/5/resumo.mp3`, **36,31 segundos**, MP3 mono, 24 kHz.
 Gerador: `docs/gerar_resumo_modulo_5.py`. Português com
 `pt-BR-FranciscaNeural`; cada exemplo inglês com `en-US-JennyNeural`.
 Taxa `+0%`, concatenação dos segmentos e pausas naturais iguais ao gerador

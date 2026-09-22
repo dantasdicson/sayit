@@ -2,7 +2,7 @@
 {% block title %}Introdução · Módulo {{ modulo.numero }} | SayIt!{% endblock %}
 {% block content %}
 <section class="intro" aria-labelledby="titulo">
-  <p class="eyebrow">MÓDULO {{ modulo.numero }} • {% if modulo.numero == 5 %}O SOM SH{% else %}MAGIC E — SOM DO {{ vogal }}{% endif %}</p>
+  <p class="eyebrow">MÓDULO {{ modulo.numero }} • {% if modulo.numero >= 5 %}O SOM {{ modulo.titulo }}{% else %}MAGIC E — SOM DO {{ vogal }}{% endif %}</p>
   <h1 id="titulo">{{ modulo.titulo }}</h1>
 </section>
 <section class="sayit-card education-card" aria-label="Conheça {{ modulo.titulo }}">

@@ -66,10 +66,10 @@ MODULOS = [
         "palavras": [
             ("ship", "navio", 1),
             ("fish", "peixe", 2),
-            ("shoe", "sapato", 3),
+            ("shark", "tubarão", 3),
             ("sheep", "ovelha", 4),
             ("shop", "loja", 5),
-            ("shell", "concha", 6),
+            ("shovel", "pá", 6),
         ],
     },
     {
@@ -167,7 +167,8 @@ PARES_DIDATICOS = {
     2: [("kit", "kite"), ("bit", "bite"), ("fin", "fine")],
     3: [("hop", "hope"), ("not", "note"), ("rob", "robe")],
     4: [("cub", "cube"), ("tub", "tube"), ("cut", "cute")],
-    5: [("ship", "fish"), ("shoe", "sheep"), ("shop", "shell")],
+    5: [("ship", "fish"), ("shark", "sheep"), ("shop", "shovel")],
+    6: [("chair", "chicken"), ("cheese", "beach"), ("child", "chocolate")],
 }
 
 
@@ -194,6 +195,15 @@ class Command(BaseCommand):
                     },
                 )
                 totais["modulos"] += 1
+                # Mantém o PK e os acertos da versão inicial do Módulo 5.
+                if modulo.numero == 5 and not modulo.palavras.filter(palavra='shark').exists():
+                    modulo.palavras.filter(palavra='shoe').update(
+                        palavra='shark', traducao='tubarão', imagem='', audio=''
+                    )
+                if modulo.numero == 5 and not modulo.palavras.filter(palavra='shovel').exists():
+                    modulo.palavras.filter(palavra='shell').update(
+                        palavra='shovel', traducao='pá', imagem='', audio=''
+                    )
                 palavras_modulo = {}
                 for palavra, traducao, ordem in dados_modulo["palavras"]:
                     registro, _ = Palavra.objects.update_or_create(
@@ -227,6 +237,9 @@ class Command(BaseCommand):
                         f"Escute {base} e {destino}: procure o som SH nas duas palavras. "
                         "S e H juntos fazem um som parecido com o pedido de silêncio: shhh!"
                     ) if modulo.numero == 5 else (
+                        f"Escute {base} e {destino}: procure o som CH nas duas palavras. "
+                        "C e H juntos fazem um som parecido com tch."
+                    ) if modulo.numero == 6 else (
                         f"Compare {base} e {destino}: o E final de {destino} "
                         "é silencioso e muda o som da vogal. "
                         "Observe também as outras letras e o significado de cada palavra."

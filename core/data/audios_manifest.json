@@ -415,10 +415,10 @@
       "motor": "edge-tts"
     },
     {
-      "palavra": "shell",
-      "traducao": "concha",
-      "arquivo": "palavras/audios/shell.mp3",
-      "texto_falado": "shell",
+      "palavra": "shovel",
+      "traducao": "pá",
+      "arquivo": "palavras/audios/shovel.mp3",
+      "texto_falado": "shovel",
       "voz": "en-US-JennyNeural",
       "status": "gerado",
       "motor": "edge-tts"
@@ -433,10 +433,10 @@
       "motor": "edge-tts"
     },
     {
-      "palavra": "shoe",
-      "traducao": "sapato",
-      "arquivo": "palavras/audios/shoe.mp3",
-      "texto_falado": "shoe",
+      "palavra": "shark",
+      "traducao": "tubarão",
+      "arquivo": "palavras/audios/shark.mp3",
+      "texto_falado": "shark",
       "voz": "en-US-JennyNeural",
       "status": "gerado",
       "motor": "edge-tts"
