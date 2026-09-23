@@ -88,7 +88,7 @@ class Command(BaseCommand):
             entries = document["audios"]
             pairs = set(Palavra.objects.order_by().values_list("palavra", "traducao").distinct())
             words = [entry["palavra"] for entry in entries]
-            if len(entries) != 58 or len(set(words)) != 58:
+            if len(entries) != len(pairs) or len(set(words)) != len(entries):
                 raise ValueError
             if {(e["palavra"], e["traducao"]) for e in entries} != pairs:
                 raise ValueError
@@ -106,7 +106,7 @@ class Command(BaseCommand):
             return document
         except (OSError, ValueError, KeyError, TypeError):
             raise CommandError(
-                "Manifesto inválido: confira as 58 palavras, traduções, caminhos e parâmetros."
+                "Manifesto inválido: confira as palavras, traduções, caminhos e parâmetros."
             ) from None
 
     def generate(self, entry, destination):

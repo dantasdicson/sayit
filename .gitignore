@@ -74,3 +74,10 @@ media/palavras/audios/*
 !media/palavras/audios/trophy.mp3
 .idea/
 .runlogs/
+!media/palavras/imagens/pin.webp
+!media/palavras/imagens/pine.webp
+!media/palavras/audios/pin.mp3
+!media/palavras/audios/pine.mp3
+!media/modulos/2/
+media/modulos/2/*
+!media/modulos/2/resumo.mp3

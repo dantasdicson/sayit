@@ -199,19 +199,19 @@
       "motor": "edge-tts"
     },
     {
-      "palavra": "fin",
-      "traducao": "barbatana",
-      "arquivo": "palavras/audios/fin.mp3",
-      "texto_falado": "fin",
+      "palavra": "pin",
+      "traducao": "alfinete",
+      "arquivo": "palavras/audios/pin.mp3",
+      "texto_falado": "pin",
       "voz": "en-US-JennyNeural",
       "status": "gerado",
       "motor": "edge-tts"
     },
     {
-      "palavra": "fine",
-      "traducao": "bem",
-      "arquivo": "palavras/audios/fine.mp3",
-      "texto_falado": "fine",
+      "palavra": "pine",
+      "traducao": "pinheiro",
+      "arquivo": "palavras/audios/pine.mp3",
+      "texto_falado": "pine",
       "voz": "en-US-JennyNeural",
       "status": "gerado",
       "motor": "edge-tts"
@@ -491,15 +491,6 @@
       "traducao": "isto",
       "arquivo": "palavras/audios/this.mp3",
       "texto_falado": "this",
-      "voz": "en-US-JennyNeural",
-      "status": "gerado",
-      "motor": "edge-tts"
-    },
-    {
-      "palavra": "three",
-      "traducao": "três",
-      "arquivo": "palavras/audios/three.mp3",
-      "texto_falado": "three",
       "voz": "en-US-JennyNeural",
       "status": "gerado",
       "motor": "edge-tts"

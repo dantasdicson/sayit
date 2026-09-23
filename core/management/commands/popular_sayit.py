@@ -29,8 +29,8 @@ MODULOS = [
             ("kite", "pipa", 2),
             ("bit", "pedaço", 3),
             ("bite", "mordida", 4),
-            ("fin", "barbatana", 5),
-            ("fine", "bem", 6),
+            ("pin", "alfinete", 5),
+            ("pine", "pinheiro", 6),
         ],
     },
     {
@@ -165,13 +165,14 @@ CONTEUDOS_TEORICOS = {
 
 PARES_DIDATICOS = {
     1: [("cat", "cake"), ("cap", "cape"), ("tap", "tape"), ("mad", "made")],
-    2: [("kit", "kite"), ("bit", "bite"), ("fin", "fine")],
+    2: [("kit", "kite"), ("bit", "bite"), ("pin", "pine")],
     3: [("hop", "hope"), ("not", "note"), ("rob", "robe")],
     4: [("cub", "cube"), ("tub", "tube"), ("cut", "cute")],
     5: [("ship", "fish"), ("shark", "sheep"), ("shop", "shovel")],
     6: [("chair", "chicken"), ("cheese", "beach"), ("child", "chocolate")],
     7: [("think", "this"), ("tooth", "that"), ("bath", "mother")],
     8: [("phone", "photo"), ("elephant", "dolphin"), ("alphabet", "trophy")],
+    9: [("moon", "book"), ("food", "good"), ("room", "look"), ("school", "foot")],
 }
 
 
@@ -198,6 +199,12 @@ class Command(BaseCommand):
                     },
                 )
                 totais["modulos"] += 1
+                if modulo.numero == 2:
+                    for antiga, nova, traducao in [('fin', 'pin', 'alfinete'), ('fine', 'pine', 'pinheiro')]:
+                        if not modulo.palavras.filter(palavra=nova).exists():
+                            modulo.palavras.filter(palavra=antiga).update(
+                                palavra=nova, traducao=traducao, imagem='', audio=''
+                            )
                 # Mantém o PK e os acertos da versão inicial do Módulo 5.
                 if modulo.numero == 5 and not modulo.palavras.filter(palavra='shark').exists():
                     modulo.palavras.filter(palavra='shoe').update(
@@ -254,6 +261,9 @@ class Command(BaseCommand):
                         f"Escute {base} e {destino}: procure o som de F nas duas palavras. "
                         "Nestas palavras, P e H trabalham juntos e soam como F."
                     ) if modulo.numero == 8 else (
+                        f"Escute {base} e {destino}: compare os dois sons de OO. "
+                        f"Em {base}, o som é longo; em {destino}, o som é curto."
+                    ) if modulo.numero == 9 else (
                         f"Compare {base} e {destino}: o E final de {destino} "
                         "é silencioso e muda o som da vogal. "
                         "Observe também as outras letras e o significado de cada palavra."

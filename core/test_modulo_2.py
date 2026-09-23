@@ -42,12 +42,29 @@ class Modulo2Tests(TestCase):
 
     def test_catalogo_e_explicacao(self):
         self.assertEqual([(p.palavra_base.palavra, p.palavra_comparada.palavra) for p in self.pares],
-                         [('kit', 'kite'), ('bit', 'bite'), ('fin', 'fine')])
+                         [('kit', 'kite'), ('bit', 'bite'), ('pin', 'pine')])
         r = self.client.get(reverse('explicacao_modulo_2'))
         self.assertContains(r, 'MAGIC E — SOM DO I')
         self.assertContains(r, self.modulo.conteudo_teorico)
         self.assertContains(r, self.url(1))
         self.assertNotContains(self.client.get(reverse('trilha')), reverse('explicacao_modulo_2'))
+
+    def test_substituicao_pin_pine_preserva_ids_e_associa_midias(self):
+        par = self.pares[2]
+        ids = (par.pk, par.palavra_base_id, par.palavra_comparada_id)
+        Palavra.objects.filter(pk=ids[1]).update(palavra='fin', traducao='barbatana')
+        Palavra.objects.filter(pk=ids[2]).update(palavra='fine', traducao='bem')
+        call_command('popular_sayit', modulo=2, stdout=StringIO())
+        call_command('popular_sayit', modulo=2, stdout=StringIO())
+        par.refresh_from_db()
+        self.assertEqual((par.pk, par.palavra_base_id, par.palavra_comparada_id), ids)
+        self.assertEqual((par.palavra_base.palavra, par.palavra_comparada.palavra), ('pin', 'pine'))
+        self.assertEqual(self.modulo.palavras.count(), 6)
+        call_command('associar_imagens', modulo=2, stdout=StringIO())
+        call_command('associar_audios', modulo=2, stdout=StringIO())
+        for word in self.modulo.palavras.filter(palavra__in=['pin', 'pine']):
+            self.assertTrue(word.imagem.storage.exists(word.imagem.name))
+            self.assertTrue(word.audio.storage.exists(word.audio.name))
 
     def test_primeira_descoberta_reutiliza_template_e_estado(self):
         r = self.client.get(self.url(1))

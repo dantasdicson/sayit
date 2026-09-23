@@ -80,7 +80,7 @@ class Modulo8Tests(TestCase):
         self.assertEqual([c['acertada'] for c in self.client.get(self.url(1)).context['cards']], [True, False])
         self.assertIn(8, [item['modulo'].numero for item in progresso.consultar_meu_progresso(self.usuario)])
 
-    def test_resumo_conclusao_e_modulo_9_indisponivel(self):
+    def test_resumo_conclusao_e_modulo_9_disponivel(self):
         self.completar()
         with patch('core.views.default_storage') as storage:
             storage.exists.return_value = True
@@ -92,8 +92,7 @@ class Modulo8Tests(TestCase):
         self.assertRedirects(self.client.post(reverse('conclusao_modulo_8')), reverse('conclusao_modulo_8'))
         conclusao = self.client.get(reverse('conclusao_modulo_8'))
         self.assertContains(conclusao, 'Continuar para o próximo módulo')
-        self.assertContains(conclusao, 'O próximo módulo estará disponível em breve.')
-        self.assertContains(conclusao, f'href="{reverse("trilha")}"')
+        self.assertContains(conclusao, f'href="{reverse("explicacao_modulo_9")}"')
         estado = Progresso.objects.get(usuario=self.usuario, modulo=self.modulo)
         self.assertEqual(estado.percentual, 100)
         self.assertIsNotNone(estado.concluido_em)

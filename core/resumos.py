@@ -1,6 +1,22 @@
 """Conteúdo dos resumos habilitados; mídia relativa ao storage de MEDIA_ROOT."""
 
+
+def encerramento_resumo(numero):
+    return (f'Você terminou a revisão do módulo {numero}. '
+            f'Vamos para o próximo: o módulo {numero + 1}!')
+
 RESUMOS = {
+    9: {
+        'subtitulo': 'Os dois sons de OO',
+        'paragrafos': (
+            'Você ouviu e falou MOON e BOOK, FOOD e GOOD, ROOM e LOOK, SCHOOL e FOOT.',
+            'A combinação OO pode ter um som longo, como em MOON, ou um som curto, como em BOOK.',
+            'Observe a posição da boca, escute cada palavra e repita sem pressa!',
+        ),
+        'reforco': 'Muito bem! Você terminou a revisão dos sons de OO.',
+        'audio': 'modulos/9/resumo.mp3',
+        'conclusao': 'conclusao_modulo_9',
+    },
     8: {
         'subtitulo': 'O som PH',
         'paragrafos': (
@@ -70,7 +86,7 @@ RESUMOS = {
     2: {
         'subtitulo': 'Magic E — Som do I',
         'paragrafos': (
-            'Você ouviu e falou KIT e KITE, BIT e BITE, FIN e FINE.',
+            'Você ouviu e falou KIT e KITE, BIT e BITE, PIN e PINE.',
             'Nessas palavras, o E no final fica silencioso e faz o I soar como o nome da letra I em inglês.',
             'Compare KIT e KITE: uma letra no final muda o som e o significado da palavra!',
         ),
@@ -89,3 +105,6 @@ RESUMOS = {
         'conclusao': 'conclusao_modulo_1',
     },
 }
+
+for numero, resumo in RESUMOS.items():
+    resumo['reforco'] = encerramento_resumo(numero)

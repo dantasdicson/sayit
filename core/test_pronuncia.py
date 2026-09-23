@@ -50,7 +50,7 @@ class PronunciaEndpointTests(TestCase):
         acesso.start()
         self.addCleanup(acesso.stop)
 
-    def test_alias_backend_idempotente_e_numeral_aceito(self):
+    def test_pin_backend_idempotente_e_distinto_de_pine(self):
         self.client.force_login(self.usuario)
         pares = list(self.modulo.comparacoes.select_related('palavra_base', 'palavra_comparada').order_by('ordem'))
         for par in pares[:2]:
@@ -61,13 +61,16 @@ class PronunciaEndpointTests(TestCase):
         url = reverse('registrar_acerto', args=[2])
         self.assertEqual(self.client.post(url, payload, content_type='application/json').status_code, 400)
         self.assertEqual(Tentativa.objects.count(), 4)
-        for text in [' Finn! ', 'fin', 'Finn', 'fine', 'ten', '10']:
+        for text in ['pine', 'fin', 'fine', 'ten', '10']:
+            payload['transcricao'] = text
+            self.assertEqual(self.client.post(url, payload, content_type='application/json').status_code, 400)
+        for text in [' PIN! ', 'pin', 'Pin']:
             payload['transcricao'] = text
             r = self.client.post(url, payload, content_type='application/json')
             self.assertEqual(r.status_code, 200)
             self.assertEqual(r.json()['percentual'], 66)
         self.assertEqual(Tentativa.objects.count(), 5)
-        self.assertEqual(Tentativa.objects.get(palavra=par.palavra_base).resposta_reconhecida, 'finn')
+        self.assertEqual(Tentativa.objects.get(palavra=par.palavra_base).resposta_reconhecida, 'pin')
 
     def test_cats_registra_acerto_de_cat(self):
         self.client.force_login(self.usuario)

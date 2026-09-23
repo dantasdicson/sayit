@@ -29,7 +29,7 @@ class ContinuacaoModulosTests(TestCase):
         return self.client.post(reverse(f'conclusao_modulo_{numero}'), follow=True)
 
     def test_conclusao_oferece_proximo_modulo_e_destino_abre(self):
-        for numero in (2, 3, 4, 5, 6, 7):
+        for numero in (2, 3, 4, 5, 6, 7, 8):
             with self.subTest(numero=numero):
                 resposta = self.concluir(numero)
                 destino = reverse(f'explicacao_modulo_{numero + 1}')
@@ -38,7 +38,7 @@ class ContinuacaoModulosTests(TestCase):
                 self.assertEqual(self.client.get(destino).status_code, 200)
 
     def test_ultimo_modulo_implementado_volta_a_trilha(self):
-        resposta = self.concluir(8)
+        resposta = self.concluir(9)
         self.assertContains(resposta, f'href="{reverse("trilha")}"')
         self.assertContains(resposta, 'Continuar para o próximo módulo')
         self.assertContains(resposta, 'O próximo módulo estará disponível em breve.')

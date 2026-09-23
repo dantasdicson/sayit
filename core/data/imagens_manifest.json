@@ -167,18 +167,18 @@
       "status": "gerado"
     },
     {
-      "palavra": "fin",
-      "traducao": "barbatana",
-      "arquivo": "palavras/imagens/fin.webp",
-      "descricao_visual": "Um peixe visto de lado, com a barbatana dorsal destacada pela cor e pelo contorno. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d'água ou logotipos.",
-      "status": "pendente"
+      "palavra": "pin",
+      "traducao": "alfinete",
+      "arquivo": "palavras/imagens/pin.webp",
+      "descricao_visual": "Alfinete de cabeça redonda vermelha, pintura infantil suave, fundo limpo, sem texto.",
+      "status": "gerado"
     },
     {
-      "palavra": "fine",
-      "traducao": "bem",
-      "arquivo": "palavras/imagens/fine.webp",
-      "descricao_visual": "Uma criança sorrindo e fazendo um gesto indicando que está bem. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d'água ou logotipos.",
-      "status": "pendente"
+      "palavra": "pine",
+      "traducao": "pinheiro",
+      "arquivo": "palavras/imagens/pine.webp",
+      "descricao_visual": "Pinheiro verde, pintura infantil suave, fundo limpo, sem texto.",
+      "status": "gerado"
     },
     {
       "palavra": "fish",
