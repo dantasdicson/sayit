@@ -62,6 +62,20 @@
       "status": "pendente"
     },
     {
+      "palavra": "can",
+      "traducao": "lata",
+      "arquivo": "palavras/imagens/can.webp",
+      "descricao_visual": "Uma caixa aberta com um conjunto organizado de materiais de pintura: pincéis, tintas e lápis sem inscrições. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d'água ou logotipos.",
+      "status": "pendente"
+    },
+    {
+      "palavra": "cane",
+      "traducao": "cana",
+      "arquivo": "palavras/imagens/cane.webp",
+      "descricao_visual": "Uma pipa colorida no ar, com linha e rabiola de laços. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d'água ou logotipos.",
+      "status": "pendente"
+    },
+    {
       "palavra": "cap",
       "traducao": "boné",
       "arquivo": "palavras/imagens/cap.webp",
@@ -167,20 +181,6 @@
       "status": "gerado"
     },
     {
-      "palavra": "pin",
-      "traducao": "alfinete",
-      "arquivo": "palavras/imagens/pin.webp",
-      "descricao_visual": "Alfinete de cabeça redonda vermelha, pintura infantil suave, fundo limpo, sem texto.",
-      "status": "gerado"
-    },
-    {
-      "palavra": "pine",
-      "traducao": "pinheiro",
-      "arquivo": "palavras/imagens/pine.webp",
-      "descricao_visual": "Pinheiro verde, pintura infantil suave, fundo limpo, sem texto.",
-      "status": "gerado"
-    },
-    {
       "palavra": "fish",
       "traducao": "peixe",
       "arquivo": "palavras/imagens/fish.webp",
@@ -221,20 +221,6 @@
       "arquivo": "palavras/imagens/hope.webp",
       "descricao_visual": "Uma criança olhando para uma estrela com expressão otimista. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d'água ou logotipos.",
       "status": "gerada"
-    },
-    {
-      "palavra": "kit",
-      "traducao": "kit",
-      "arquivo": "palavras/imagens/kit.webp",
-      "descricao_visual": "Uma caixa aberta com um conjunto organizado de materiais de pintura: pincéis, tintas e lápis sem inscrições. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d'água ou logotipos.",
-      "status": "pendente"
-    },
-    {
-      "palavra": "kite",
-      "traducao": "pipa",
-      "arquivo": "palavras/imagens/kite.webp",
-      "descricao_visual": "Uma pipa colorida no ar, com linha e rabiola de laços. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d'água ou logotipos.",
-      "status": "pendente"
     },
     {
       "palavra": "look",
@@ -300,6 +286,20 @@
       "status": "gerado"
     },
     {
+      "palavra": "pin",
+      "traducao": "alfinete",
+      "arquivo": "palavras/imagens/pin.webp",
+      "descricao_visual": "Alfinete de cabeça redonda vermelha, pintura infantil suave, fundo limpo, sem texto.",
+      "status": "gerado"
+    },
+    {
+      "palavra": "pine",
+      "traducao": "pinheiro",
+      "arquivo": "palavras/imagens/pine.webp",
+      "descricao_visual": "Pinheiro verde, pintura infantil suave, fundo limpo, sem texto.",
+      "status": "gerado"
+    },
+    {
       "palavra": "rob",
       "traducao": "roubar",
       "arquivo": "palavras/imagens/rob.webp",
@@ -361,6 +361,20 @@
       "arquivo": "palavras/imagens/shovel.webp",
       "descricao_visual": "Uma pequena pá de jardim azul com cabo curto de madeira, apoiada sobre um pouco de terra. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d'água ou logotipos.",
       "status": "gerado"
+    },
+    {
+      "palavra": "sit",
+      "traducao": "sentar",
+      "arquivo": "palavras/imagens/sit.webp",
+      "descricao_visual": "Uma caixa aberta com um conjunto organizado de materiais de pintura: pincéis, tintas e lápis sem inscrições. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d'água ou logotipos.",
+      "status": "pendente"
+    },
+    {
+      "palavra": "site",
+      "traducao": "local",
+      "arquivo": "palavras/imagens/site.webp",
+      "descricao_visual": "Uma pipa colorida no ar, com linha e rabiola de laços. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d'água ou logotipos.",
+      "status": "pendente"
     },
     {
       "palavra": "tap",

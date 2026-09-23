@@ -20,7 +20,7 @@
       <div class="progress-track" role="progressbar" aria-label="Progresso do módulo {{ item.modulo.numero }}" aria-valuenow="{{ item.percentual }}" aria-valuemin="0" aria-valuemax="100"><span style="width:{{ item.percentual }}%"></span></div>
       <small>{{ item.percentual }}% concluído</small>
     </div>
-    {% if item.bloqueado %}<span class="availability">Conclua o módulo anterior</span>{% else %}<a class="sayit-button{% if item.concluido %} sayit-button--secondary{% endif %}" href="{{ item.url }}">{% if item.concluido %}Revisar{% elif item.iniciado %}Continuar{% else %}Começar{% endif %} →</a>{% endif %}
+    {% if item.indisponivel %}<span class="availability">Descobertas indisponíveis no momento</span>{% elif item.bloqueado %}<span class="availability">Conclua o módulo anterior</span>{% else %}<a class="sayit-button{% if item.concluido %} sayit-button--secondary{% endif %}" href="{{ item.url }}">{% if item.concluido %}Revisar{% elif item.iniciado %}Continuar{% else %}Começar{% endif %} →</a>{% endif %}
   </article>{% endfor %}
 </section>
 {% elif pagina == 'modulos' %}
@@ -34,7 +34,7 @@
   <article class="sayit-card stat-card"><strong>{{ total_modulos }}</strong><span>Disponíveis</span></article>
 </section>
 {% if proximo_modulo %}<section class="sayit-card next-module"><div><span class="module-number">PRÓXIMO PASSO</span><h2>{{ proximo_modulo.modulo.titulo }}</h2><p>Módulo {{ proximo_modulo.modulo.numero }} · {{ proximo_modulo.percentual }}% concluído</p></div><a class="sayit-button" href="{{ proximo_modulo.url }}">Continuar aprendendo →</a></section>{% endif %}
-<section class="module-summary-list" aria-label="Situação de cada módulo">{% for item in modulos_estado %}<article class="module-summary-row{% if item.bloqueado %} is-locked{% endif %}"><div><strong>Módulo {{ item.modulo.numero }} · {{ item.modulo.titulo }}</strong><span>{% if item.bloqueado %}🔒 Bloqueado — conclua o módulo anterior{% elif item.concluido %}Concluído{% elif item.iniciado %}Em andamento{% else %}Não iniciado{% endif %}</span></div><div class="progress-track"><span style="width:{{ item.percentual }}%"></span></div><b>{{ item.percentual }}%</b></article>{% endfor %}</section>
+<section class="module-summary-list" aria-label="Situação de cada módulo">{% for item in modulos_estado %}<article class="module-summary-row{% if item.bloqueado %} is-locked{% endif %}"><div><strong>Módulo {{ item.modulo.numero }} · {{ item.modulo.titulo }}</strong><span>{% if item.indisponivel %}Descobertas indisponíveis no momento{% elif item.bloqueado %}🔒 Bloqueado — conclua o módulo anterior{% elif item.concluido %}Concluído{% elif item.iniciado %}Em andamento{% else %}Não iniciado{% endif %}</span></div><div class="progress-track"><span style="width:{{ item.percentual }}%"></span></div><b>{{ item.percentual }}%</b></article>{% endfor %}</section>
 {% elif pagina == 'progresso' %}
 <section class="stats-grid progress-stats" aria-label="Suas estatísticas">
   <article class="sayit-card stat-card"><strong>{{ percentual_curso }}%</strong><span>Progresso geral</span></article>

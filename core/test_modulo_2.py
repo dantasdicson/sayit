@@ -36,13 +36,13 @@ class Modulo2Tests(TestCase):
         }, content_type='application/json')
 
     def completar(self):
-        for i in range(3):
+        for i in range(4):
             self.assertEqual(self.acertar(i).status_code, 200)
             self.assertEqual(self.acertar(i, True).status_code, 200)
 
     def test_catalogo_e_explicacao(self):
         self.assertEqual([(p.palavra_base.palavra, p.palavra_comparada.palavra) for p in self.pares],
-                         [('kit', 'kite'), ('bit', 'bite'), ('pin', 'pine')])
+                         [('bit', 'bite'), ('fin', 'pin'), ('pin', 'pine'), ('sit', 'site')])
         r = self.client.get(reverse('explicacao_modulo_2'))
         self.assertContains(r, 'MAGIC E — SOM DO I')
         self.assertContains(r, self.modulo.conteudo_teorico)
@@ -59,7 +59,7 @@ class Modulo2Tests(TestCase):
         par.refresh_from_db()
         self.assertEqual((par.pk, par.palavra_base_id, par.palavra_comparada_id), ids)
         self.assertEqual((par.palavra_base.palavra, par.palavra_comparada.palavra), ('pin', 'pine'))
-        self.assertEqual(self.modulo.palavras.count(), 6)
+        self.assertEqual(self.modulo.palavras.count(), 7)
         call_command('associar_imagens', modulo=2, stdout=StringIO())
         call_command('associar_audios', modulo=2, stdout=StringIO())
         for word in self.modulo.palavras.filter(palavra__in=['pin', 'pine']):
@@ -69,7 +69,7 @@ class Modulo2Tests(TestCase):
     def test_primeira_descoberta_reutiliza_template_e_estado(self):
         r = self.client.get(self.url(1))
         self.assertTemplateUsed(r, 'core/descoberta_modulo_1.html')
-        self.assertContains(r, 'Descoberta 1 de 3')
+        self.assertContains(r, 'Descoberta 1 de 4')
         self.assertContains(r, 'data-modulo="2"')
         self.assertContains(r, f'data-comparacao-id="{self.pares[0].pk}"')
         self.assertContains(r, '/modulos/2/progresso/acertos/')
@@ -91,11 +91,11 @@ class Modulo2Tests(TestCase):
                 self.assertContains(r, palavra.imagem.url)
                 self.assertContains(r, f'aria-label="Ouvir {palavra.palavra}"')
             self.assertFalse(r.context['descoberta_concluida'])
-            self.assertEqual(self.acertar(i).json()['percentual'], i * 100 // 3)
+            self.assertEqual(self.acertar(i).json()['percentual'], i * 100 // 4)
             parcial = self.client.get(self.url(i + 1))
             self.assertEqual([c['acertada'] for c in parcial.context['cards']], [True, False])
             self.assertFalse(parcial.context['descoberta_concluida'])
-            self.assertEqual(self.acertar(i, True).json()['percentual'], (i + 1) * 100 // 3)
+            self.assertEqual(self.acertar(i, True).json()['percentual'], (i + 1) * 100 // 4)
             antes = Tentativa.objects.count()
             final = self.client.get(self.url(i + 1))
             self.assertTrue(final.context['descoberta_concluida'])
@@ -104,7 +104,7 @@ class Modulo2Tests(TestCase):
         self.assertIsNone(Progresso.objects.get().concluido_em)
 
     def test_sequencia_e_resumo_bloqueados(self):
-        for ordem in (2, 3):
+        for ordem in (2, 3, 4):
             self.assertEqual(self.client.get(self.url(ordem)).status_code, 409)
         self.assertEqual(self.acertar(1).status_code, 409)
         self.assertEqual(self.client.get(reverse('resumo_modulo_2')).status_code, 409)

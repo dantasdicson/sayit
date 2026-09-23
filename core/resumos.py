@@ -86,9 +86,9 @@ RESUMOS = {
     2: {
         'subtitulo': 'Magic E — Som do I',
         'paragrafos': (
-            'Você ouviu e falou KIT e KITE, BIT e BITE, PIN e PINE.',
+            'Você ouviu e falou BIT e BITE, CAN e CANE, PIN e PINE, SIT e SITE.',
             'Nessas palavras, o E no final fica silencioso e faz o I soar como o nome da letra I em inglês.',
-            'Compare KIT e KITE: uma letra no final muda o som e o significado da palavra!',
+            'Compare CAN e CANE: uma letra no final muda o som e o significado da palavra!',
         ),
         'reforco': 'Muito bem! Você terminou a revisão do Magic E — som do I.',
         'audio': 'modulos/2/resumo.mp3',

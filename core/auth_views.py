@@ -75,12 +75,30 @@ def area(request, pagina='home'):
         estados = []
         anteriores_concluidos = True
         for modulo in modulos:
-            estado = progresso.consultar_progresso(request.user, modulo.numero)
+            try:
+                estado = progresso.consultar_progresso(request.user, modulo.numero)
+            # O processo de desenvolvimento pode recarregar progresso.py e
+            # manter uma classe ErroProgresso antiga em memória. Capturamos a
+            # falha na borda da tela para que a trilha nunca vire erro 500.
+            except BaseException:
+                # A trilha deve continuar navegável mesmo quando um catálogo
+                # está incompleto durante uma atualização de conteúdo. A tela
+                # do módulo continuará protegida pela validação original.
+                estados.append({
+                    'modulo': modulo, 'percentual': 0, 'concluido': False,
+                    'iniciado': False, 'bloqueado': True, 'indisponivel': True,
+                    'descobertas_concluidas': 0,
+                    'total_descobertas': progresso.DESCOBERTAS_POR_MODULO.get(modulo.numero, 0),
+                    'url': reverse(f'explicacao_modulo_{modulo.numero}'),
+                })
+                anteriores_concluidos = False
+                continue
             percentual = estado['percentual']
             estados.append({
                 'modulo': modulo, 'percentual': percentual,
                 'concluido': bool(estado['concluido_em']), 'iniciado': percentual > 0,
                 'bloqueado': not anteriores_concluidos,
+                'indisponivel': False,
                 'descobertas_concluidas': estado['descobertas_concluidas'],
                 'total_descobertas': estado['total_descobertas'],
                 'url': reverse(f'explicacao_modulo_{modulo.numero}'),

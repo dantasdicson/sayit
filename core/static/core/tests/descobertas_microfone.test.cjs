@@ -25,7 +25,7 @@ for (const transcript of ['fins', 'Finn fine']) {
   });
 }
 
-for (const pair of [['cat', 'cake'], ['cap', 'cape'], ['kit', 'kite'], ['hop', 'hope'], ['cub', 'cube'], ['pin', 'pine']]) {
+for (const pair of [['cat', 'cake'], ['cap', 'cape'], ['sit', 'site'], ['hop', 'hope'], ['cub', 'cube'], ['pin', 'pine']]) {
   test(`par ${pair.join('/')} permanece distinto nos dois sentidos`, async () => {
     const app = setup(pair);
     await app.say(0, pair[1]); await app.say(1, pair[0]);
@@ -127,9 +127,9 @@ function setup(pair = ['cat', 'cake'], options = {}) {
   return { roots, next, status, state, start, say, locked, done, instances, navigations, timers, window, audio, requests };
 }
 
-for (const [index, pair] of [['kit', 'kite'], ['bit', 'bite'], ['pin', 'pine']].entries()) {
+for (const [index, pair] of [['bit', 'bite'], ['fin', 'pin'], ['pin', 'pine'], ['sit', 'site']].entries()) {
   test(`Módulo 2 par ${index + 1}: erro, dois acertos, áudio disponível e avanço`, async () => {
-    const url = index === 2 ? '/modulos/2/resumo/' : `/modulos/2/descobertas/${index + 2}/`;
+    const url = index === 3 ? '/modulos/2/resumo/' : `/modulos/2/descobertas/${index + 2}/`;
     const app = setup(pair, { module: 2, url });
     await app.say(0, 'wrong');
     assert.equal(app.requests.length, 0); app.locked();

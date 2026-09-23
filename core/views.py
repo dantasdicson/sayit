@@ -94,6 +94,8 @@ def resumo_modulo(request, numero):
     return render(request, 'core/resumo_modulo.html', {
         'modulo': modulo, 'resumo': resumo, 'pares': pares,
         'audio_url': audio_url, 'conclusao_url': reverse(resumo['conclusao']),
+        'modulo_ja_concluido': progresso.Progresso.objects.filter(
+            usuario=request.user, modulo=modulo, concluido_em__isnull=False).exists(),
     })
 
 

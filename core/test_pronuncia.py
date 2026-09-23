@@ -33,7 +33,7 @@ class PronunciaTests(SimpleTestCase):
             self.assertFalse(corresponde('mad', text))
 
     def test_pares_distintos(self):
-        for a, b in [('cat', 'cake'), ('cap', 'cape'), ('kit', 'kite'), ('hop', 'hope'), ('cub', 'cube')]:
+        for a, b in [('cat', 'cake'), ('cap', 'cape'), ('sit', 'site'), ('hop', 'hope'), ('cub', 'cube')]:
             self.assertFalse(corresponde(a, b))
             self.assertFalse(corresponde(b, a))
 

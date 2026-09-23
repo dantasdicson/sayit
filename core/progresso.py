@@ -13,7 +13,7 @@ from django.utils import timezone
 from .models import Modulo, Palavra, Progresso, Tentativa
 from .pronuncia import corresponde
 
-DESCOBERTAS_POR_MODULO = {1: 4, 2: 3, 3: 3, 4: 3, 5: 3, 6: 3, 7: 3, 8: 3, 9: 4}
+DESCOBERTAS_POR_MODULO = {1: 4, 2: 4, 3: 3, 4: 3, 5: 3, 6: 3, 7: 3, 8: 3, 9: 4}
 
 
 class ErroProgresso(Exception):

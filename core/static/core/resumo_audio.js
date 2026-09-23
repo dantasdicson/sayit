@@ -9,6 +9,7 @@
   let active = false;
   let heard = false;
   let attempt = 0;
+  const alreadyComplete = !!(complete.dataset && complete.dataset.alreadyComplete);
 
   function reset(message = '') {
     active = false;
@@ -17,7 +18,7 @@
     button.removeAttribute('aria-busy');
     label.textContent = 'Ouvir explicação novamente';
     status.textContent = message;
-    complete.disabled = !heard;
+    complete.disabled = alreadyComplete ? false : !heard;
   }
 
   function stop() {
@@ -30,7 +31,7 @@
     if (active) stop();
     const current = ++attempt;
     active = true;
-    complete.disabled = true;
+    complete.disabled = !alreadyComplete;
     button.setAttribute('aria-pressed', 'true');
     button.setAttribute('aria-busy', 'true');
     label.textContent = 'Ouvir explicação novamente';
@@ -58,6 +59,6 @@
   window.addEventListener('pagehide', stop);
   player.controls = false;
   button.hidden = false;
-  complete.disabled = true;
+  complete.disabled = !alreadyComplete;
   void playExplanation(true);
 })();

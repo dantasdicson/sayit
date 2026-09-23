@@ -1,7 +1,10 @@
 from collections import defaultdict
 from contextlib import nullcontext
 from pathlib import Path
-import miniaudio
+try:
+    import miniaudio
+except ImportError:  # Permite associação simples no Python global do Windows.
+    miniaudio = None
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
@@ -99,10 +102,11 @@ class Command(BaseCommand):
                 return 'invalido', 'Não é um arquivo MP3 regular'
             if arquivo.stat().st_size == 0:
                 return 'invalido', 'Arquivo vazio'
-            miniaudio.mp3_get_file_info(str(arquivo))
-            audio = miniaudio.mp3_read_file_f32(str(arquivo))
-            if not len(audio.samples):
-                return 'invalido', 'MP3 sem amostras decodificáveis'
-        except (OSError, ValueError, miniaudio.DecodeError):
+            if miniaudio is not None:
+                miniaudio.mp3_get_file_info(str(arquivo))
+                audio = miniaudio.mp3_read_file_f32(str(arquivo))
+                if not len(audio.samples):
+                    return 'invalido', 'MP3 sem amostras decodificáveis'
+        except (OSError, ValueError, getattr(miniaudio, 'DecodeError', ValueError)):
             return 'invalido', 'Não foi possível abrir ou decodificar o MP3'
         return 'valido', ''

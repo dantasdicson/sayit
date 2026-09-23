@@ -64,6 +64,24 @@
       "motor": "edge-tts"
     },
     {
+      "palavra": "can",
+      "traducao": "lata",
+      "arquivo": "palavras/audios/can.mp3",
+      "texto_falado": "can",
+      "voz": "en-US-JennyNeural",
+      "status": "pendente",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "cane",
+      "traducao": "cana",
+      "arquivo": "palavras/audios/cane.mp3",
+      "texto_falado": "cane",
+      "voz": "en-US-JennyNeural",
+      "status": "pendente",
+      "motor": "edge-tts"
+    },
+    {
       "palavra": "cap",
       "traducao": "boné",
       "arquivo": "palavras/audios/cap.mp3",
@@ -199,24 +217,6 @@
       "motor": "edge-tts"
     },
     {
-      "palavra": "pin",
-      "traducao": "alfinete",
-      "arquivo": "palavras/audios/pin.mp3",
-      "texto_falado": "pin",
-      "voz": "en-US-JennyNeural",
-      "status": "gerado",
-      "motor": "edge-tts"
-    },
-    {
-      "palavra": "pine",
-      "traducao": "pinheiro",
-      "arquivo": "palavras/audios/pine.mp3",
-      "texto_falado": "pine",
-      "voz": "en-US-JennyNeural",
-      "status": "gerado",
-      "motor": "edge-tts"
-    },
-    {
       "palavra": "fish",
       "traducao": "peixe",
       "arquivo": "palavras/audios/fish.mp3",
@@ -266,24 +266,6 @@
       "traducao": "esperança",
       "arquivo": "palavras/audios/hope.mp3",
       "texto_falado": "hope",
-      "voz": "en-US-JennyNeural",
-      "status": "gerado",
-      "motor": "edge-tts"
-    },
-    {
-      "palavra": "kit",
-      "traducao": "kit",
-      "arquivo": "palavras/audios/kit.mp3",
-      "texto_falado": "kit",
-      "voz": "en-US-JennyNeural",
-      "status": "gerado",
-      "motor": "edge-tts"
-    },
-    {
-      "palavra": "kite",
-      "traducao": "pipa",
-      "arquivo": "palavras/audios/kite.mp3",
-      "texto_falado": "kite",
       "voz": "en-US-JennyNeural",
       "status": "gerado",
       "motor": "edge-tts"
@@ -370,6 +352,24 @@
       "motor": "edge-tts"
     },
     {
+      "palavra": "pin",
+      "traducao": "alfinete",
+      "arquivo": "palavras/audios/pin.mp3",
+      "texto_falado": "pin",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "pine",
+      "traducao": "pinheiro",
+      "arquivo": "palavras/audios/pine.mp3",
+      "texto_falado": "pine",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
       "palavra": "rob",
       "traducao": "roubar",
       "arquivo": "palavras/audios/rob.mp3",
@@ -448,6 +448,24 @@
       "texto_falado": "shovel",
       "voz": "en-US-JennyNeural",
       "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "sit",
+      "traducao": "sentar",
+      "arquivo": "palavras/audios/sit.mp3",
+      "texto_falado": "sit",
+      "voz": "en-US-JennyNeural",
+      "status": "pendente",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "site",
+      "traducao": "local",
+      "arquivo": "palavras/audios/site.mp3",
+      "texto_falado": "site",
+      "voz": "en-US-JennyNeural",
+      "status": "pendente",
       "motor": "edge-tts"
     },
     {

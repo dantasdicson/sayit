@@ -37,7 +37,7 @@ class ResumoModuloTests(TestCase):
         self.assertContains(response, 'MÓDULO 1 · RESUMO')
         self.assertContains(response, 'O que você aprendeu?')
         self.assertContains(response, 'Magic E — Som do A')
-        self.assertContains(response, 'Muito bem! Você terminou a revisão do Magic E.')
+        self.assertContains(response, 'Você terminou a revisão do módulo 1. Vamos para o próximo: o módulo 2!')
         self.assertNotContains(response, 'Agora você já sabe:')
         expected = [('cat', 'cake'), ('cap', 'cape'), ('tap', 'tape'), ('mad', 'made')]
         self.assertEqual([

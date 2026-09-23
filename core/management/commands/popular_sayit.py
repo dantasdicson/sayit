@@ -25,12 +25,14 @@ MODULOS = [
         "titulo": "Magic E: mudança do som do I",
         "descricao": "Aprenda como o E final silencioso pode modificar a pronúncia da vogal I.",
         "palavras": [
-            ("kit", "kit", 1),
-            ("kite", "pipa", 2),
-            ("bit", "pedaço", 3),
-            ("bite", "mordida", 4),
+            ("bit", "pedaço", 1),
+            ("bite", "mordida", 2),
+            ("can", "lata", 3),
+            ("cane", "cana", 4),
             ("pin", "alfinete", 5),
             ("pine", "pinheiro", 6),
+            ("sit", "sentar", 6),
+            ("site", "local", 7),
         ],
     },
     {
@@ -165,7 +167,7 @@ CONTEUDOS_TEORICOS = {
 
 PARES_DIDATICOS = {
     1: [("cat", "cake"), ("cap", "cape"), ("tap", "tape"), ("mad", "made")],
-    2: [("kit", "kite"), ("bit", "bite"), ("pin", "pine")],
+    2: [("bit", "bite"), ("can", "cane"), ("pin", "pine"), ("sit", "site")],
     3: [("hop", "hope"), ("not", "note"), ("rob", "robe")],
     4: [("cub", "cube"), ("tub", "tube"), ("cut", "cute")],
     5: [("ship", "fish"), ("shark", "sheep"), ("shop", "shovel")],
@@ -200,11 +202,21 @@ class Command(BaseCommand):
                 )
                 totais["modulos"] += 1
                 if modulo.numero == 2:
-                    for antiga, nova, traducao in [('fin', 'pin', 'alfinete'), ('fine', 'pine', 'pinheiro')]:
+                    # Reaproveita registros antigos protegidos por tentativas.
+                    for antiga, nova, traducao in [('kit', 'sit', 'sentar'), ('kite', 'site', 'local')]:
+                        if modulo.palavras.filter(palavra=antiga).exists() and not modulo.palavras.filter(palavra=nova).exists():
+                            modulo.palavras.filter(palavra=antiga).update(
+                                palavra=nova, traducao=traducao, imagem='', audio='',
+                                ordem=1000000 + modulo.palavras.filter(palavra=antiga).values_list('pk', flat=True).first()
+                            )
+                    for antiga, nova, traducao in [('fin', 'can', 'lata'), ('fine', 'cane', 'cana')]:
                         if not modulo.palavras.filter(palavra=nova).exists():
                             modulo.palavras.filter(palavra=antiga).update(
                                 palavra=nova, traducao=traducao, imagem='', audio=''
                             )
+                    # As comparações antigas podem ter a mesma ordem de uma nova;
+                    # recriá-las torna a carga idempotente sem apagar tentativas.
+                    modulo.comparacoes.all().delete()
                 # Mantém o PK e os acertos da versão inicial do Módulo 5.
                 if modulo.numero == 5 and not modulo.palavras.filter(palavra='shark').exists():
                     modulo.palavras.filter(palavra='shoe').update(
@@ -220,6 +232,14 @@ class Command(BaseCommand):
                         palavra='tooth', traducao='dente', imagem='', audio=''
                     )
                 palavras_modulo = {}
+                if modulo.numero == 2:
+                    # Libera temporariamente as posições antigas antes de
+                    # trocar palavras ou aumentar o catálogo. A constraint
+                    # modulo_id + ordem é única no SQLite.
+                    for palavra_existente in modulo.palavras.only('pk').iterator():
+                        Palavra.objects.filter(pk=palavra_existente.pk).update(
+                            ordem=1000000 + palavra_existente.pk
+                        )
                 for palavra, traducao, ordem in dados_modulo["palavras"]:
                     registro, _ = Palavra.objects.update_or_create(
                         modulo=modulo,
@@ -227,12 +247,16 @@ class Command(BaseCommand):
                         defaults={
                             "traducao": traducao,
                             "observacao": "",
-                            "ordem": ordem,
+                            "ordem": 2000000 + ordem if modulo.numero == 2 else ordem,
                             "ativa": True,
                         },
                     )
                     palavras_modulo[palavra] = registro
                     totais["palavras"] += 1
+
+                if modulo.numero == 2:
+                    for palavra, _, ordem in dados_modulo["palavras"]:
+                        Palavra.objects.filter(pk=palavras_modulo[palavra].pk).update(ordem=ordem)
 
                 for ordem, (base, destino) in enumerate(
                     PARES_DIDATICOS.get(modulo.numero, []), start=1
