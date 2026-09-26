@@ -20,6 +20,8 @@ def explicacao_modulo_1(request):
 @login_required
 @never_cache
 def descoberta_modulo_1(request, numero, modulo_numero=1):
+    if modulo_numero == 10:
+        return redirect('desafio_modulo_10', numero=min(numero, 3))
     if modulo_numero not in progresso.DESCOBERTAS_POR_MODULO:
         raise Http404('Módulo indisponível.')
     modulo = get_object_or_404(Modulo, numero=modulo_numero, ativo=True)

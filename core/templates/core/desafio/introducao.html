@@ -1,0 +1,15 @@
+{% extends 'core/desafio/base.html' %}
+{% block title %}Desafio Final · Módulo 10 | SayIt!{% endblock %}
+{% block content %}
+<header class="intro"><p class="eyebrow">MÓDULO 10 · DESAFIO FINAL</p><h1>Agora é a sua vez de falar frases!</h1>
+<p class="explanation">Três desafios para usar os sons que você aprendeu.</p></header>
+<section class="sayit-card education-card">
+  <h2>Monte, fale e descubra sua nota</h2>
+  <ol class="challenge-instructions"><li>Toque nas palavras para montar a frase.</li><li>Confira a ordem e fale usando o microfone.</li><li>Consiga pelo menos 70 pontos para avançar. Você pode tentar de novo!</li></ol>
+  <p>A nota final é a média das suas melhores notas nos três desafios.</p>
+  <p class="muted">A pontuação considera as palavras que o navegador reconhece. Ela não mede seu sotaque nem substitui uma avaliação de pronúncia.</p>
+  {% if estado.legado %}<p class="tip">Sua conclusão da versão anterior foi preservada. Complete os novos desafios para receber sua pontuação.</p>{% endif %}
+  <div class="practice-start"><a class="sayit-button" href="{% url 'desafio_modulo_10' inicio %}">{% if estado.pendente %}Começar ou continuar{% else %}Praticar novamente{% endif %}</a></div>
+  {% if estado.final != None %}<p><a href="{% url 'resumo_modulo_10' %}">Ver meu resultado: {{ estado.final }}/100</a></p>{% endif %}
+</section>
+{% endblock %}

@@ -20,9 +20,19 @@
       || (word === 'cane' && text === 'kane')
       || (word === 'bit' && text === 'bitch')
       || (word === 'cat' && text === 'cats')
+      || (word === 'peach' && text === 'beach')
       || (word === 'fin' && !!accepted);
     const heard = displayExpected ? word : transcripts[0] || '';
     return { heard, accepted };
   }
-  window.SayItPronuncia = { normalize, matches, select };
+  function createRecognition() {
+    const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const recognition = new Recognition();
+    recognition.lang = 'en-US';
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 3;
+    return recognition;
+  }
+  window.SayItPronuncia = { normalize, matches, select, createRecognition };
 })();

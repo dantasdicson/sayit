@@ -130,8 +130,8 @@ MODULOS = [
     },
     {
         "numero": 10,
-        "titulo": "Revisão geral",
-        "descricao": "Revise e compare os principais padrões de pronúncia estudados na trilha.",
+        "titulo": "Desafio Final",
+        "descricao": "Monte e fale frases em inglês em três desafios para concluir sua jornada.",
         "palavras": [
             ("cat", "gato", 1),
             ("cake", "bolo", 2),
@@ -162,10 +162,11 @@ CONTEUDOS_TEORICOS = {
     7: "Para experimentar TH, coloque de leve a ponta da língua entre os dentes e sopre. Em think, a garganta não vibra; em this, ela vibra. Tente sentir a diferença!",
     8: "P e H juntos costumam soar como F. Escute phone e elephant e procure esse som. Duas letras podem trabalhar juntas para formar um só som!",
     9: "OO pode ter sons diferentes. Compare moon e book: a posição da boca muda, não apenas a duração do som. Ouça as palavras e repita sem pressa.",
-    10: "Vamos rever o que aprendemos! Escute as palavras, procure o E silencioso e as combinações de letras. Repita com calma e tente perceber o que muda em cada som.",
+    10: "Monte as palavras na ordem correta e use o microfone para falar a frase. Alcance pelo menos 70 pontos em cada um dos três desafios.",
 }
 
 PARES_DIDATICOS = {
+    10: [("cat", "cake"), ("ship", "chip"), ("think", "this"), ("moon", "book")],
     1: [("cat", "cake"), ("cap", "cape"), ("tap", "tape"), ("mad", "made")],
     2: [("bit", "bite"), ("can", "cane"), ("pin", "pine"), ("sit", "site")],
     3: [("hop", "hope"), ("not", "note"), ("rob", "robe")],
@@ -201,6 +202,9 @@ class Command(BaseCommand):
                     },
                 )
                 totais["modulos"] += 1
+                if modulo.numero == 10 and modulo.palavras.exists():
+                    # Preserve the existing word catalog and its attempt history.
+                    continue
                 if modulo.numero == 2:
                     # Reaproveita registros antigos protegidos por tentativas.
                     for antiga, nova, traducao in [('kit', 'sit', 'sentar'), ('kite', 'site', 'local')]:

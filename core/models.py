@@ -234,6 +234,25 @@ class Sessao(models.Model):
         )
 
 
+class TentativaDesafio(models.Model):
+    """Histórico de frases separado das tentativas legadas de palavras."""
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='tentativas_desafio')
+    modulo = models.ForeignKey(Modulo, on_delete=models.PROTECT, related_name='tentativas_desafio')
+    desafio = models.PositiveSmallIntegerField()
+    versao = models.CharField(max_length=40)
+    requisicao = models.UUIDField(unique=True)
+    frase = models.CharField(max_length=255)
+    transcricao = models.CharField(max_length=255, blank=True)
+    nota = models.PositiveSmallIntegerField(validators=[MaxValueValidator(100)])
+    avaliacao = models.JSONField()
+    criada_em = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        ordering = ['criada_em', 'pk']
+        constraints = [models.CheckConstraint(condition=models.Q(nota__lte=100), name='desafio_nota_ate_100')]
+        indexes = [models.Index(fields=['usuario', 'modulo', 'versao', 'desafio'], name='desafio_usuario_versao')]
+
+
 class Tentativa(models.Model):
 
     class Resultado(models.TextChoices):
