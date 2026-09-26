@@ -9,6 +9,7 @@ from django.views.decorators.http import require_http_methods
 from core.models import Modulo
 from core import progresso
 from core.resumos import RESUMOS
+from core.narracao_resumos import VERSAO_AUDIO
 from core.pronuncia import VARIANTES
 
 @login_required
@@ -20,6 +21,8 @@ def explicacao_modulo_1(request):
 @login_required
 @never_cache
 def descoberta_modulo_1(request, numero, modulo_numero=1):
+    if modulo_numero == 10:
+        return redirect('desafio_modulo_10', numero=min(numero, 3))
     if modulo_numero not in progresso.DESCOBERTAS_POR_MODULO:
         raise Http404('Módulo indisponível.')
     modulo = get_object_or_404(Modulo, numero=modulo_numero, ativo=True)
@@ -52,7 +55,7 @@ def descoberta_modulo_1(request, numero, modulo_numero=1):
         'modulo': modulo, 'comparacao': par, 'percentual': estado['percentual'],
         'descoberta_concluida': par.pk in estado['comparacoes_concluidas'],
         'proxima': numero + 1 if numero < total else None,
-        'etapas': range(1, total + 1), 'vogal': {1: 'A', 2: 'I', 3: 'O', 4: 'U', 5: 'SH', 6: 'CH', 7: 'TH', 8: 'PH', 9: 'OO'}[modulo_numero],
+        'etapas': range(1, total + 1), 'vogal': {1: 'A', 2: 'I', 3: 'O', 4: 'U', 5: 'SH', 6: 'CH', 7: 'TH', 8: 'PH', 9: 'OO', 10: 'Revisão geral'}[modulo_numero],
         'proxima_url': (reverse('descoberta_modulo_1', args=[numero + 1]) if modulo_numero == 1
                         else reverse('descoberta_modulo', args=[modulo_numero, numero + 1]))
                        if numero < total else reverse(f'resumo_modulo_{modulo_numero}'),
@@ -60,6 +63,7 @@ def descoberta_modulo_1(request, numero, modulo_numero=1):
 
 
 @login_required
+@never_cache
 def resumo_modulo(request, numero):
     resumo = RESUMOS.get(numero)
     if resumo is None:
@@ -88,6 +92,7 @@ def resumo_modulo(request, numero):
     try:
         if default_storage.exists(resumo['audio']) and default_storage.size(resumo['audio']) > 0:
             audio_url = default_storage.url(resumo['audio'])
+            audio_url += ('&' if '?' in audio_url else '?') + 'v=' + VERSAO_AUDIO
     except OSError:
         # Falha de acesso à mídia não impede a leitura nem a conclusão.
         pass
@@ -125,7 +130,7 @@ def explicacao_modulo_2(request, numero=2):
     if not comparacoes:
         raise Http404('Descobertas indisponíveis.')
     return render(request, 'core/explicacao_modulo.html', {
-        'modulo': modulo, 'vogal': {2: 'I', 3: 'O', 4: 'U', 5: 'SH', 6: 'CH', 7: 'TH', 8: 'PH', 9: 'OO'}[numero], 'primeira': comparacoes[0], 'total': len(comparacoes),
+        'modulo': modulo, 'vogal': {2: 'I', 3: 'O', 4: 'U', 5: 'SH', 6: 'CH', 7: 'TH', 8: 'PH', 9: 'OO', 10: 'Revisão geral'}[numero], 'primeira': comparacoes[0], 'total': len(comparacoes),
     })
 
 
@@ -153,7 +158,7 @@ def conclusao_modulo_2(request, numero=2):
             pass
     return render(request, 'core/conclusao_modulo.html', {'modulo': modulo, 'total': estado['total_descobertas'],
         'proximo_url': proximo_url,
-        'vogal': {2: 'I', 3: 'O', 4: 'U', 5: 'SH', 6: 'CH', 7: 'TH', 8: 'PH', 9: 'OO'}[numero], 'introducao_url': reverse(f'explicacao_modulo_{numero}')})
+        'vogal': {2: 'I', 3: 'O', 4: 'U', 5: 'SH', 6: 'CH', 7: 'TH', 8: 'PH', 9: 'OO', 10: 'Revisão geral'}[numero], 'introducao_url': reverse(f'explicacao_modulo_{numero}')})
 
 
 @login_required

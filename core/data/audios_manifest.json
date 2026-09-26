@@ -1,6 +1,114 @@
 {
   "audios": [
     {
+      "palavra": "plum",
+      "traducao": "ameixa",
+      "arquivo": "palavras/audios/plum.mp3",
+      "texto_falado": "plum",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "plume",
+      "traducao": "pluma",
+      "arquivo": "palavras/audios/plume.mp3",
+      "texto_falado": "plume",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "dish",
+      "traducao": "prato",
+      "arquivo": "palavras/audios/dish.mp3",
+      "texto_falado": "dish",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "brush",
+      "traducao": "escova",
+      "arquivo": "palavras/audios/brush.mp3",
+      "texto_falado": "brush",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "cherry",
+      "traducao": "cereja",
+      "arquivo": "palavras/audios/cherry.mp3",
+      "texto_falado": "cherry",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "peach",
+      "traducao": "pêssego",
+      "arquivo": "palavras/audios/peach.mp3",
+      "texto_falado": "peach",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "thumb",
+      "traducao": "polegar",
+      "arquivo": "palavras/audios/thumb.mp3",
+      "texto_falado": "thumb",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "father",
+      "traducao": "pai",
+      "arquivo": "palavras/audios/father.mp3",
+      "texto_falado": "father",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "graph",
+      "traducao": "gráfico",
+      "arquivo": "palavras/audios/graph.mp3",
+      "texto_falado": "graph",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "sphere",
+      "traducao": "esfera",
+      "arquivo": "palavras/audios/sphere.mp3",
+      "texto_falado": "sphere",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "cop",
+      "traducao": "policial",
+      "arquivo": "palavras/audios/cop.mp3",
+      "texto_falado": "cop",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "cope",
+      "traducao": "lidar com uma dificuldade",
+      "arquivo": "palavras/audios/cope.mp3",
+      "texto_falado": "cope",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
       "palavra": "alphabet",
       "traducao": "alfabeto",
       "arquivo": "palavras/audios/alphabet.mp3",
@@ -29,7 +137,7 @@
     },
     {
       "palavra": "bit",
-      "traducao": "pedaço",
+      "traducao": "broca",
       "arquivo": "palavras/audios/bit.mp3",
       "texto_falado": "bit",
       "voz": "en-US-JennyNeural",
@@ -69,16 +177,16 @@
       "arquivo": "palavras/audios/can.mp3",
       "texto_falado": "can",
       "voz": "en-US-JennyNeural",
-      "status": "pendente",
+      "status": "gerado",
       "motor": "edge-tts"
     },
     {
       "palavra": "cane",
-      "traducao": "cana",
+      "traducao": "bengala",
       "arquivo": "palavras/audios/cane.mp3",
       "texto_falado": "cane",
       "voz": "en-US-JennyNeural",
-      "status": "pendente",
+      "status": "gerado",
       "motor": "edge-tts"
     },
     {
@@ -271,6 +379,24 @@
       "motor": "edge-tts"
     },
     {
+      "palavra": "kit",
+      "traducao": "kit",
+      "arquivo": "palavras/audios/kit.mp3",
+      "texto_falado": "kit",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
+      "palavra": "kite",
+      "traducao": "pipa",
+      "arquivo": "palavras/audios/kite.mp3",
+      "texto_falado": "kite",
+      "voz": "en-US-JennyNeural",
+      "status": "gerado",
+      "motor": "edge-tts"
+    },
+    {
       "palavra": "look",
       "traducao": "olhar",
       "arquivo": "palavras/audios/look.mp3",
@@ -456,7 +582,7 @@
       "arquivo": "palavras/audios/sit.mp3",
       "texto_falado": "sit",
       "voz": "en-US-JennyNeural",
-      "status": "pendente",
+      "status": "gerado",
       "motor": "edge-tts"
     },
     {
@@ -465,7 +591,7 @@
       "arquivo": "palavras/audios/site.mp3",
       "texto_falado": "site",
       "voz": "en-US-JennyNeural",
-      "status": "pendente",
+      "status": "gerado",
       "motor": "edge-tts"
     },
     {

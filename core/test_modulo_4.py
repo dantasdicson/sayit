@@ -33,7 +33,7 @@ class Modulo4Tests(TestCase):
 
     def test_catalogo_explicacao_e_trilha(self):
         self.assertEqual([(p.palavra_base.palavra, p.palavra_comparada.palavra) for p in self.pares],
-                         [('cub', 'cube'), ('tub', 'tube'), ('cut', 'cute')])
+                         [('cub', 'cube'), ('tub', 'tube'), ('cut', 'cute'), ('plum', 'plume')])
         resposta = self.client.get(reverse('explicacao_modulo_4'))
         self.assertContains(resposta, 'MAGIC E — SOM DO U')
         self.assertContains(resposta, 'cub')

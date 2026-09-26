@@ -33,9 +33,18 @@ class PronunciaTests(SimpleTestCase):
             self.assertFalse(corresponde('mad', text))
 
     def test_pares_distintos(self):
+        self.assertTrue(corresponde('beach', 'beach'))
+        self.assertFalse(corresponde('beach', 'peach'))
         for a, b in [('cat', 'cake'), ('cap', 'cape'), ('sit', 'site'), ('hop', 'hope'), ('cub', 'cube')]:
             self.assertFalse(corresponde(a, b))
             self.assertFalse(corresponde(b, a))
+
+    def test_beach_aceito_somente_como_excecao_de_peach(self):
+        for text in ['beach', 'Beach', ' BEACH! ']:
+            self.assertTrue(corresponde('peach', progresso.normalizar_texto(text)))
+            self.assertFalse(corresponde('cherry', progresso.normalizar_texto(text)))
+        for text in ['', 'beaches', 'beach peach', 'cherry']:
+            self.assertFalse(corresponde('peach', text))
 
 
 class PronunciaEndpointTests(TestCase):
@@ -68,7 +77,7 @@ class PronunciaEndpointTests(TestCase):
             payload['transcricao'] = text
             r = self.client.post(url, payload, content_type='application/json')
             self.assertEqual(r.status_code, 200)
-            self.assertEqual(r.json()['percentual'], 66)
+            self.assertEqual(r.json()['percentual'], 50)
         self.assertEqual(Tentativa.objects.count(), 5)
         self.assertEqual(Tentativa.objects.get(palavra=par.palavra_base).resposta_reconhecida, 'pin')
 
@@ -81,6 +90,25 @@ class PronunciaEndpointTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn(par.palavra_base_id, response.json()['palavras_acertadas'])
         self.assertEqual(Tentativa.objects.get(usuario=self.usuario).resposta_reconhecida, 'cats')
+
+    def test_beach_registra_peach_sem_duplicar_e_preserva_transcricao(self):
+        self.client.force_login(self.usuario)
+        pares = list(Modulo.objects.get(numero=6).comparacoes.order_by('ordem'))
+        for par in pares[:3]:
+            for palavra in (par.palavra_base, par.palavra_comparada):
+                progresso.registrar_acerto(self.usuario, 6, par.pk, palavra.pk, palavra.palavra)
+        par = pares[3]
+        for texto in [' BEACH! ', 'beach']:
+            resposta = self.client.post(reverse('registrar_acerto', args=[6]), {
+                'comparacao_id': par.pk, 'palavra_id': par.palavra_comparada_id,
+                'transcricao': texto,
+            }, content_type='application/json')
+            self.assertEqual(resposta.status_code, 200)
+            self.assertEqual(resposta.json()['percentual'], 75)
+            self.assertIn(par.palavra_comparada_id, resposta.json()['palavras_acertadas'])
+        tentativa = Tentativa.objects.get(usuario=self.usuario, palavra=par.palavra_comparada)
+        self.assertEqual(tentativa.palavra.palavra, 'peach')
+        self.assertEqual(tentativa.resposta_reconhecida, 'beach')
 
     def test_variantes_servidas_nos_dois_fluxos(self):
         self.client.force_login(self.usuario)

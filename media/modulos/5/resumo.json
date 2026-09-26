@@ -1,0 +1,79 @@
+{
+  "versao": "narracao-v2",
+  "modulo": 5,
+  "segmentos": [
+    {
+      "texto": "Você ouviu e falou os seguintes pares de palavras.",
+      "voz": "pt-BR-FranciscaNeural",
+      "rate": "-5%",
+      "pausa_ms": 450
+    },
+    {
+      "texto": "ship, fish.",
+      "voz": "en-US-JennyNeural",
+      "rate": "-12%",
+      "pausa_ms": 550
+    },
+    {
+      "texto": "shark, sheep.",
+      "voz": "en-US-JennyNeural",
+      "rate": "-12%",
+      "pausa_ms": 550
+    },
+    {
+      "texto": "shop, shovel.",
+      "voz": "en-US-JennyNeural",
+      "rate": "-12%",
+      "pausa_ms": 550
+    },
+    {
+      "texto": "dish, brush.",
+      "voz": "en-US-JennyNeural",
+      "rate": "-12%",
+      "pausa_ms": 550
+    },
+    {
+      "texto": "As letras esse e agá juntas fazem um som parecido com um pedido de silêncio. Esse som pode aparecer no começo ou no final das palavras. Escute e repita com calma! Você terminou a revisão do módulo cinco. Vamos para o próximo: o módulo seis!",
+      "voz": "pt-BR-FranciscaNeural",
+      "rate": "-5%",
+      "pausa_ms": 0
+    }
+  ],
+  "texto_exibido": {
+    "subtitulo": "O som SH",
+    "paragrafos": [
+      "Você ouviu e falou SHIP e FISH, SHARK e SHEEP, SHOP e SHOVEL, DISH e BRUSH.",
+      "As letras S e H juntas fazem um som parecido com um pedido de silêncio.",
+      "Esse som pode aparecer no começo ou no final das palavras. Escute e repita com calma!"
+    ],
+    "reforco": "Você terminou a revisão do módulo 5. Vamos para o próximo: o módulo 6!",
+    "audio": "modulos/5/resumo.mp3",
+    "conclusao": "conclusao_modulo_5"
+  },
+  "pares": [
+    [
+      "ship",
+      "fish"
+    ],
+    [
+      "shark",
+      "sheep"
+    ],
+    [
+      "shop",
+      "shovel"
+    ],
+    [
+      "dish",
+      "brush"
+    ]
+  ],
+  "metricas": {
+    "duracao_s": 27.807,
+    "lufs": -18.45,
+    "pico_dbtp": -1.93,
+    "lra": 2.2,
+    "maior_silencio_s": 0.75,
+    "sha256": "2af2b534d1c40b706af1c27d7fed78225ba7fc14ebe28877ab87212731b1c6b1"
+  }
+}

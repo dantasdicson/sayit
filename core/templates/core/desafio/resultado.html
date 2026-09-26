@@ -1,0 +1,20 @@
+{% extends 'core/desafio/base.html' %}
+{% block title %}{% if encerramento %}Jornada concluída{% else %}Seu resultado{% endif %} | SayIt!{% endblock %}
+{% block content %}
+<header class="intro"><p class="eyebrow">MÓDULO 10 · DESAFIO FINAL</p>
+<h1>{% if encerramento %}Parabéns! Você concluiu sua jornada no SayIt!{% else %}Desafio concluído!{% endif %}</h1></header>
+<section class="sayit-card completion-card">
+{% if encerramento %}<p class="explanation">Você aprendeu novos sons, treinou palavras e agora conseguiu usar o que aprendeu em frases completas em inglês.</p>{% endif %}
+<h2>Sua pontuação final</h2><p class="challenge-score">{{ estado.final }} / 100</p>
+<p class="challenge-stars" aria-label="{{ estado.estrelas }} de 5 estrelas">{{ estrelas }}</p>
+<p>{{ estado.feedback }}</p><p>{{ estado.concluidos }} de 3 desafios concluídos.</p>
+<p>Melhor pontuação em um desafio: {{ estado.melhor }}/100.</p>
+<p>Conteúdos utilizados: {{ estado.conteudos|join:', ' }}.</p>
+{% if encerramento %}<p>{{ modulos_concluidos }} de 10 módulos concluídos.</p>
+<div class="progress-track" role="progressbar" aria-label="Progresso da jornada" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"><span style="width:100%"></span></div><p>Progresso: 100%</p>
+<nav class="challenge-actions"><a class="sayit-button" href="{% url 'progresso' %}">Meu Progresso</a><a class="sayit-button sayit-button--secondary" href="{% url 'home' %}">Voltar à Home</a></nav>
+{% else %}<ol class="challenge-results">{% for item in estado.desafios %}<li><span lang="en">{{ item.frase }}</span> — {{ item.melhor }}/100 · <a href="{% url 'desafio_modulo_10' item.numero %}">Tentar novamente</a></li>{% endfor %}</ol>
+<a class="sayit-button" href="{% url 'conclusao_modulo_10' %}">Concluir minha jornada</a>{% endif %}
+<p class="muted">A média usa a melhor nota de cada desafio. A avaliação considera as palavras reconhecidas pelo navegador.</p>
+</section>
+{% endblock %}

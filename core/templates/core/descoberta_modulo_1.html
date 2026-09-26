@@ -3,16 +3,16 @@
 {% block title %}Descoberta {{ numero }} de {{ total }} | SayIt!{% endblock %}
 {% block scripts %}
 {{ pronuncia_variantes|json_script:'pronuncia-variantes' }}
-<script src="{% static 'core/pronuncia.js' %}?v=4" defer></script>
+<script src="{% static 'core/pronuncia.js' %}?v=6" defer></script>
 <script src="{% static 'core/modulo_1.js' %}" defer></script>
 <script src="{% static 'core/registro_erros.js' %}?v=1" defer></script>
-<script src="{% static 'core/descobertas_microfone.js' %}" defer></script>
+<script src="{% static 'core/descobertas_microfone.js' %}?v=2" defer></script>
 {% endblock %}
 {% block content %}
 <section class="intro" aria-labelledby="titulo">
-  <p class="eyebrow">MÓDULO {{ modulo.numero }} • {% if modulo.numero >= 5 %}O SOM {{ modulo.titulo }}{% else %}MAGIC E — SOM DO {{ vogal }}{% endif %}</p>
+  <p class="eyebrow">MÓDULO {{ modulo.numero }} • {% if modulo.numero == 10 %}REVISÃO GERAL{% elif modulo.numero >= 5 %}O SOM {{ modulo.titulo }}{% elif modulo.numero == 2 %}MAGIC E — SONS DE A E I{% else %}MAGIC E — SOM DO {{ vogal }}{% endif %}</p>
   <h1 id="titulo">Descoberta {{ numero }} de {{ total }}</h1>
-  <p class="explanation">{% if modulo.numero >= 5 %}Ouça as duas palavras e descubra o som {{ modulo.titulo }}.{% else %}Ouça as duas palavras e perceba a diferença.{% endif %}</p>
+  <p class="explanation">{% if modulo.numero == 10 %}{{ comparacao.explicacao }}{% elif modulo.numero >= 5 %}Ouça as duas palavras e descubra o som {{ modulo.titulo }}.{% else %}Ouça as duas palavras e perceba a diferença.{% endif %}</p>
 </section>
 <ol class="discovery-steps" aria-label="Etapas das Descobertas">
   {% for step in etapas %}

@@ -3,15 +3,15 @@
 {% block content %}
 <section class="intro" aria-labelledby="titulo">
   <p class="eyebrow">MÓDULO {{ modulo.numero }} · {{ total }} DESCOBERTAS</p>
-  <h1 id="titulo">Você concluiu este módulo!</h1>
+  <h1 id="titulo">{% if modulo.numero == 10 %}Você concluiu a trilha!{% else %}Você concluiu este módulo!{% endif %}</h1>
   <div class="sayit-card completion-card">
     <span class="card-symbol tone-yellow" aria-hidden="true">✦</span>
     <h2>{{ modulo.titulo }}</h2>
-    <p class="explanation">{% if modulo.numero >= 5 %}Muito bem! Você terminou a revisão do som {{ modulo.titulo }}.{% else %}Muito bem! Você terminou a revisão do Magic E — som do {{ vogal }}.{% endif %}</p>
+    <p class="explanation">{% if modulo.numero == 10 %}Parabéns! Você completou os dez módulos e as quarenta descobertas. Continue praticando e volte aos módulos sempre que quiser!{% elif modulo.numero >= 5 %}Muito bem! Você terminou a revisão do som {{ modulo.titulo }}.{% elif modulo.numero == 2 %}Muito bem! Você terminou a revisão do Magic E — sons de A e I.{% else %}Muito bem! Você terminou a revisão do Magic E — som do {{ vogal }}.{% endif %}</p>
   </div>
   <nav class="practice-start" aria-label="Continuar a trilha">
     {% if proximo_url %}<a class="practice-link" href="{{ proximo_url }}">Continuar para o próximo módulo →</a>
-    {% elif modulo.numero >= 5 %}<p>O próximo módulo estará disponível em breve. Vamos voltar à trilha!</p><a class="practice-link" href="{% url 'trilha' %}">Continuar para o próximo módulo →</a>{% else %}<a class="practice-link" href="{% url 'trilha' %}">Voltar à trilha</a>{% endif %}
+    {% else %}<a class="practice-link" href="{% url 'trilha' %}">Voltar à trilha</a>{% endif %}
     <a href="{{ introducao_url }}">Voltar à introdução</a>
   </nav>
 </section>

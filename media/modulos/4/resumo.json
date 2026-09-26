@@ -1,0 +1,79 @@
+{
+  "versao": "narracao-v2",
+  "modulo": 4,
+  "segmentos": [
+    {
+      "texto": "Você ouviu e falou os seguintes pares de palavras.",
+      "voz": "pt-BR-FranciscaNeural",
+      "rate": "-5%",
+      "pausa_ms": 450
+    },
+    {
+      "texto": "cub, cube.",
+      "voz": "en-US-JennyNeural",
+      "rate": "-12%",
+      "pausa_ms": 550
+    },
+    {
+      "texto": "tub, tube.",
+      "voz": "en-US-JennyNeural",
+      "rate": "-12%",
+      "pausa_ms": 550
+    },
+    {
+      "texto": "cut, cute.",
+      "voz": "en-US-JennyNeural",
+      "rate": "-12%",
+      "pausa_ms": 550
+    },
+    {
+      "texto": "plum, plume.",
+      "voz": "en-US-JennyNeural",
+      "rate": "-12%",
+      "pausa_ms": 550
+    },
+    {
+      "texto": "Nessas palavras, o ê no final fica silencioso e muda o som do u. Escute a diferença em cada par. Compare as palavras de cada par: uma letra no final muda o som e o significado! Você terminou a revisão do módulo quatro. Vamos para o próximo: o módulo cinco!",
+      "voz": "pt-BR-FranciscaNeural",
+      "rate": "-5%",
+      "pausa_ms": 0
+    }
+  ],
+  "texto_exibido": {
+    "subtitulo": "Magic E — Som do U",
+    "paragrafos": [
+      "Você ouviu e falou CUB e CUBE, TUB e TUBE, CUT e CUTE, PLUM e PLUME.",
+      "Nessas palavras, o E no final fica silencioso e muda o som do U. Escute a diferença em cada par.",
+      "Compare as palavras de cada par: uma letra no final muda o som e o significado!"
+    ],
+    "reforco": "Você terminou a revisão do módulo 4. Vamos para o próximo: o módulo 5!",
+    "audio": "modulos/4/resumo.mp3",
+    "conclusao": "conclusao_modulo_4"
+  },
+  "pares": [
+    [
+      "cub",
+      "cube"
+    ],
+    [
+      "tub",
+      "tube"
+    ],
+    [
+      "cut",
+      "cute"
+    ],
+    [
+      "plum",
+      "plume"
+    ]
+  ],
+  "metricas": {
+    "duracao_s": 28.967,
+    "lufs": -18.48,
+    "pico_dbtp": -1.93,
+    "lra": 2.8,
+    "maior_silencio_s": 0.74,
+    "sha256": "404f4192c96c4dee61d36cbd24dea47ea5591bb7e3b718351f9fed20cf321f49"
+  }
+}

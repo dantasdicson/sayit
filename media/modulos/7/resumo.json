@@ -1,0 +1,79 @@
+{
+  "versao": "narracao-v2",
+  "modulo": 7,
+  "segmentos": [
+    {
+      "texto": "Você ouviu e falou os seguintes pares de palavras.",
+      "voz": "pt-BR-FranciscaNeural",
+      "rate": "-5%",
+      "pausa_ms": 450
+    },
+    {
+      "texto": "think, this.",
+      "voz": "en-US-JennyNeural",
+      "rate": "-12%",
+      "pausa_ms": 550
+    },
+    {
+      "texto": "tooth, that.",
+      "voz": "en-US-JennyNeural",
+      "rate": "-12%",
+      "pausa_ms": 550
+    },
+    {
+      "texto": "bath, mother.",
+      "voz": "en-US-JennyNeural",
+      "rate": "-12%",
+      "pausa_ms": 550
+    },
+    {
+      "texto": "thumb, father.",
+      "voz": "en-US-JennyNeural",
+      "rate": "-12%",
+      "pausa_ms": 550
+    },
+    {
+      "texto": "Para fazer o som tê agá, coloque de leve a ponta da língua entre os dentes e sopre. Na primeira palavra de cada par, a garganta não vibra. Na segunda, ela vibra. Escute e repita com calma! Você terminou a revisão do módulo sete. Vamos para o próximo: o módulo oito!",
+      "voz": "pt-BR-FranciscaNeural",
+      "rate": "-5%",
+      "pausa_ms": 0
+    }
+  ],
+  "texto_exibido": {
+    "subtitulo": "Os dois sons de TH",
+    "paragrafos": [
+      "Você ouviu e falou THINK e THIS, TOOTH e THAT, BATH e MOTHER, THUMB e FATHER.",
+      "Para fazer o som TH, coloque de leve a ponta da língua entre os dentes e sopre.",
+      "Na primeira palavra de cada par, a garganta não vibra. Na segunda, ela vibra. Escute e repita com calma!"
+    ],
+    "reforco": "Você terminou a revisão do módulo 7. Vamos para o próximo: o módulo 8!",
+    "audio": "modulos/7/resumo.mp3",
+    "conclusao": "conclusao_modulo_7"
+  },
+  "pares": [
+    [
+      "think",
+      "this"
+    ],
+    [
+      "tooth",
+      "that"
+    ],
+    [
+      "bath",
+      "mother"
+    ],
+    [
+      "thumb",
+      "father"
+    ]
+  ],
+  "metricas": {
+    "duracao_s": 29.647,
+    "lufs": -18.45,
+    "pico_dbtp": -1.91,
+    "lra": 2.5,
+    "maior_silencio_s": 0.75,
+    "sha256": "f6439eeca3dcac70367cfd0ae1b587d50ec3c650f1bf7efce143408a8b65399d"
+  }
+}

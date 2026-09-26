@@ -1,0 +1,79 @@
+{
+  "versao": "narracao-v2",
+  "modulo": 3,
+  "segmentos": [
+    {
+      "texto": "Você ouviu e falou os seguintes pares de palavras.",
+      "voz": "pt-BR-FranciscaNeural",
+      "rate": "-5%",
+      "pausa_ms": 450
+    },
+    {
+      "texto": "hop, hope.",
+      "voz": "en-US-JennyNeural",
+      "rate": "-12%",
+      "pausa_ms": 550
+    },
+    {
+      "texto": "not, note.",
+      "voz": "en-US-JennyNeural",
+      "rate": "-12%",
+      "pausa_ms": 550
+    },
+    {
+      "texto": "rob, robe.",
+      "voz": "en-US-JennyNeural",
+      "rate": "-12%",
+      "pausa_ms": 550
+    },
+    {
+      "texto": "cop, cope.",
+      "voz": "en-US-JennyNeural",
+      "rate": "-12%",
+      "pausa_ms": 550
+    },
+    {
+      "texto": "Nessas palavras, o ê no final fica silencioso e faz o ó soar como o nome da letra ó em inglês. Compare as palavras de cada par: uma letra no final muda o som e o significado! Você terminou a revisão do módulo três. Vamos para o próximo: o módulo quatro!",
+      "voz": "pt-BR-FranciscaNeural",
+      "rate": "-5%",
+      "pausa_ms": 0
+    }
+  ],
+  "texto_exibido": {
+    "subtitulo": "Magic E — Som do O",
+    "paragrafos": [
+      "Você ouviu e falou HOP e HOPE, NOT e NOTE, ROB e ROBE, COP e COPE.",
+      "Nessas palavras, o E no final fica silencioso e faz o O soar como o nome da letra O em inglês.",
+      "Compare as palavras de cada par: uma letra no final muda o som e o significado!"
+    ],
+    "reforco": "Você terminou a revisão do módulo 3. Vamos para o próximo: o módulo 4!",
+    "audio": "modulos/3/resumo.mp3",
+    "conclusao": "conclusao_modulo_3"
+  },
+  "pares": [
+    [
+      "hop",
+      "hope"
+    ],
+    [
+      "not",
+      "note"
+    ],
+    [
+      "rob",
+      "robe"
+    ],
+    [
+      "cop",
+      "cope"
+    ]
+  ],
+  "metricas": {
+    "duracao_s": 28.337,
+    "lufs": -18.43,
+    "pico_dbtp": -1.93,
+    "lra": 2.4,
+    "maior_silencio_s": 0.74,
+    "sha256": "b80227a679e92c34ac7a53ff4dc27d1c5f86afe2a60b896d099c5cc71ab1172d"
+  }
+}

@@ -103,7 +103,7 @@
     if (blocked || active || word.done) return;
     audioPlayers.forEach((player) => player.pause());
     let recognition;
-    try { recognition = new Recognition(); }
+    try { recognition = window.SayItPronuncia.createRecognition(); }
     catch (error) {
       display(word, 'error', '', 'Não foi possível iniciar o microfone. Tente novamente.');
       return;
@@ -149,10 +149,6 @@
         (word.done ? (target ? target.button : next) : word.button).focus();
       }
     };
-    recognition.lang = 'en-US';
-    recognition.continuous = false;
-    recognition.interimResults = false;
-    recognition.maxAlternatives = 3;
     recognition.onstart = () => {
       if (current() && !session.settled) display(word, 'listening', '', 'Estou ouvindo...');
     };

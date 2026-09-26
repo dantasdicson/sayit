@@ -1,0 +1,79 @@
+{
+  "versao": "narracao-v2",
+  "modulo": 6,
+  "segmentos": [
+    {
+      "texto": "Você ouviu e falou os seguintes pares de palavras.",
+      "voz": "pt-BR-FranciscaNeural",
+      "rate": "-5%",
+      "pausa_ms": 450
+    },
+    {
+      "texto": "chair, chicken.",
+      "voz": "en-US-JennyNeural",
+      "rate": "-12%",
+      "pausa_ms": 550
+    },
+    {
+      "texto": "cheese, beach.",
+      "voz": "en-US-JennyNeural",
+      "rate": "-12%",
+      "pausa_ms": 550
+    },
+    {
+      "texto": "child, chocolate.",
+      "voz": "en-US-JennyNeural",
+      "rate": "-12%",
+      "pausa_ms": 550
+    },
+    {
+      "texto": "cherry, peach.",
+      "voz": "en-US-JennyNeural",
+      "rate": "-12%",
+      "pausa_ms": 550
+    },
+    {
+      "texto": "Nestas palavras, cê e agá juntos fazem um som parecido com tch. Esse som pode aparecer no começo ou no final das palavras. Escute e repita com calma! Você terminou a revisão do módulo seis. Vamos para o próximo: o módulo sete!",
+      "voz": "pt-BR-FranciscaNeural",
+      "rate": "-5%",
+      "pausa_ms": 0
+    }
+  ],
+  "texto_exibido": {
+    "subtitulo": "O som CH",
+    "paragrafos": [
+      "Você ouviu e falou CHAIR e CHICKEN, CHEESE e BEACH, CHILD e CHOCOLATE, CHERRY e PEACH.",
+      "Nestas palavras, C e H juntos fazem um som parecido com tch.",
+      "Esse som pode aparecer no começo ou no final das palavras. Escute e repita com calma!"
+    ],
+    "reforco": "Você terminou a revisão do módulo 6. Vamos para o próximo: o módulo 7!",
+    "audio": "modulos/6/resumo.mp3",
+    "conclusao": "conclusao_modulo_6"
+  },
+  "pares": [
+    [
+      "chair",
+      "chicken"
+    ],
+    [
+      "cheese",
+      "beach"
+    ],
+    [
+      "child",
+      "chocolate"
+    ],
+    [
+      "cherry",
+      "peach"
+    ]
+  ],
+  "metricas": {
+    "duracao_s": 27.997,
+    "lufs": -18.42,
+    "pico_dbtp": -1.94,
+    "lra": 1.8,
+    "maior_silencio_s": 0.75,
+    "sha256": "bab1d3ff028c5b1974eed81cbb3cd420e2b32a04ef19c54160d1edbc319ae28e"
+  }
+}

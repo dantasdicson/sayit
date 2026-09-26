@@ -395,6 +395,26 @@ for (const transcript of ['Matt', ' MATT! ']) {
     assert.equal(JSON.parse(app.requests[0].body).transcricao, transcript);
   });
 }
+for (const transcript of ['beach', 'Beach', ' BEACH! ']) {
+  test(`PEACH aceita ${transcript} e apresenta peach na confirmação`, async () => {
+    const app = setup(['cherry', 'peach'], {module: 6});
+    await app.say(1, transcript);
+    assert.equal(app.done(1), true);
+    assert.equal(app.roots[1].children['speech-message'].textContent, 'Eu entendi: peach');
+    assert.equal(JSON.parse(app.requests[0].body).transcricao, transcript);
+    app.locked();
+  });
+}
+test('BEACH continua validando beach e não aceita peach no sentido inverso', async () => {
+  const app = setup(['cheese', 'beach'], {module: 6});
+  await app.say(1, 'peach');
+  assert.equal(app.done(1), false);
+  assert.equal(app.requests.length, 0);
+  await app.say(1, 'beach');
+  assert.equal(app.done(1), true);
+  assert.equal(app.roots[1].children['speech-message'].textContent, 'Eu entendi: beach');
+});
+
 test('MADE não esconde Matt quando a resposta é incorreta', async () => {
   const app = setup(['mad', 'made']);
   await app.say(1, 'Matt');
@@ -420,9 +440,9 @@ test('CAKE não esconde cats quando a resposta é incorreta', async () => {
   assert.equal(app.roots[1].children['speech-message'].textContent, 'Eu entendi: cats');
 });
 
-for (const [index, pair] of [['hop', 'hope'], ['not', 'note'], ['rob', 'robe']].entries()) {
+for (const [index, pair] of [['hop', 'hope'], ['not', 'note'], ['rob', 'robe'], ['cop', 'cope']].entries()) {
   test(`Módulo 3 par ${index + 1}: erro, dois acertos, áudio disponível e avanço`, async () => {
-    const url = index === 2 ? '/modulos/3/resumo/' : `/modulos/3/descobertas/${index + 2}/`;
+    const url = index === 3 ? '/modulos/3/resumo/' : `/modulos/3/descobertas/${index + 2}/`;
     const app = setup(pair, { module: 3, url });
     await app.say(0, 'wrong');
     assert.equal(app.requests.length, 0); app.locked();
@@ -465,9 +485,9 @@ test('Módulo 3: silêncio e fala parcial não salvam nem liberam avanço', asyn
   await app.say(0, '...'); app.locked(); assert.equal(app.requests.length, 0);
 });
 
-for (const [index, pair] of [['cub', 'cube'], ['tub', 'tube'], ['cut', 'cute']].entries()) {
+for (const [index, pair] of [['cub', 'cube'], ['tub', 'tube'], ['cut', 'cute'], ['plum', 'plume']].entries()) {
   test(`Módulo 4 par ${index + 1}: exige os dois acertos e avança`, async () => {
-    const url = index === 2 ? '/modulos/4/resumo/' : `/modulos/4/descobertas/${index + 2}/`;
+    const url = index === 3 ? '/modulos/4/resumo/' : `/modulos/4/descobertas/${index + 2}/`;
     const app = setup(pair, { module: 4, url });
     await app.say(0, 'wrong');
     assert.equal(app.requests.length, 0);
@@ -481,9 +501,9 @@ for (const [index, pair] of [['cub', 'cube'], ['tub', 'tube'], ['cut', 'cute']].
   });
 }
 
-for (const [index, pair] of [['ship', 'fish'], ['shark', 'sheep'], ['shop', 'shovel']].entries()) {
+for (const [index, pair] of [['ship', 'fish'], ['shark', 'sheep'], ['shop', 'shovel'], ['dish', 'brush']].entries()) {
   test(`Módulo 5 par ${index + 1}: erro, dois acertos independentes e avanço`, async () => {
-    const url = index === 2 ? '/modulos/5/resumo/' : `/modulos/5/descobertas/${index + 2}/`;
+    const url = index === 3 ? '/modulos/5/resumo/' : `/modulos/5/descobertas/${index + 2}/`;
     const app = setup(pair, { module: 5, url });
     app.locked();
     await app.say(0, pair[1]);
@@ -501,9 +521,9 @@ for (const [index, pair] of [['ship', 'fish'], ['shark', 'sheep'], ['shop', 'sho
   });
 }
 
-for (const [index, pair] of [['chair', 'chicken'], ['cheese', 'beach'], ['child', 'chocolate']].entries()) {
+for (const [index, pair] of [['chair', 'chicken'], ['cheese', 'beach'], ['child', 'chocolate'], ['cherry', 'peach']].entries()) {
   test(`Módulo 6 par ${index + 1}: exige os dois acertos e avança`, async () => {
-    const url = index === 2 ? '/modulos/6/resumo/' : `/modulos/6/descobertas/${index + 2}/`;
+    const url = index === 3 ? '/modulos/6/resumo/' : `/modulos/6/descobertas/${index + 2}/`;
     const app = setup(pair, {module: 6, url});
     await app.say(0, pair[1]);
     assert.equal(app.requests.length, 0); app.locked();
@@ -516,9 +536,9 @@ for (const [index, pair] of [['chair', 'chicken'], ['cheese', 'beach'], ['child'
   });
 }
 
-for (const [index, pair] of [['think', 'this'], ['tooth', 'that'], ['bath', 'mother']].entries()) {
+for (const [index, pair] of [['think', 'this'], ['tooth', 'that'], ['bath', 'mother'], ['thumb', 'father']].entries()) {
   test(`Módulo 7 par ${index + 1}: exige os dois sons de TH e avança`, async () => {
-    const url = index === 2 ? '/modulos/7/resumo/' : `/modulos/7/descobertas/${index + 2}/`;
+    const url = index === 3 ? '/modulos/7/resumo/' : `/modulos/7/descobertas/${index + 2}/`;
     const app = setup(pair, {module: 7, url});
     await app.say(0, pair[1]);
     assert.equal(app.requests.length, 0); app.locked();
@@ -530,9 +550,9 @@ for (const [index, pair] of [['think', 'this'], ['tooth', 'that'], ['bath', 'mot
   });
 }
 
-for (const [index, pair] of [['phone', 'photo'], ['elephant', 'dolphin'], ['alphabet', 'trophy']].entries()) {
+for (const [index, pair] of [['phone', 'photo'], ['elephant', 'dolphin'], ['alphabet', 'trophy'], ['graph', 'sphere']].entries()) {
   test(`Módulo 8 par ${index + 1}: exige os dois acertos e avança`, async () => {
-    const url = index === 2 ? '/modulos/8/resumo/' : `/modulos/8/descobertas/${index + 2}/`;
+    const url = index === 3 ? '/modulos/8/resumo/' : `/modulos/8/descobertas/${index + 2}/`;
     const app = setup(pair, {module: 8, url});
     await app.say(0, pair[1]); assert.equal(app.requests.length, 0); app.locked();
     await app.say(0, pair[0]); app.locked();
@@ -570,6 +590,18 @@ for (const options of [{unsupported: true}, {secure: false}]) {
     assert.equal(app.requests.length, 0);
   });
 }
+for (const [index, pair] of [['cat', 'cake'], ['ship', 'chip'], ['think', 'this'], ['moon', 'book']].entries()) {
+  test(`Módulo 10 par ${index + 1}: exige os dois acertos antes de avançar`, async () => {
+    const url = index === 3 ? '/modulos/10/resumo/' : `/modulos/10/descobertas/${index + 2}/`;
+    const app = setup(pair, {module: 10, url});
+    await app.say(0, pair[1]); assert.equal(app.requests.length, 0); app.locked();
+    await app.say(0, pair[0]); app.locked();
+    await app.say(1, pair[1]); assert.equal(app.next.disabled, false);
+    assert.equal(app.requests[0].url, '/modulos/10/progresso/acertos/');
+    app.next.click(); assert.deepEqual(app.navigations, [url]);
+  });
+}
+
 test('Módulo 5: silêncio e fala parcial não contam como acerto', async () => {
   const app = setup(['ship', 'fish'], {module: 5});
   const r = app.start(0); r.result('ship', false); await r.end();

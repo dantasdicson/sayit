@@ -3,7 +3,7 @@
 {% block title %}Resumo · Módulo {{ modulo.numero }} | SayIt!{% endblock %}
 {% block scripts %}
 <link rel="stylesheet" href="{% static 'core/resumo_modulo.css' %}?v=2">
-  {% if audio_url %}<script src="{% static 'core/resumo_audio.js' %}?v=3" defer></script>{% endif %}
+  {% if audio_url %}<script src="{% static 'core/resumo_audio.js' %}?v=4" defer></script>{% endif %}
 {% endblock %}
 {% block content %}
 <div class="module-summary">
@@ -23,7 +23,7 @@
     <button id="summary-listen" class="sayit-button" type="button" hidden aria-controls="summary-audio" aria-describedby="audio-status" aria-pressed="false"><span aria-hidden="true">🔊</span> <span id="summary-listen-label">Ouvir explicação novamente</span></button>
   </div>
   {% endif %}
-  <p id="audio-status" role="status" aria-live="polite" aria-atomic="true">{% if not audio_url %}A narração deste resumo não está disponível. Tente novamente mais tarde.{% endif %}</p>
+  <p id="audio-status" role="status" aria-live="polite" aria-atomic="true">{% if not audio_url %}A narração deste resumo não está disponível. Você pode concluir o módulo.{% endif %}</p>
 </section>
 <section class="summary-examples" aria-labelledby="pares-titulo">
   <h2 id="pares-titulo">Veja novamente as palavras que você aprendeu.</h2>
@@ -46,7 +46,7 @@
 </section>
 <p class="summary-reinforcement">{{ resumo.reforco }}</p>
 <nav class="practice-start" aria-label="Concluir a trilha">
-  <form method="post" action="{{ conclusao_url }}">{% csrf_token %}<button id="summary-complete" class="practice-link" type="submit"{% if not modulo_ja_concluido %} disabled{% endif %}{% if modulo_ja_concluido %} data-already-complete{% endif %} aria-describedby="audio-status">Concluir módulo</button></form>
+  <form method="post" action="{{ conclusao_url }}">{% csrf_token %}<button id="summary-complete" class="practice-link" type="submit"{% if modulo_ja_concluido %} data-already-complete{% endif %} aria-describedby="audio-status">Concluir módulo</button></form>
 </nav>
 </div>
 {% endblock %}

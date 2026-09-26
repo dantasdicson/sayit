@@ -1,0 +1,78 @@
+{
+  "versao": "narracao-v2",
+  "modulo": 1,
+  "segmentos": [
+    {
+      "texto": "Você descobriu que a letra ê no final de algumas palavras pode mudar o som da vogal á. O ê final fica silencioso e muda o som do á. Veja novamente as palavras que você aprendeu.",
+      "voz": "pt-BR-FranciscaNeural",
+      "rate": "-5%",
+      "pausa_ms": 450
+    },
+    {
+      "texto": "cat, cake.",
+      "voz": "en-US-JennyNeural",
+      "rate": "-12%",
+      "pausa_ms": 550
+    },
+    {
+      "texto": "cap, cape.",
+      "voz": "en-US-JennyNeural",
+      "rate": "-12%",
+      "pausa_ms": 550
+    },
+    {
+      "texto": "tap, tape.",
+      "voz": "en-US-JennyNeural",
+      "rate": "-12%",
+      "pausa_ms": 550
+    },
+    {
+      "texto": "mad, made.",
+      "voz": "en-US-JennyNeural",
+      "rate": "-12%",
+      "pausa_ms": 550
+    },
+    {
+      "texto": "Você terminou a revisão do módulo um. Vamos para o próximo: o módulo dois!",
+      "voz": "pt-BR-FranciscaNeural",
+      "rate": "-5%",
+      "pausa_ms": 0
+    }
+  ],
+  "texto_exibido": {
+    "subtitulo": "Magic E — Som do A",
+    "paragrafos": [
+      "Você descobriu que a letra E no final de algumas palavras pode mudar o som da vogal A.",
+      "O E final fica silencioso e muda o som do A."
+    ],
+    "reforco": "Você terminou a revisão do módulo 1. Vamos para o próximo: o módulo 2!",
+    "audio": "modulos/1/resumo.mp3",
+    "conclusao": "conclusao_modulo_1"
+  },
+  "pares": [
+    [
+      "cat",
+      "cake"
+    ],
+    [
+      "cap",
+      "cape"
+    ],
+    [
+      "tap",
+      "tape"
+    ],
+    [
+      "mad",
+      "made"
+    ]
+  ],
+  "metricas": {
+    "duracao_s": 24.857,
+    "lufs": -18.53,
+    "pico_dbtp": -1.91,
+    "lra": 3.7,
+    "maior_silencio_s": 0.75,
+    "sha256": "dbfe4167900a0cefec0f493be28d5230338c206958a5ad92485948f51098c7c1"
+  }
+}

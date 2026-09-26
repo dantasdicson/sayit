@@ -40,15 +40,15 @@ class Modulo6Tests(TestCase):
         }, content_type='application/json')
 
     def completar(self):
-        for indice in range(3):
+        for indice in range(4):
             self.assertEqual(self.acertar(indice).status_code, 200)
             self.assertEqual(self.acertar(indice, True).status_code, 200)
 
     def test_catalogo_explicacao_pares_e_trilha(self):
         self.assertEqual(list(self.modulo.palavras.values_list('palavra', flat=True)),
-                         ['chair', 'chicken', 'cheese', 'beach', 'child', 'chocolate'])
+                         ['chair', 'chicken', 'cheese', 'beach', 'child', 'chocolate', 'cherry', 'peach'])
         self.assertEqual([(p.palavra_base.palavra, p.palavra_comparada.palavra) for p in self.pares],
-                         [('chair', 'chicken'), ('cheese', 'beach'), ('child', 'chocolate')])
+                         [('chair', 'chicken'), ('cheese', 'beach'), ('child', 'chocolate'), ('cherry', 'peach')])
         resposta = self.client.get(reverse('explicacao_modulo_6'))
         self.assertTemplateUsed(resposta, 'core/explicacao_modulo.html')
         self.assertContains(resposta, 'O SOM CH')
@@ -56,22 +56,22 @@ class Modulo6Tests(TestCase):
         self.assertContains(resposta, self.url(1))
         self.assertNotContains(self.client.get(reverse('trilha')), reverse('explicacao_modulo_6'))
 
-    def test_tres_etapas_exigem_dois_acertos_e_persistem(self):
-        for indice in range(3):
+    def test_quatro_etapas_exigem_dois_acertos_e_persistem(self):
+        for indice in range(4):
             resposta = self.client.get(self.url(indice + 1))
             self.assertTemplateUsed(resposta, 'core/descoberta_modulo_1.html')
             self.assertContains(resposta, 'data-modulo="6"')
             self.assertContains(resposta, 'type="button" disabled aria-describedby="speech-status"')
-            self.assertEqual(self.acertar(indice).json()['percentual'], indice * 100 // 3)
+            self.assertEqual(self.acertar(indice).json()['percentual'], indice * 100 // 4)
             parcial = self.client.get(self.url(indice + 1))
             self.assertEqual([card['acertada'] for card in parcial.context['cards']], [True, False])
             self.assertFalse(parcial.context['descoberta_concluida'])
-            self.assertEqual(self.acertar(indice, True).json()['percentual'], (indice + 1) * 100 // 3)
+            self.assertEqual(self.acertar(indice, True).json()['percentual'], (indice + 1) * 100 // 4)
             final = self.client.get(self.url(indice + 1))
             self.assertTrue(final.context['descoberta_concluida'])
-            destino = self.url(indice + 2) if indice < 2 else reverse('resumo_modulo_6')
+            destino = self.url(indice + 2) if indice < 3 else reverse('resumo_modulo_6')
             self.assertEqual(final.context['proxima_url'], destino)
-        self.assertEqual(Tentativa.objects.count(), 6)
+        self.assertEqual(Tentativa.objects.count(), 8)
 
     def test_bloqueio_erro_silencio_e_isolamento(self):
         self.assertEqual(self.client.get(self.url(2)).status_code, 409)

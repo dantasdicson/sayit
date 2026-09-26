@@ -9,7 +9,7 @@
   let active = false;
   let heard = false;
   let attempt = 0;
-  const alreadyComplete = !!(complete.dataset && complete.dataset.alreadyComplete);
+  const alreadyComplete = !!(complete.dataset && 'alreadyComplete' in complete.dataset);
 
   function reset(message = '') {
     active = false;
@@ -18,7 +18,9 @@
     button.removeAttribute('aria-busy');
     label.textContent = 'Ouvir explicação novamente';
     status.textContent = message;
-    complete.disabled = alreadyComplete ? false : !heard;
+    // As descobertas são validadas no servidor. Falhas do player não podem
+    // impedir a conclusão de uma atividade já realizada.
+    complete.disabled = false;
   }
 
   function stop() {
@@ -31,7 +33,7 @@
     if (active) stop();
     const current = ++attempt;
     active = true;
-    complete.disabled = !alreadyComplete;
+    complete.disabled = !alreadyComplete && !heard;
     button.setAttribute('aria-pressed', 'true');
     button.setAttribute('aria-busy', 'true');
     label.textContent = 'Ouvir explicação novamente';
@@ -45,8 +47,8 @@
       }
     } catch (error) {
       if (current === attempt) reset(automatic && error.name === 'NotAllowedError'
-        ? 'Toque em Ouvir explicação novamente para iniciar o áudio.'
-        : 'Não foi possível ouvir agora. Tente novamente.');
+        ? 'Toque em Ouvir explicação novamente para iniciar o áudio, ou conclua o módulo.'
+        : 'Não foi possível ouvir agora. Tente novamente ou conclua o módulo.');
     }
   }
   button.addEventListener('click', () => playExplanation());
@@ -54,11 +56,11 @@
     heard = true;
     reset('Você ouviu a explicação. Pode ouvir novamente ou concluir o módulo.');
   });
-  player.addEventListener('error', () => reset('Não foi possível ouvir agora. Tente novamente.'));
-  player.addEventListener('pause', () => { if (active && player.paused) reset('Reprodução interrompida. Você pode ouvir novamente.'); });
+  player.addEventListener('error', () => reset('Não foi possível ouvir agora. Tente novamente ou conclua o módulo.'));
+  player.addEventListener('pause', () => { if (active && player.paused) reset('Reprodução interrompida. Você pode ouvir novamente ou concluir o módulo.'); });
   window.addEventListener('pagehide', stop);
   player.controls = false;
   button.hidden = false;
-  complete.disabled = !alreadyComplete;
+  complete.disabled = false;
   void playExplanation(true);
 })();

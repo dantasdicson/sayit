@@ -1,5 +1,27 @@
 # Resumos dos módulos
 
+## Gerador atual — narração v2
+
+Os módulos 1–9 usam agora o gerador único `docs/gerar_narracoes.py`.
+Execute `python docs/gerar_narracoes.py --output-dir caminho/novo --report auditoria.json`.
+O destino deve ser novo: o comando não substitui automaticamente áudios em uso.
+Para medir os arquivos instalados: `python docs/gerar_narracoes.py --audit-only --report auditoria.json`.
+Os scripts antigos encaminham para esse gerador e também salvam em pasta de preparação.
+
+O roteiro vem de `core/narracao_resumos.py`, do catálogo e de `core/resumos.py`.
+São seis blocos: abertura portuguesa, quatro pares ingleses e explicação/encerramento portugueses.
+Francisca a -5%, Jenny a -12%; somente duas trocas de voz. O áudio é decodificado para PCM,
+tem margens de silêncio preservadas, bordas de 5 ms suavizadas, pausas de 450–550 ms
+e normalização final em duas passagens. A exportação é MP3 mono, 24 kHz, 128 kbit/s.
+Arquivos que não passam nas verificações de duração, volume, pico e silêncio são rejeitados.
+
+Antes de publicar, faça backup dos MP3/JSON anteriores; valide os nove arquivos e seus
+roteiros. Copie cada par MP3/JSON validado para o caminho correspondente em media/modulos.
+Altere VERSAO_AUDIO para invalidar o cache quando publicar outro lote e reinicie o servidor.
+As métricas são avaliação técnica, não substituem a audição humana nem validam sozinhas a pronúncia.
+
+## Histórico da implementação inicial (superado pelo gerador acima)
+
 Somente o Módulo 1 está habilitado: `/modulos/1/resumo/`.
 Fluxo: explicação → descobertas 1–4 (dois acertos cada) → resumo → conclusão existente.
 O resumo não exige microfone, reprodução do áudio ou nova avaliação.

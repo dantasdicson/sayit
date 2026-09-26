@@ -1,0 +1,54 @@
+{% extends 'core/desafio/base.html' %}
+{% load static %}
+{% block title %}Desafio {{ config.numero }} de {{ total }} | SayIt!{% endblock %}
+{% block scripts %}
+{{ dados|json_script:'desafio-config' }}
+<script src="{% static 'core/pronuncia.js' %}?v=6" defer></script>
+<script src="{% static 'core/modulo_1.js' %}" defer></script>
+<script src="{% static 'core/desafio_final.js' %}?v=1" defer></script>
+{% endblock %}
+{% block content %}
+<header class="intro"><p class="eyebrow">MÓDULO 10 · DESAFIO FINAL</p>
+<h1>Desafio {{ config.numero }} de {{ total }}</h1>
+<p class="explanation">Primeiro monte. Depois fale a frase inteira!</p></header>
+<section id="challenge" class="sayit-card challenge-card">
+  {% csrf_token %}
+  <h2>Monte esta frase</h2><p class="challenge-target" lang="en">{{ config.frase }}</p>
+  <p id="assembly-help" class="muted">Toque nas palavras na ordem certa. Para remover uma palavra, toque nela na frase montada.</p>
+  <div id="word-bank" class="word-bank" aria-label="Palavras disponíveis">
+    {% for id, palavra in palavras %}<button class="word-token" type="button" data-token="{{ id }}" lang="en" disabled>{{ palavra }}</button>{% endfor %}
+  </div>
+  <div id="sentence-tray" class="sentence-tray" aria-label="Sua frase montada" aria-describedby="assembly-help" aria-live="polite"></div>
+  <div class="challenge-actions">
+    <button id="assembly-reset" class="sayit-button sayit-button--secondary" type="button" disabled>Recomeçar montagem</button>
+    <button id="assembly-check" class="sayit-button" type="button" disabled>Conferir frase</button>
+  </div>
+  <p id="assembly-status" role="status">Monte a frase para liberar o microfone.</p>
+  <h2>Ouça as palavras importantes</h2>
+  <div class="challenge-actions">
+    {% for audio in audios %}<audio id="challenge-audio-{{ forloop.counter }}" preload="none" src="{{ audio.url }}" controls></audio>
+    <button type="button" class="sayit-button sayit-button--secondary" data-audio="challenge-audio-{{ forloop.counter }}" hidden>Ouvir <span lang="en">{{ audio.palavra }}</span></button>{% empty %}<p class="muted">Os exemplos de áudio não estão disponíveis agora.</p>{% endfor %}
+  </div>
+  <p id="audio-status" role="status"></p>
+  <button id="challenge-speak" class="sayit-button" type="button" disabled aria-describedby="challenge-status">Agora fale a frase</button>
+  <p id="challenge-status" role="status">O microfone é obrigatório. Permita o acesso quando o navegador pedir.</p>
+  <noscript><p>Ative o JavaScript e use um navegador com reconhecimento de voz para realizar os desafios.</p></noscript>
+  <div id="challenge-feedback" class="challenge-feedback" role="status" tabindex="-1" hidden>
+    <p id="challenge-score" class="challenge-score"></p>
+    <p id="challenge-stars" class="challenge-stars"></p>
+    <h2 id="feedback-title"></h2><p id="feedback-message"></p>
+    <p id="feedback-count"></p><p id="feedback-correct"></p><p id="feedback-missing"></p>
+    <p id="feedback-important"></p><p id="feedback-extra"></p>
+  </div>
+  <button id="retry-save" class="sayit-button sayit-button--secondary" type="button" hidden>Tentar salvar a avaliação novamente</button>
+  <p id="best-score">Sua melhor nota: {{ atual.melhor }}/100</p>
+  <button id="challenge-next" class="sayit-button" type="button" disabled>{% if config.numero == total %}Ver resultado final{% else %}Próximo desafio{% endif %}</button>
+  <p class="muted">A nota é baseada nas palavras reconhecidas, não em uma medição do sotaque. Cada tentativa fica no seu histórico.</p>
+</section>
+<section class="sayit-card challenge-card"><h2>Suas tentativas neste desafio</h2>
+<ol id="challenge-history" class="challenge-history">
+{% for tentativa in atual.historico %}<li><strong>{{ tentativa.nota }}/100</strong> · {{ tentativa.avaliacao.reconhecidas }} de {{ tentativa.avaliacao.total }} palavras reconhecidas.
+  <p>Reconhecimento: <span lang="en">{{ tentativa.transcricao|default:'Nenhuma fala reconhecida' }}</span></p>
+  <p>Reconhecidas: {{ tentativa.avaliacao.corretas|join:', '|default:'nenhuma' }}. Não identificadas: {{ tentativa.avaliacao.faltantes|join:', '|default:'nenhuma' }}.</p>
+</li>{% endfor %}</ol></section>
+{% endblock %}

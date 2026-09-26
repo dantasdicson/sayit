@@ -42,24 +42,25 @@ class Modulo2Tests(TestCase):
 
     def test_catalogo_e_explicacao(self):
         self.assertEqual([(p.palavra_base.palavra, p.palavra_comparada.palavra) for p in self.pares],
-                         [('bit', 'bite'), ('fin', 'pin'), ('pin', 'pine'), ('sit', 'site')])
+                         [('bit', 'bite'), ('can', 'cane'), ('pin', 'pine'), ('sit', 'site')])
         r = self.client.get(reverse('explicacao_modulo_2'))
-        self.assertContains(r, 'MAGIC E — SOM DO I')
+        self.assertContains(r, 'MAGIC E — SONS DE A E I')
         self.assertContains(r, self.modulo.conteudo_teorico)
         self.assertContains(r, self.url(1))
         self.assertNotContains(self.client.get(reverse('trilha')), reverse('explicacao_modulo_2'))
 
-    def test_substituicao_pin_pine_preserva_ids_e_associa_midias(self):
+    def test_catalogo_legado_preserva_palavras_e_associa_midias_novas(self):
         par = self.pares[2]
         ids = (par.pk, par.palavra_base_id, par.palavra_comparada_id)
         Palavra.objects.filter(pk=ids[1]).update(palavra='fin', traducao='barbatana')
         Palavra.objects.filter(pk=ids[2]).update(palavra='fine', traducao='bem')
         call_command('popular_sayit', modulo=2, stdout=StringIO())
         call_command('popular_sayit', modulo=2, stdout=StringIO())
-        par.refresh_from_db()
-        self.assertEqual((par.pk, par.palavra_base_id, par.palavra_comparada_id), ids)
-        self.assertEqual((par.palavra_base.palavra, par.palavra_comparada.palavra), ('pin', 'pine'))
-        self.assertEqual(self.modulo.palavras.count(), 7)
+        self.assertFalse(Comparacao.objects.filter(pk=ids[0]).exists())
+        self.assertEqual(list(Palavra.objects.filter(pk__in=ids[1:]).order_by('pk').values_list('palavra', 'ativa')),
+                         [('fin', False), ('fine', False)])
+        self.assertEqual(self.modulo.palavras.filter(ativa=True).count(), 8)
+        self.assertEqual(self.modulo.palavras.count(), 10)
         call_command('associar_imagens', modulo=2, stdout=StringIO())
         call_command('associar_audios', modulo=2, stdout=StringIO())
         for word in self.modulo.palavras.filter(palavra__in=['pin', 'pine']):
@@ -137,7 +138,7 @@ class Modulo2Tests(TestCase):
         self.completar()
         with patch('core.views.default_storage.exists', return_value=False):
             r = self.client.get(reverse('resumo_modulo_2'))
-        self.assertContains(r, 'Magic E — Som do I')
+        self.assertContains(r, 'Magic E — Sons de A e I')
         self.assertContains(r, 'method="post"')
         self.assertNotContains(r, '<audio')
         self.assertEqual(self.client.get(reverse('conclusao_modulo_2')).status_code, 409)
@@ -161,7 +162,7 @@ class Modulo2Tests(TestCase):
             self.assertEqual(self.client.get(url).status_code, 302)
 
     def test_ordem_invalida_e_modulo_inativo(self):
-        self.assertEqual(self.client.get(self.url(4)).status_code, 404)
+        self.assertEqual(self.client.get(self.url(5)).status_code, 404)
         self.modulo.ativo = False
         self.modulo.save(update_fields=['ativo'])
         self.assertEqual(self.client.get(self.url(1)).status_code, 404)

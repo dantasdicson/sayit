@@ -1,0 +1,79 @@
+{
+  "versao": "narracao-v2",
+  "modulo": 10,
+  "segmentos": [
+    {
+      "texto": "Você ouviu e falou os seguintes pares de palavras.",
+      "voz": "pt-BR-FranciscaNeural",
+      "rate": "-5%",
+      "pausa_ms": 450
+    },
+    {
+      "texto": "cat, cake.",
+      "voz": "en-US-JennyNeural",
+      "rate": "-12%",
+      "pausa_ms": 550
+    },
+    {
+      "texto": "ship, chip.",
+      "voz": "en-US-JennyNeural",
+      "rate": "-12%",
+      "pausa_ms": 550
+    },
+    {
+      "texto": "think, this.",
+      "voz": "en-US-JennyNeural",
+      "rate": "-12%",
+      "pausa_ms": 550
+    },
+    {
+      "texto": "moon, book.",
+      "voz": "en-US-JennyNeural",
+      "rate": "-12%",
+      "pausa_ms": 550
+    },
+    {
+      "texto": "Você revisou o ê silencioso, a diferença entre esse agá e cê agá, os dois sons de tê agá e os sons de OO. Escute cada palavra, observe a posição da boca e repita com calma. Você terminou a revisão geral! Conclua este módulo para finalizar a trilha. Continue praticando: você pode voltar aos módulos sempre que quiser.",
+      "voz": "pt-BR-FranciscaNeural",
+      "rate": "-5%",
+      "pausa_ms": 0
+    }
+  ],
+  "texto_exibido": {
+    "subtitulo": "Revisão geral da trilha",
+    "paragrafos": [
+      "Você ouviu e falou CAT e CAKE, SHIP e CHIP, THINK e THIS, MOON e BOOK.",
+      "Você revisou o E silencioso, a diferença entre SH e CH, os dois sons de TH e os sons de OO.",
+      "Escute cada palavra, observe a posição da boca e repita com calma."
+    ],
+    "reforco": "Você terminou a revisão geral! Conclua este módulo para finalizar a trilha. Continue praticando: você pode voltar aos módulos sempre que quiser.",
+    "audio": "modulos/10/resumo.mp3",
+    "conclusao": "conclusao_modulo_10"
+  },
+  "pares": [
+    [
+      "cat",
+      "cake"
+    ],
+    [
+      "ship",
+      "chip"
+    ],
+    [
+      "think",
+      "this"
+    ],
+    [
+      "moon",
+      "book"
+    ]
+  ],
+  "metricas": {
+    "duracao_s": 32.667,
+    "lufs": -18.53,
+    "pico_dbtp": -1.9,
+    "lra": 2.6,
+    "maior_silencio_s": 0.75,
+    "sha256": "cb77cb9e866041eff00168984624cd2edc16a2501ec3fee6b28a128f2add388c"
+  }
+}

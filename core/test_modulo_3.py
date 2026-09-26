@@ -36,13 +36,13 @@ class Modulo3Tests(TestCase):
         }, content_type='application/json')
 
     def completar(self):
-        for i in range(3):
+        for i in range(4):
             self.assertEqual(self.acertar(i).status_code, 200)
             self.assertEqual(self.acertar(i, True).status_code, 200)
 
     def test_catalogo_e_explicacao(self):
         self.assertEqual([(p.palavra_base.palavra, p.palavra_comparada.palavra) for p in self.pares],
-                         [('hop', 'hope'), ('not', 'note'), ('rob', 'robe')])
+                         [('hop', 'hope'), ('not', 'note'), ('rob', 'robe'), ('cop', 'cope')])
         r = self.client.get(reverse('explicacao_modulo_3'))
         self.assertContains(r, 'MAGIC E — SOM DO O')
         self.assertContains(r, self.modulo.conteudo_teorico)
@@ -52,7 +52,7 @@ class Modulo3Tests(TestCase):
     def test_primeira_descoberta_reutiliza_template_e_estado(self):
         r = self.client.get(self.url(1))
         self.assertTemplateUsed(r, 'core/descoberta_modulo_1.html')
-        self.assertContains(r, 'Descoberta 1 de 3')
+        self.assertContains(r, 'Descoberta 1 de 4')
         self.assertContains(r, 'data-modulo="3"')
         self.assertContains(r, f'data-comparacao-id="{self.pares[0].pk}"')
         self.assertContains(r, '/modulos/3/progresso/acertos/')
@@ -74,11 +74,11 @@ class Modulo3Tests(TestCase):
                 self.assertContains(r, palavra.imagem.url)
                 self.assertContains(r, f'aria-label="Ouvir {palavra.palavra}"')
             self.assertFalse(r.context['descoberta_concluida'])
-            self.assertEqual(self.acertar(i).json()['percentual'], i * 100 // 3)
+            self.assertEqual(self.acertar(i).json()['percentual'], i * 100 // 4)
             parcial = self.client.get(self.url(i + 1))
             self.assertEqual([c['acertada'] for c in parcial.context['cards']], [True, False])
             self.assertFalse(parcial.context['descoberta_concluida'])
-            self.assertEqual(self.acertar(i, True).json()['percentual'], (i + 1) * 100 // 3)
+            self.assertEqual(self.acertar(i, True).json()['percentual'], (i + 1) * 100 // 4)
             antes = Tentativa.objects.count()
             final = self.client.get(self.url(i + 1))
             self.assertTrue(final.context['descoberta_concluida'])
@@ -87,7 +87,7 @@ class Modulo3Tests(TestCase):
         self.assertIsNone(Progresso.objects.get().concluido_em)
 
     def test_sequencia_e_resumo_bloqueados(self):
-        for ordem in (2, 3):
+        for ordem in (2, 3, 4):
             self.assertEqual(self.client.get(self.url(ordem)).status_code, 409)
         self.assertEqual(self.acertar(1).status_code, 409)
         self.assertEqual(self.client.get(reverse('resumo_modulo_3')).status_code, 409)
@@ -104,6 +104,25 @@ class Modulo3Tests(TestCase):
         self.acertar(0); self.acertar(0)
         self.assertEqual(Tentativa.objects.count(), 1)
         self.assertEqual(Progresso.objects.get().percentual, 0)
+
+    def test_quarta_descoberta_obrigatoria_e_carga_preserva_acertos(self):
+        for i in range(3):
+            self.acertar(i)
+            self.acertar(i, True)
+        ids = list(Tentativa.objects.values_list('pk', flat=True))
+        pares_ids = [p.pk for p in self.pares]
+        call_command('popular_sayit', modulo=3, stdout=StringIO())
+        call_command('popular_sayit', modulo=3, stdout=StringIO())
+        self.assertEqual(list(Tentativa.objects.values_list('pk', flat=True)), ids)
+        self.assertEqual(list(self.modulo.comparacoes.order_by('ordem').values_list('pk', flat=True)), pares_ids)
+        self.assertEqual(progresso.consultar_progresso(self.usuario, 3)['percentual'], 75)
+        self.assertEqual(self.client.get(reverse('resumo_modulo_3')).status_code, 409)
+        self.assertEqual(self.client.post(reverse('conclusao_modulo_3')).status_code, 409)
+        pagina = self.client.get(self.url(4))
+        self.assertContains(pagina, 'Descoberta 4 de 4')
+        self.acertar(3)
+        self.assertEqual(self.acertar(3, True).json()['percentual'], 100)
+        self.assertContains(self.client.get(reverse('resumo_modulo_3')), 'COP e COPE')
 
     def test_isolamento_modulos_e_usuarios(self):
         p1 = Progresso.objects.create(usuario=self.usuario, modulo=Modulo.objects.get(numero=1), percentual=25)
@@ -144,7 +163,7 @@ class Modulo3Tests(TestCase):
             self.assertEqual(self.client.get(url).status_code, 302)
 
     def test_ordem_invalida_e_modulo_inativo(self):
-        self.assertEqual(self.client.get(self.url(4)).status_code, 404)
+        self.assertEqual(self.client.get(self.url(5)).status_code, 404)
         self.modulo.ativo = False
         self.modulo.save(update_fields=['ativo'])
         self.assertEqual(self.client.get(self.url(1)).status_code, 404)

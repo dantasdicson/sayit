@@ -22,17 +22,17 @@ MODULOS = [
     },
     {
         "numero": 2,
-        "titulo": "Magic E: mudança do som do I",
-        "descricao": "Aprenda como o E final silencioso pode modificar a pronúncia da vogal I.",
+        "titulo": "Magic E: mudança dos sons de A e I",
+        "descricao": "Compare quatro pares e descubra como o E final muda os sons de A e I.",
         "palavras": [
-            ("bit", "pedaço", 1),
+            ("bit", "broca", 1),
             ("bite", "mordida", 2),
             ("can", "lata", 3),
-            ("cane", "cana", 4),
+            ("cane", "bengala", 4),
             ("pin", "alfinete", 5),
             ("pine", "pinheiro", 6),
-            ("sit", "sentar", 6),
-            ("site", "local", 7),
+            ("sit", "sentar", 7),
+            ("site", "local", 8),
         ],
     },
     {
@@ -46,6 +46,8 @@ MODULOS = [
             ("note", "nota", 4),
             ("rob", "roubar", 5),
             ("robe", "roupão", 6),
+            ("cop", "policial", 7),
+            ("cope", "lidar com uma dificuldade", 8),
         ],
     },
     {
@@ -59,6 +61,8 @@ MODULOS = [
             ("tube", "tubo", 4),
             ("cut", "cortar", 5),
             ("cute", "fofo", 6),
+            ("plum", "ameixa", 7),
+            ("plume", "pluma", 8),
         ],
     },
     {
@@ -72,6 +76,8 @@ MODULOS = [
             ("sheep", "ovelha", 4),
             ("shop", "loja", 5),
             ("shovel", "pá", 6),
+            ("dish", "prato", 7),
+            ("brush", "escova", 8),
         ],
     },
     {
@@ -85,6 +91,8 @@ MODULOS = [
             ("beach", "praia", 4),
             ("child", "criança", 5),
             ("chocolate", "chocolate", 6),
+            ("cherry", "cereja", 7),
+            ("peach", "pêssego", 8),
         ],
     },
     {
@@ -98,6 +106,8 @@ MODULOS = [
             ("this", "isto", 4),
             ("that", "aquilo", 5),
             ("mother", "mãe", 6),
+            ("thumb", "polegar", 7),
+            ("father", "pai", 8),
         ],
     },
     {
@@ -111,6 +121,8 @@ MODULOS = [
             ("dolphin", "golfinho", 4),
             ("alphabet", "alfabeto", 5),
             ("trophy", "troféu", 6),
+            ("graph", "gráfico", 7),
+            ("sphere", "esfera", 8),
         ],
     },
     {
@@ -130,8 +142,8 @@ MODULOS = [
     },
     {
         "numero": 10,
-        "titulo": "Revisão geral",
-        "descricao": "Revise e compare os principais padrões de pronúncia estudados na trilha.",
+        "titulo": "Desafio Final",
+        "descricao": "Monte e fale frases em inglês em três desafios para concluir sua jornada.",
         "palavras": [
             ("cat", "gato", 1),
             ("cake", "bolo", 2),
@@ -154,27 +166,28 @@ MODULOS = [
 
 CONTEUDOS_TEORICOS = {
     1: "O E no final fica silencioso e pode mudar o som do A. Compare cat e cake: em cake, o A soa como seu nome em inglês. Escute e repita devagar!",
-    2: "O E silencioso pode mudar o som do I. Compare kit e kite: em kite, o I soa como seu nome em inglês. Vamos ouvir a diferença?",
+    2: "Compare BIT e BITE, CAN e CANE, PIN e PINE, SIT e SITE. O E final é silencioso e muda o som da vogal: o A em CAN e CANE, e o I nos outros três pares.",
     3: "O E no final pode mudar o som do O sem ter um som próprio. Compare hop e hope e repita cada palavra com calma.",
-    4: "O E silencioso pode mudar o som do U. Compare cub e cube, tub e tube, cut e cute. Escute cada palavra: a pronúncia também pode variar entre sotaques.",
+    4: "O E silencioso pode mudar o som do U. Compare cub e cube, tub e tube, cut e cute, plum e plume. Escute cada palavra: a pronúncia também pode variar entre sotaques.",
     5: "S e H juntos fazem um som parecido com o pedido de silêncio: shhh! Procure esse som em ship e fish. Ele pode aparecer no começo ou no final.",
     6: "Nestas palavras, C e H juntos fazem um som parecido com tch. Escute chair e beach e tente repetir. Nem toda palavra com CH segue essa regra!",
     7: "Para experimentar TH, coloque de leve a ponta da língua entre os dentes e sopre. Em think, a garganta não vibra; em this, ela vibra. Tente sentir a diferença!",
     8: "P e H juntos costumam soar como F. Escute phone e elephant e procure esse som. Duas letras podem trabalhar juntas para formar um só som!",
     9: "OO pode ter sons diferentes. Compare moon e book: a posição da boca muda, não apenas a duração do som. Ouça as palavras e repita sem pressa.",
-    10: "Vamos rever o que aprendemos! Escute as palavras, procure o E silencioso e as combinações de letras. Repita com calma e tente perceber o que muda em cada som.",
+    10: "Monte as palavras na ordem correta e use o microfone para falar a frase. Alcance pelo menos 70 pontos em cada um dos três desafios.",
 }
 
 PARES_DIDATICOS = {
     1: [("cat", "cake"), ("cap", "cape"), ("tap", "tape"), ("mad", "made")],
     2: [("bit", "bite"), ("can", "cane"), ("pin", "pine"), ("sit", "site")],
-    3: [("hop", "hope"), ("not", "note"), ("rob", "robe")],
-    4: [("cub", "cube"), ("tub", "tube"), ("cut", "cute")],
-    5: [("ship", "fish"), ("shark", "sheep"), ("shop", "shovel")],
-    6: [("chair", "chicken"), ("cheese", "beach"), ("child", "chocolate")],
-    7: [("think", "this"), ("tooth", "that"), ("bath", "mother")],
-    8: [("phone", "photo"), ("elephant", "dolphin"), ("alphabet", "trophy")],
+    3: [("hop", "hope"), ("not", "note"), ("rob", "robe"), ("cop", "cope")],
+    4: [("cub", "cube"), ("tub", "tube"), ("cut", "cute"), ("plum", "plume")],
+    5: [("ship", "fish"), ("shark", "sheep"), ("shop", "shovel"), ("dish", "brush")],
+    6: [("chair", "chicken"), ("cheese", "beach"), ("child", "chocolate"), ("cherry", "peach")],
+    7: [("think", "this"), ("tooth", "that"), ("bath", "mother"), ("thumb", "father")],
+    8: [("phone", "photo"), ("elephant", "dolphin"), ("alphabet", "trophy"), ("graph", "sphere")],
     9: [("moon", "book"), ("food", "good"), ("room", "look"), ("school", "foot")],
+    10: [("cat", "cake"), ("ship", "chip"), ("think", "this"), ("moon", "book")],
 }
 
 
@@ -201,22 +214,25 @@ class Command(BaseCommand):
                     },
                 )
                 totais["modulos"] += 1
+                if modulo.numero == 10 and modulo.palavras.exists():
+                    # O novo desafio usa frases; o catálogo legado é só histórico.
+                    continue
+                # Libera todas as posições antes de renomear ou criar palavras.
+                existentes = list(modulo.palavras.all())
+                limite = max([p.ordem for p in existentes] + [len(dados_modulo["palavras"])])
+                for indice, p in enumerate(existentes, 1):
+                    p.ordem = limite + indice
+                    p.save(update_fields=["ordem"])
+                comparacoes = list(modulo.comparacoes.all())
+                limite = max([c.ordem for c in comparacoes] + [0])
+                for indice, c in enumerate(comparacoes, 1):
+                    c.ordem = limite + indice
+                    c.save(update_fields=["ordem"])
                 if modulo.numero == 2:
-                    # Reaproveita registros antigos protegidos por tentativas.
-                    for antiga, nova, traducao in [('kit', 'sit', 'sentar'), ('kite', 'site', 'local')]:
-                        if modulo.palavras.filter(palavra=antiga).exists() and not modulo.palavras.filter(palavra=nova).exists():
-                            modulo.palavras.filter(palavra=antiga).update(
-                                palavra=nova, traducao=traducao, imagem='', audio='',
-                                ordem=1000000 + modulo.palavras.filter(palavra=antiga).values_list('pk', flat=True).first()
-                            )
-                    for antiga, nova, traducao in [('fin', 'can', 'lata'), ('fine', 'cane', 'cana')]:
-                        if not modulo.palavras.filter(palavra=nova).exists():
-                            modulo.palavras.filter(palavra=antiga).update(
-                                palavra=nova, traducao=traducao, imagem='', audio=''
-                            )
-                    # As comparações antigas podem ter a mesma ordem de uma nova;
-                    # recriá-las torna a carga idempotente sem apagar tentativas.
-                    modulo.comparacoes.all().delete()
+                    # Mantém as palavras antigas inativas para preservar seu histórico.
+                    modulo.palavras.exclude(
+                        palavra__in=[p[0] for p in dados_modulo["palavras"]]
+                    ).update(ativa=False)
                 # Mantém o PK e os acertos da versão inicial do Módulo 5.
                 if modulo.numero == 5 and not modulo.palavras.filter(palavra='shark').exists():
                     modulo.palavras.filter(palavra='shoe').update(
@@ -232,14 +248,6 @@ class Command(BaseCommand):
                         palavra='tooth', traducao='dente', imagem='', audio=''
                     )
                 palavras_modulo = {}
-                if modulo.numero == 2:
-                    # Libera temporariamente as posições antigas antes de
-                    # trocar palavras ou aumentar o catálogo. A constraint
-                    # modulo_id + ordem é única no SQLite.
-                    for palavra_existente in modulo.palavras.only('pk').iterator():
-                        Palavra.objects.filter(pk=palavra_existente.pk).update(
-                            ordem=1000000 + palavra_existente.pk
-                        )
                 for palavra, traducao, ordem in dados_modulo["palavras"]:
                     registro, _ = Palavra.objects.update_or_create(
                         modulo=modulo,
@@ -247,17 +255,18 @@ class Command(BaseCommand):
                         defaults={
                             "traducao": traducao,
                             "observacao": "",
-                            "ordem": 2000000 + ordem if modulo.numero == 2 else ordem,
+                            "ordem": ordem,
                             "ativa": True,
                         },
                     )
                     palavras_modulo[palavra] = registro
                     totais["palavras"] += 1
 
-                if modulo.numero == 2:
-                    for palavra, _, ordem in dados_modulo["palavras"]:
-                        Palavra.objects.filter(pk=palavras_modulo[palavra].pk).update(ordem=ordem)
-
+                if modulo.numero == 10:
+                    # Preserva palavras e tentativas legadas fora dos quatro pares.
+                    ativas = {p for par in PARES_DIDATICOS[10] for p in par}
+                    modulo.palavras.exclude(palavra__in=ativas).update(ativa=False)
+                ids_comparacoes = []
                 for ordem, (base, destino) in enumerate(
                     PARES_DIDATICOS.get(modulo.numero, []), start=1
                 ):
@@ -292,10 +301,19 @@ class Command(BaseCommand):
                         "é silencioso e muda o som da vogal. "
                         "Observe também as outras letras e o significado de cada palavra."
                     )
+                    if modulo.numero == 10:
+                        comparacao.explicacao = {
+                            'cat': 'Compare cat e cake: o E final é silencioso e muda o som do A.',
+                            'ship': 'Compare ship e chip: SH soa como um pedido de silêncio; CH soa parecido com tch.',
+                            'think': 'Compare think e this: em think, a garganta não vibra; em this, ela vibra.',
+                            'moon': 'Compare moon e book: OO tem sons diferentes. Observe a posição da boca e escute cada palavra.',
+                        }[base]
                     comparacao.ordem = ordem
                     comparacao.full_clean()
                     comparacao.save()
+                    ids_comparacoes.append(comparacao.pk)
                     totais["comparacoes"] += 1
+                modulo.comparacoes.exclude(pk__in=ids_comparacoes).delete()
 
         for dados_modulo in modulos:
             self.stdout.write(self.style.SUCCESS(

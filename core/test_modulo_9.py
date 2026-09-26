@@ -86,14 +86,14 @@ class Modulo9Tests(TestCase):
         self.assertContains(resposta, '/media/modulos/9/resumo.mp3')
         self.assertContains(resposta, 'resumo_audio.js')
         self.assertContains(resposta, 'Concluir módulo')
-        self.assertContains(resposta, 'disabled')
+        self.assertNotContains(resposta, 'id="summary-complete" class="practice-link" type="submit" disabled')
         self.assertRedirects(
             self.client.post(reverse('conclusao_modulo_9')),
             reverse('conclusao_modulo_9'))
         conclusao = self.client.get(reverse('conclusao_modulo_9'))
         self.assertContains(conclusao, 'Continuar para o próximo módulo')
-        self.assertContains(conclusao, 'O próximo módulo estará disponível em breve.')
-        self.assertContains(conclusao, f'href="{reverse("trilha")}"')
+        self.assertNotContains(conclusao, 'O próximo módulo estará disponível em breve.')
+        self.assertContains(conclusao, f'href="{reverse("explicacao_modulo_10")}"')
         estado = Progresso.objects.get(usuario=self.usuario, modulo=self.modulo)
         self.assertEqual(estado.percentual, 100)
         self.assertIsNotNone(estado.concluido_em)

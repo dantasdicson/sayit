@@ -39,15 +39,15 @@ class Modulo5Tests(TestCase):
         }, content_type='application/json')
 
     def completar(self):
-        for i in range(3):
+        for i in range(4):
             self.assertEqual(self.acertar(i).status_code, 200)
             self.assertEqual(self.acertar(i, True).status_code, 200)
 
     def test_catalogo_explicacao_e_trilha(self):
         self.assertEqual(list(self.modulo.palavras.values_list('palavra', flat=True)),
-                         ['ship', 'fish', 'shark', 'sheep', 'shop', 'shovel'])
+                         ['ship', 'fish', 'shark', 'sheep', 'shop', 'shovel', 'dish', 'brush'])
         self.assertEqual([(p.palavra_base.palavra, p.palavra_comparada.palavra) for p in self.pares],
-                         [('ship', 'fish'), ('shark', 'sheep'), ('shop', 'shovel')])
+                         [('ship', 'fish'), ('shark', 'sheep'), ('shop', 'shovel'), ('dish', 'brush')])
         r = self.client.get(reverse('explicacao_modulo_5'))
         self.assertTemplateUsed(r, 'core/explicacao_modulo.html')
         self.assertContains(r, 'O SOM SH')
@@ -75,27 +75,27 @@ class Modulo5Tests(TestCase):
         call_command('popular_sayit', modulo=5, stdout=StringIO())
         self.assertEqual(list(Modulo.objects.filter(numero__lt=5).values()), antes)
 
-    def test_tres_etapas_dois_acertos_e_percentuais(self):
-        for i in range(3):
+    def test_quatro_etapas_dois_acertos_e_percentuais(self):
+        for i in range(4):
             r = self.client.get(self.url(i + 1))
             self.assertTemplateUsed(r, 'core/descoberta_modulo_1.html')
             self.assertContains(r, 'data-modulo="5"')
             self.assertContains(r, 'descobertas_microfone.js')
             self.assertContains(r, 'pronuncia.js')
             self.assertContains(r, 'type="button" disabled aria-describedby="speech-status"')
-            self.assertEqual(self.acertar(i).json()['percentual'], i * 100 // 3)
+            self.assertEqual(self.acertar(i).json()['percentual'], i * 100 // 4)
             parcial = self.client.get(self.url(i + 1))
             self.assertEqual([c['acertada'] for c in parcial.context['cards']], [True, False])
             self.assertFalse(parcial.context['descoberta_concluida'])
-            self.assertEqual(self.acertar(i, True).json()['percentual'], (i + 1) * 100 // 3)
+            self.assertEqual(self.acertar(i, True).json()['percentual'], (i + 1) * 100 // 4)
             final = self.client.get(self.url(i + 1))
             self.assertTrue(final.context['descoberta_concluida'])
-            self.assertEqual(final.context['proxima_url'], self.url(i + 2) if i < 2 else reverse('resumo_modulo_5'))
-        self.assertEqual(Tentativa.objects.count(), 6)
+            self.assertEqual(final.context['proxima_url'], self.url(i + 2) if i < 3 else reverse('resumo_modulo_5'))
+        self.assertEqual(Tentativa.objects.count(), 8)
         self.assertIsNone(Progresso.objects.get().concluido_em)
 
     def test_bloqueio_de_salto_resumo_e_conclusao(self):
-        for ordem in (2, 3):
+        for ordem in (2, 3, 4):
             self.assertEqual(self.client.get(self.url(ordem)).status_code, 409)
         self.assertEqual(self.acertar(1).status_code, 409)
         self.assertEqual(self.client.get(reverse('resumo_modulo_5')).status_code, 409)
@@ -137,7 +137,7 @@ class Modulo5Tests(TestCase):
         self.assertTemplateUsed(r, 'core/resumo_modulo.html')
         for texto in ('O som SH', '/media/modulos/5/resumo.mp3', 'resumo_audio.js', 'Ouvir explicação novamente'):
             self.assertContains(r, texto)
-        self.assertEqual(len(r.context['pares']), 3)
+        self.assertEqual(len(r.context['pares']), 4)
         self.assertEqual(self.client.get(reverse('conclusao_modulo_5')).status_code, 409)
         self.assertRedirects(self.client.post(reverse('conclusao_modulo_5')), reverse('conclusao_modulo_5'))
         data = Progresso.objects.get().concluido_em
@@ -166,7 +166,8 @@ class Modulo5Tests(TestCase):
         self.assertEqual(self.client.get(destino).status_code, 200)
         Modulo.objects.filter(numero=6).update(ativo=False)
         r = self.client.get(reverse('conclusao_modulo_5'))
-        self.assertContains(r, 'O próximo módulo estará disponível em breve.')
+        self.assertContains(r, 'Voltar à trilha')
+        self.assertNotContains(r, 'Continuar para o próximo módulo')
         self.assertContains(r, f'class="practice-link" href="{reverse("trilha")}"')
 
     def test_midias_reais_associacao_e_renderizacao(self):
@@ -174,7 +175,7 @@ class Modulo5Tests(TestCase):
         from core.management.commands.associar_imagens import Command as Imagens
         saida = StringIO()
         call_command('associar_imagens', modulo=5, dry_run=True, stdout=saida)
-        self.assertIn('Registros que seriam associados: 6', saida.getvalue())
+        self.assertIn('Registros que seriam associados: 8', saida.getvalue())
         self.assertFalse(self.modulo.palavras.exclude(imagem='').exists())
         call_command('associar_imagens', modulo=5, stdout=StringIO())
         call_command('associar_audios', modulo=5, stdout=StringIO())

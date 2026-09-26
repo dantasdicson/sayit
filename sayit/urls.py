@@ -20,6 +20,7 @@ from django.contrib import admin
 from django.urls import path
 from core.auth_views import EntrarView, SairView, area, cadastro
 from core import progresso_views
+from core import desafio_views
 from core.views import (
     conclusao_modulo_1, descoberta_modulo_1, explicacao_modulo_1, pratica_modulo_1,
     resumo_modulo, explicacao_modulo_2, conclusao_modulo_2,
@@ -68,6 +69,12 @@ urlpatterns = [
     path('modulos/9/explicacao/', explicacao_modulo_2, {'numero': 9}, name='explicacao_modulo_9'),
     path('modulos/9/resumo/', resumo_modulo, {'numero': 9}, name='resumo_modulo_9'),
     path('modulos/9/conclusao/', conclusao_modulo_2, {'numero': 9}, name='conclusao_modulo_9'),
+    path('modulos/10/explicacao/', desafio_views.introducao, name='explicacao_modulo_10'),
+    path('modulos/10/desafios/<int:numero>/', desafio_views.desafio, name='desafio_modulo_10'),
+    path('modulos/10/desafios/<int:numero>/montar/', desafio_views.montar, name='montar_desafio_10'),
+    path('modulos/10/desafios/<int:numero>/avaliar/', desafio_views.avaliar, name='avaliar_desafio_10'),
+    path('modulos/10/resumo/', desafio_views.resultado, name='resumo_modulo_10'),
+    path('modulos/10/conclusao/', desafio_views.resultado, {'encerramento': True}, name='conclusao_modulo_10'),
 ]
 
 if settings.DEBUG:

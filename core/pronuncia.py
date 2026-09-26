@@ -1,4 +1,4 @@
-"""Variantes homófonas revisadas; nunca usar similaridade entre pares pedagógicos."""
+"""Exceções explícitas de reconhecimento; não aplicar similaridade genérica."""
 import json
 from pathlib import Path
 

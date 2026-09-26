@@ -76,7 +76,7 @@ class Modulo5HTTPTests(StaticLiveServerTestCase):
                 })
                 self.assertEqual(kind, 'application/json')
                 estado = json.loads(body)
-                self.assertEqual(estado['percentual'], (par.ordem - 1 + index) * 100 // 3)
+                self.assertEqual(estado['percentual'], (par.ordem - 1 + index) * 100 // 4)
                 html = page(url)
                 self.assertEqual('type="button" disabled aria-describedby="speech-status"' in html, index == 0)
         self.assertIn('/media/modulos/5/resumo.mp3', page('/modulos/5/resumo/'))

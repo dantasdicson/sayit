@@ -1,7 +1,7 @@
 """Persistência das Descobertas; não registra áudio nem eventos da Prática.
 
 Tentativa não possui origem/comparação: nesta etapa somente este serviço deve
-registrar acertos pedagógicos. Os catálogos habilitados são os Módulos 1, 2 e 3.
+registrar acertos pedagógicos. Os catálogos habilitados são os Módulos 1 a 10.
 """
 import re
 from contextlib import contextmanager
@@ -13,7 +13,7 @@ from django.utils import timezone
 from .models import Modulo, Palavra, Progresso, Tentativa
 from .pronuncia import corresponde
 
-DESCOBERTAS_POR_MODULO = {1: 4, 2: 4, 3: 3, 4: 3, 5: 3, 6: 3, 7: 3, 8: 3, 9: 4}
+DESCOBERTAS_POR_MODULO = {**{numero: 4 for numero in range(1, 10)}, 10: 3}
 
 
 class ErroProgresso(Exception):
@@ -61,6 +61,8 @@ def exigir_modulo_desbloqueado(usuario, numero):
 
 
 def _catalogo(numero):
+    if numero == 10:
+        raise ErroProgresso('Use os desafios de frases do módulo 10.', 'fluxo_desafio', 409)
     # Não habilitar progresso de módulos cuja experiência ainda não existe.
     if numero not in DESCOBERTAS_POR_MODULO:
         raise ErroProgresso('Módulo indisponível.', 'modulo_inexistente', 404)
@@ -141,6 +143,9 @@ def _estado(usuario, modulo, comparacoes):
 
 
 def consultar_progresso(usuario, numero=1):
+    if numero == 10:
+        from .desafio_service import estado_progresso
+        return estado_progresso(usuario)
     _validar_usuario(usuario)
     return _estado(usuario, *_catalogo(numero))
 
@@ -171,6 +176,11 @@ def consultar_meu_progresso(usuario):
         usuario=usuario, palavra__modulo__numero=8
     ).exists():
         numeros.append(8)
+    for numero in (9, 10):
+        if Progresso.objects.filter(usuario=usuario, modulo__numero=numero).exists() or Tentativa.objects.filter(
+            usuario=usuario, palavra__modulo__numero=numero
+        ).exists():
+            numeros.append(numero)
     return [consultar_progresso(usuario, numero) for numero in numeros
             if numero in DESCOBERTAS_POR_MODULO and Modulo.objects.filter(numero=numero, ativo=True).exists()]
 
@@ -194,6 +204,9 @@ def descoberta_pode_ser_acessada(usuario, comparacao):
 
 
 def resumo_pode_ser_acessado(usuario, numero=1):
+    if numero == 10:
+        from .desafio_service import consultar
+        return consultar(usuario)['pendente'] is None
     estado = consultar_progresso(usuario, numero)
     return estado['total_descobertas'] > 0 and estado['primeira_pendente'] is None
 
@@ -273,6 +286,9 @@ def registrar_erro(usuario, numero, comparacao_id, palavra_id, transcricao, resu
 
 
 def concluir_modulo(usuario, numero=1):
+    if numero == 10:
+        from .desafio_service import concluir
+        return concluir(usuario)
     with _escrita(usuario, numero) as (modulo, comparacoes):
         estado = _estado(usuario, modulo, comparacoes)
         if estado['primeira_pendente'] is not None:

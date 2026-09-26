@@ -5,7 +5,7 @@ const { join } = require('node:path');
 const { runInNewContext } = require('node:vm');
 const source = readFileSync(join(__dirname, '../resumo_audio.js'), 'utf8');
 
-function setup({ missing = false, play } = {}) {
+function setup({ missing = false, play, alreadyComplete = false } = {}) {
   const element = () => ({
     hidden: true, textContent: '', listeners: {},
     addEventListener(name, fn) { this.listeners[name] = fn; },
@@ -13,6 +13,7 @@ function setup({ missing = false, play } = {}) {
     removeAttribute(name) { delete this[name]; },
   });
   const player = element(), button = element(), label = element(), status = element(), complete = element();
+  complete.dataset = alreadyComplete ? { alreadyComplete: '' } : {};
   let plays = 0, pauses = 0;
   player.controls = true;
   player.play = () => { plays++; return play ? play() : Promise.resolve(); };
@@ -54,6 +55,7 @@ test('bloqueio de autoplay permite iniciar pelo botão', async () => {
   }});
   await new Promise(setImmediate);
   assert.match(app.status.textContent, /Toque em Ouvir explicação novamente/);
+  assert.equal(app.complete.disabled, false);
   await app.click();
   assert.equal(app.plays(), 2);
   assert.equal(app.status.textContent, 'Reproduzindo explicação.');
@@ -70,20 +72,39 @@ test('resposta atrasada de autoplay não sobrescreve uma nova reprodução', asy
   assert.equal(app.plays(), 2);
 });
 
-test('fim da narração libera a conclusão e uma nova reprodução bloqueia durante a fala', async () => {
+test('fim da narração libera a conclusão mesmo durante uma repetição', async () => {
   const app = setup(); await new Promise(setImmediate); app.player.listeners.ended();
   assert.equal(app.label.textContent, 'Ouvir explicação novamente');
   assert.equal(app.button['aria-busy'], undefined);
   assert.equal(app.complete.disabled, false);
-  await app.click(); assert.equal(app.plays(), 2); assert.equal(app.complete.disabled, true);
+  await app.click(); assert.equal(app.plays(), 2); assert.equal(app.complete.disabled, false);
 });
 
 test('falha de mídia mostra mensagem e permite nova tentativa', async () => {
   const app = setup({ play: () => Promise.reject(new Error('media failure')) });
   await new Promise(setImmediate); assert.match(app.status.textContent, /Não foi possível/);
-  assert.equal(app.complete.disabled, true);
+  assert.equal(app.complete.disabled, false);
   await app.click(); assert.equal(app.plays(), 2);
   app.player.listeners.error(); assert.match(app.status.textContent, /Tente novamente/);
+  assert.equal(app.complete.disabled, false);
+});
+
+test('interrupção no celular não impede concluir descobertas já realizadas', async () => {
+  const app = setup(); await new Promise(setImmediate);
+  assert.equal(app.complete.disabled, true);
+  app.player.paused = true;
+  app.player.listeners.pause();
+  assert.equal(app.complete.disabled, false);
+  assert.match(app.status.textContent, /concluir o módulo/);
+  await app.click();
+  assert.equal(app.plays(), 2);
+});
+
+test('atributo booleano vazio preserva a conclusão durante revisão', async () => {
+  const app = setup({ alreadyComplete: true }); await new Promise(setImmediate);
+  assert.equal(app.complete.disabled, false);
+  await app.click();
+  assert.equal(app.complete.disabled, false);
 });
 
 test('sair da página interrompe inclusive autoplay pendente', async () => {

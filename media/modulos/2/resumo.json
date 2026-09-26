@@ -1,0 +1,79 @@
+{
+  "versao": "narracao-v2",
+  "modulo": 2,
+  "segmentos": [
+    {
+      "texto": "Você ouviu e falou os seguintes pares de palavras.",
+      "voz": "pt-BR-FranciscaNeural",
+      "rate": "-5%",
+      "pausa_ms": 450
+    },
+    {
+      "texto": "bit, bite.",
+      "voz": "en-US-JennyNeural",
+      "rate": "-12%",
+      "pausa_ms": 550
+    },
+    {
+      "texto": "can, cane.",
+      "voz": "en-US-JennyNeural",
+      "rate": "-12%",
+      "pausa_ms": 550
+    },
+    {
+      "texto": "pin, pine.",
+      "voz": "en-US-JennyNeural",
+      "rate": "-12%",
+      "pausa_ms": 550
+    },
+    {
+      "texto": "sit, site.",
+      "voz": "en-US-JennyNeural",
+      "rate": "-12%",
+      "pausa_ms": 550
+    },
+    {
+      "texto": "O ê final fica silencioso e muda o som da vogal: o á no segundo par, e o i nos outros três pares. Compare as palavras de cada par: uma letra no final muda o som e o significado! Você terminou a revisão do módulo dois. Vamos para o próximo: o módulo três!",
+      "voz": "pt-BR-FranciscaNeural",
+      "rate": "-5%",
+      "pausa_ms": 0
+    }
+  ],
+  "texto_exibido": {
+    "subtitulo": "Magic E — Sons de A e I",
+    "paragrafos": [
+      "Você ouviu e falou BIT e BITE, CAN e CANE, PIN e PINE, SIT e SITE.",
+      "O E final fica silencioso e muda o som da vogal: o A no segundo par, e o I nos outros três pares.",
+      "Compare as palavras de cada par: uma letra no final muda o som e o significado!"
+    ],
+    "reforco": "Você terminou a revisão do módulo 2. Vamos para o próximo: o módulo 3!",
+    "audio": "modulos/2/resumo.mp3",
+    "conclusao": "conclusao_modulo_2"
+  },
+  "pares": [
+    [
+      "bit",
+      "bite"
+    ],
+    [
+      "can",
+      "cane"
+    ],
+    [
+      "pin",
+      "pine"
+    ],
+    [
+      "sit",
+      "site"
+    ]
+  ],
+  "metricas": {
+    "duracao_s": 28.767,
+    "lufs": -18.51,
+    "pico_dbtp": -1.92,
+    "lra": 2.6,
+    "maior_silencio_s": 0.75,
+    "sha256": "55cd4b32f8c1d0a5d040c342f38879e49585f8850cf84d3ff0779dfdc1e6b9a8"
+  }
+}

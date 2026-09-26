@@ -1,0 +1,79 @@
+{
+  "versao": "narracao-v2",
+  "modulo": 8,
+  "segmentos": [
+    {
+      "texto": "Você ouviu e falou os seguintes pares de palavras.",
+      "voz": "pt-BR-FranciscaNeural",
+      "rate": "-5%",
+      "pausa_ms": 450
+    },
+    {
+      "texto": "phone, photo.",
+      "voz": "en-US-JennyNeural",
+      "rate": "-12%",
+      "pausa_ms": 550
+    },
+    {
+      "texto": "elephant, dolphin.",
+      "voz": "en-US-JennyNeural",
+      "rate": "-12%",
+      "pausa_ms": 550
+    },
+    {
+      "texto": "alphabet, trophy.",
+      "voz": "en-US-JennyNeural",
+      "rate": "-12%",
+      "pausa_ms": 550
+    },
+    {
+      "texto": "graph, sphere.",
+      "voz": "en-US-JennyNeural",
+      "rate": "-12%",
+      "pausa_ms": 550
+    },
+    {
+      "texto": "Nestas palavras, pê e agá trabalham juntos e fazem o som de éfe. O pê agá pode aparecer no começo, no meio ou no final das palavras. Escute e repita com calma! Você terminou a revisão do módulo oito. Vamos para o próximo: o módulo nove!",
+      "voz": "pt-BR-FranciscaNeural",
+      "rate": "-5%",
+      "pausa_ms": 0
+    }
+  ],
+  "texto_exibido": {
+    "subtitulo": "O som PH",
+    "paragrafos": [
+      "Você ouviu e falou PHONE e PHOTO, ELEPHANT e DOLPHIN, ALPHABET e TROPHY, GRAPH e SPHERE.",
+      "Nestas palavras, P e H trabalham juntos e fazem o som de F.",
+      "O PH pode aparecer no começo, no meio ou no final das palavras. Escute e repita com calma!"
+    ],
+    "reforco": "Você terminou a revisão do módulo 8. Vamos para o próximo: o módulo 9!",
+    "audio": "modulos/8/resumo.mp3",
+    "conclusao": "conclusao_modulo_8"
+  },
+  "pares": [
+    [
+      "phone",
+      "photo"
+    ],
+    [
+      "elephant",
+      "dolphin"
+    ],
+    [
+      "alphabet",
+      "trophy"
+    ],
+    [
+      "graph",
+      "sphere"
+    ]
+  ],
+  "metricas": {
+    "duracao_s": 28.817,
+    "lufs": -18.42,
+    "pico_dbtp": -1.92,
+    "lra": 3.1,
+    "maior_silencio_s": 0.74,
+    "sha256": "83861634df75e44efd60dbea261836ffe46bae5778d0fa6a43d117bd80722bf9"
+  }
+}

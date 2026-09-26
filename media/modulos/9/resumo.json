@@ -1,0 +1,79 @@
+{
+  "versao": "narracao-v2",
+  "modulo": 9,
+  "segmentos": [
+    {
+      "texto": "Você ouviu e falou os seguintes pares de palavras.",
+      "voz": "pt-BR-FranciscaNeural",
+      "rate": "-5%",
+      "pausa_ms": 450
+    },
+    {
+      "texto": "moon, book.",
+      "voz": "en-US-JennyNeural",
+      "rate": "-12%",
+      "pausa_ms": 550
+    },
+    {
+      "texto": "food, good.",
+      "voz": "en-US-JennyNeural",
+      "rate": "-12%",
+      "pausa_ms": 550
+    },
+    {
+      "texto": "room, look.",
+      "voz": "en-US-JennyNeural",
+      "rate": "-12%",
+      "pausa_ms": 550
+    },
+    {
+      "texto": "school, foot.",
+      "voz": "en-US-JennyNeural",
+      "rate": "-12%",
+      "pausa_ms": 550
+    },
+    {
+      "texto": "Nestes pares, a primeira palavra tem um som longo e a segunda tem um som curto. Observe a posição da boca, escute cada palavra e repita sem pressa! Você terminou a revisão do módulo nove. Vamos para o próximo: o módulo dez!",
+      "voz": "pt-BR-FranciscaNeural",
+      "rate": "-5%",
+      "pausa_ms": 0
+    }
+  ],
+  "texto_exibido": {
+    "subtitulo": "Os dois sons de OO",
+    "paragrafos": [
+      "Você ouviu e falou MOON e BOOK, FOOD e GOOD, ROOM e LOOK, SCHOOL e FOOT.",
+      "Nestes pares, a primeira palavra tem um som longo e a segunda tem um som curto.",
+      "Observe a posição da boca, escute cada palavra e repita sem pressa!"
+    ],
+    "reforco": "Você terminou a revisão do módulo 9. Vamos para o próximo: o módulo 10!",
+    "audio": "modulos/9/resumo.mp3",
+    "conclusao": "conclusao_modulo_9"
+  },
+  "pares": [
+    [
+      "moon",
+      "book"
+    ],
+    [
+      "food",
+      "good"
+    ],
+    [
+      "room",
+      "look"
+    ],
+    [
+      "school",
+      "foot"
+    ]
+  ],
+  "metricas": {
+    "duracao_s": 26.567,
+    "lufs": -18.44,
+    "pico_dbtp": -2.64,
+    "lra": 2.4,
+    "maior_silencio_s": 0.75,
+    "sha256": "18ce1b12b01828bff100c8740a9df5dbb1af0093a7a207c5d4cad7a71b26d7a8"
+  }
+}

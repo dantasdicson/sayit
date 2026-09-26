@@ -40,12 +40,12 @@ class AreaDashboardTests(TestCase):
     def test_dashboard_calcula_percentual_e_status_persistidos(self):
         self.concluir_primeiro_modulo()
         resposta = self.client.get(reverse('modulos'))
-        self.assertEqual(resposta.context['percentual_curso'], 11)
+        self.assertEqual(resposta.context['percentual_curso'], 10)
         self.assertEqual(resposta.context['modulos_concluidos'], 1)
-        self.assertEqual(resposta.context['total_modulos'], 9)
+        self.assertEqual(resposta.context['total_modulos'], 10)
         self.assertEqual(resposta.context['proximo_modulo']['modulo'].numero, 2)
-        self.assertContains(resposta, '11% do curso concluído')
-        self.assertContains(resposta, '1 de 9 módulos finalizados')
+        self.assertContains(resposta, '10% do curso concluído')
+        self.assertContains(resposta, '1 de 10 módulos finalizados')
 
     def test_meu_progresso_exibe_metricas_reais(self):
         modulo = Modulo.objects.get(numero=1)
