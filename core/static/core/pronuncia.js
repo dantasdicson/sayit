@@ -16,6 +16,9 @@
     // A transcrição aceita permanece intacta para validação e registro no servidor.
     const word = normalize(expected), text = normalize(accepted);
     const displayExpected = (word === 'mad' && text === 'matt')
+      || (word === 'beach' && (text === 'bitch' || text === 'b****'))
+      || (word === 'cane' && text === 'kane')
+      || (word === 'bit' && text === 'bitch')
       || (word === 'cat' && text === 'cats')
       || (word === 'fin' && !!accepted);
     const heard = displayExpected ? word : transcripts[0] || '';

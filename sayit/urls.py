@@ -17,8 +17,10 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.auth.views import PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 from django.urls import path
-from core.auth_views import EntrarView, SairView, area, cadastro
+from core.auth_views import EntrarView, SairView, RecuperarSenhaView, area, cadastro
+from core.forms import NovaSenhaForm
 from core import progresso_views
 from core.views import (
     conclusao_modulo_1, descoberta_modulo_1, explicacao_modulo_1, pratica_modulo_1,
@@ -29,6 +31,13 @@ urlpatterns = [
     path('', area, name='home'),
     path('cadastro/', cadastro, name='cadastro'),
     path('login/', EntrarView.as_view(), name='login'),
+    path('esqueci-minha-senha/', RecuperarSenhaView.as_view(), name='password_reset'),
+    path('esqueci-minha-senha/enviado/', PasswordResetDoneView.as_view(
+        template_name='core/auth/password_reset_done.html'), name='password_reset_done'),
+    path('redefinir-senha/<uidb64>/<token>/', PasswordResetConfirmView.as_view(
+        template_name='core/auth/password_reset_confirm.html', form_class=NovaSenhaForm), name='password_reset_confirm'),
+    path('redefinir-senha/concluido/', PasswordResetCompleteView.as_view(
+        template_name='core/auth/password_reset_complete.html'), name='password_reset_complete'),
     path('logout/', SairView.as_view(), name='logout'),
     path('trilha/', area, {'pagina': 'trilha'}, name='trilha'),
     path('modulos/', area, {'pagina': 'modulos'}, name='modulos'),

@@ -31,8 +31,8 @@ MODULOS = [
             ("cane", "cana", 4),
             ("pin", "alfinete", 5),
             ("pine", "pinheiro", 6),
-            ("sit", "sentar", 6),
-            ("site", "local", 7),
+            ("sit", "sentar", 7),
+            ("site", "local", 8),
         ],
     },
     {

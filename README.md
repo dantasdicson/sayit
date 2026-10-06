@@ -84,6 +84,10 @@ No exemplo abaixo, **CAT** e **CAKE** demonstram como o **E final silencioso** m
 - banco base populado
 - comando de associação de imagens implementado
 
-## Status
+## Recuperação de senha
+
+A tela de entrada oferece **Esqueci minha senha**, com recuperação por e-mail e link válido por uma hora. Veja o [guia de uso, configuração SMTP e testes](docs/recuperacao-senha.md). Em desenvolvimento, as mensagens aparecem no log do servidor; o envio real requer configuração de SMTP em `.env`.
+
+## Status do projeto
 
 Projeto em desenvolvimento.

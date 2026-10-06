@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm, SetPasswordForm, UserCreationForm
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 
@@ -96,3 +96,23 @@ class EntrarForm(AuthenticationForm):
         self.fields['password'].label = 'Senha'
         for field in self.fields.values():
             field.error_messages.update(required='Preencha este campo.', max_length='Este texto ficou muito longo.')
+
+
+class RecuperarSenhaForm(PasswordResetForm):
+    email = forms.EmailField(label='E-mail cadastrado', max_length=254,
+        widget=forms.EmailInput(attrs={'autocomplete': 'email', 'autofocus': True}),
+        error_messages={'required': 'Informe seu e-mail cadastrado.',
+                        'invalid': 'Digite um endereço de e-mail válido.'})
+
+
+class NovaSenhaForm(SetPasswordForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['new_password1'].label = 'Nova senha'
+        self.fields['new_password1'].help_text = 'Use pelo menos 8 caracteres. Evite senhas comuns, só números ou parecidas com seus dados.'
+        self.fields['new_password1'].widget.attrs['autofocus'] = True
+        self.fields['new_password2'].label = 'Confirmar nova senha'
+        self.fields['new_password2'].help_text = ''
+        for field in self.fields.values():
+            field.widget.attrs['autocomplete'] = 'new-password'
+            field.error_messages['required'] = 'Preencha este campo.'

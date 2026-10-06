@@ -1,6 +1,6 @@
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView, LogoutView, PasswordResetView
 from django.db import IntegrityError, OperationalError, connection, transaction
 from django.db.models import Count, Max, Q
 from django.shortcuts import redirect, render
@@ -9,7 +9,7 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.cache import never_cache
 from django.views.decorators.http import require_http_methods
 
-from .forms import CadastroForm, EntrarForm
+from .forms import CadastroForm, EntrarForm, RecuperarSenhaForm
 from . import progresso
 from .models import Modulo, Tentativa
 
@@ -31,6 +31,26 @@ class SairView(LogoutView):
 
     def get_success_url(self):
         return str(self.next_page)
+
+
+class RecuperarSenhaView(PasswordResetView):
+    template_name = 'core/auth/password_reset_form.html'
+    form_class = RecuperarSenhaForm
+    email_template_name = 'core/auth/password_reset_email.txt'
+    subject_template_name = 'core/auth/password_reset_subject.txt'
+
+    def form_valid(self, form):
+        # The local Cloudflare tunnel terminates TLS before reaching Django.
+        # ALLOWED_HOSTS validates this host; arbitrary proxy headers are ignored.
+        form.save(
+            request=self.request,
+            use_https=self.request.is_secure() or self.request.get_host().split(':')[0].endswith('.trycloudflare.com'),
+            token_generator=self.token_generator,
+            from_email=self.from_email,
+            email_template_name=self.email_template_name,
+            subject_template_name=self.subject_template_name,
+        )
+        return redirect(self.success_url)
 
 
 @sensitive_post_parameters('password1', 'password2')

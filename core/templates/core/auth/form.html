@@ -18,6 +18,7 @@
       {% if field.errors %}<ul class="errorlist" id="{{ field.auto_id }}_error">{% for error in field.errors %}<li>{{ error }}</li>{% endfor %}</ul>{% endif %}
     </div>
     {% endfor %}
+    {% if not cadastro %}<p class="auth-alternative"><a href="{% url 'password_reset' %}">Esqueci minha senha</a></p>{% endif %}
     <button class="practice-link auth-submit" type="submit">{{ acao }}</button>
   </form>
   <p class="auth-alternative">{% if cadastro %}Já possui uma conta? <a href="{% url 'login' %}">Entrar</a>{% else %}Ainda não tem uma conta? <a href="{% url 'cadastro' %}">Criar conta</a>{% endif %}</p>
