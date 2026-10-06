@@ -1,5 +1,15 @@
 # Módulo 10 — Desafio Final
 
+## Integração atual — 06/10/2026
+
+O Desafio Final foi recuperado do commit local `472230a` e integrado à cópia de `2026-10-06/vam/work/sayit`. A integração é restrita ao módulo 10 e suas dependências: mantém os catálogos e quantidades de descobertas atuais dos módulos 1–9, a recuperação de senha e os bypasses recentes.
+
+A migração `0008` foi aplicada após backup consistente em `work/sayit-before-modulo10.sqlite3`. A comparação dos bancos confirmou contas, palavras, comparações, tentativas e progressos idênticos; os módulos 1–9 também permaneceram idênticos. Só os metadados do módulo 10 foram atualizados, além da nova tabela de tentativas de desafios.
+
+O acesso no celular continua pelo túnel atual na porta 8000. O módulo exige conclusão dos módulos 1–9; a integração não marca atividades como concluídas nem libera etapas artificialmente. As informações de verificação e implantação de setembro nas seções abaixo descrevem a cópia original recuperada.
+
+Todos os 155 testes JavaScript passaram. A suíte completa Python também foi executada; os testes antigos do módulo 2 e da carga geral ainda contêm expectativas incompatíveis com o catálogo atual (FIN/PIN, sete palavras e 72 registros) e uma expectativa de preservação de IDs que a carga antiga não atende. Essas falhas fora do módulo 10 foram preservadas para correção separada. Os testes de navegação foram atualizados para a presença do décimo módulo.
+
 Substitui a experiência de revisão geral por três desafios:
 
 1. I like cake. — palavra-chave: cake.

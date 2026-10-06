@@ -97,8 +97,9 @@ class ResumoModuloTests(TestCase):
     def test_modulo_inativo_e_resumos_nao_implementados_retornam_404(self):
         Modulo.objects.filter(numero=1).update(ativo=False)
         self.assertEqual(self.client.get(reverse('resumo_modulo_1')).status_code, 404)
-        # Os Módulos 1–9 têm resumo; o seguinte ainda não foi implementado.
-        for number in range(10, 11):
+        # O módulo 10 agora tem resultado próprio, protegido por progressão.
+        self.assertEqual(self.client.get('/modulos/10/resumo/').status_code, 409)
+        for number in range(11, 12):
             self.assertEqual(self.client.get(f'/modulos/{number}/resumo/').status_code, 404)
 
     def test_fluxo_completo_preserva_descobertas_e_conclusao(self):

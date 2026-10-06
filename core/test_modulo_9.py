@@ -92,7 +92,7 @@ class Modulo9Tests(TestCase):
             reverse('conclusao_modulo_9'))
         conclusao = self.client.get(reverse('conclusao_modulo_9'))
         self.assertContains(conclusao, 'Continuar para o próximo módulo')
-        self.assertContains(conclusao, 'O próximo módulo estará disponível em breve.')
+        self.assertContains(conclusao, f'href="{reverse("explicacao_modulo_10")}"')
         self.assertContains(conclusao, f'href="{reverse("trilha")}"')
         estado = Progresso.objects.get(usuario=self.usuario, modulo=self.modulo)
         self.assertEqual(estado.percentual, 100)

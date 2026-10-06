@@ -40,7 +40,7 @@ A trilha possui 10 módulos:
 7. TH
 8. PH
 9. OO
-10. Revisão geral
+10. Desafio Final: montar e pronunciar três frases
 
 ---
 
@@ -87,6 +87,10 @@ No exemplo abaixo, **CAT** e **CAKE** demonstram como o **E final silencioso** m
 ## Recuperação de senha
 
 A tela de entrada oferece **Esqueci minha senha**, com recuperação por e-mail e link válido por uma hora. Veja o [guia de uso, configuração SMTP e testes](docs/recuperacao-senha.md). Em desenvolvimento, as mensagens aparecem no log do servidor; o envio real requer configuração de SMTP em `.env`.
+
+## Desafio Final — Módulo 10
+
+O módulo 10 recuperado possui três desafios de montagem e fala, histórico de tentativas e nota mínima de 70 por desafio. Fica disponível após concluir os módulos 1–9. Veja a [documentação do Desafio Final](docs/desafio_final.md).
 
 ## Status do projeto
 

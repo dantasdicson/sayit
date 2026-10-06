@@ -235,7 +235,7 @@ class DesafioFinalTests(TestCase):
         }, content_type='application/json').status_code, 409)
         self.assertEqual(self.client.post(reverse('concluir_modulo', args=[10]), {}, content_type='application/json').status_code, 409)
         self.assertRedirects(self.client.get(reverse('descoberta_modulo', args=[10, 1])), reverse('desafio_modulo_10', args=[1]))
-        self.assertEqual(Tentativa.objects.count(), 72)
+        self.assertEqual(Tentativa.objects.count(), Palavra.objects.filter(modulo__numero__lt=10, ativa=True).count())
 
     def test_carga_preserva_historico_legado(self):
         modulo = Modulo.objects.get(numero=10)

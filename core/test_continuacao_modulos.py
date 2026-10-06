@@ -37,11 +37,11 @@ class ContinuacaoModulosTests(TestCase):
                 self.assertContains(resposta, 'Continuar para o próximo módulo')
                 self.assertEqual(self.client.get(destino).status_code, 200)
 
-    def test_ultimo_modulo_implementado_volta_a_trilha(self):
+    def test_modulo_9_oferece_desafio_final(self):
         resposta = self.concluir(9)
         self.assertContains(resposta, f'href="{reverse("trilha")}"')
         self.assertContains(resposta, 'Continuar para o próximo módulo')
-        self.assertContains(resposta, 'O próximo módulo estará disponível em breve.')
+        self.assertContains(resposta, f'href="{reverse("explicacao_modulo_10")}"')
 
     def test_modulo_seguinte_inativo_ou_incompleto_nao_oferece_link(self):
         Modulo.objects.filter(numero=4).update(ativo=False)

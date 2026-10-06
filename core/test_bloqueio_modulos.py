@@ -30,8 +30,8 @@ class BloqueioSequencialModulosTests(TestCase):
     def test_trilha_e_dashboard_exibem_modulos_posteriores_bloqueados(self):
         trilha = self.client.get(reverse('trilha'))
         painel = self.client.get(reverse('modulos'))
-        self.assertContains(trilha, 'Conclua o módulo anterior', count=8)
-        self.assertContains(painel, 'Bloqueado — conclua o módulo anterior', count=8)
+        self.assertContains(trilha, 'Conclua o módulo anterior', count=9)
+        self.assertContains(painel, 'Bloqueado — conclua o módulo anterior', count=9)
         self.assertFalse(painel.context['modulos_estado'][0]['bloqueado'])
         self.assertTrue(painel.context['modulos_estado'][1]['bloqueado'])
 
