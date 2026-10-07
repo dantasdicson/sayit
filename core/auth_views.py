@@ -1,6 +1,6 @@
 from urllib.parse import urlsplit
 from django.conf import settings
-from django.contrib.auth import login
+from django.contrib.auth import get_user_model, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView, LogoutView, PasswordResetView
 from django.db import IntegrityError, OperationalError, transaction
@@ -10,6 +10,8 @@ from django.urls import reverse, reverse_lazy
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.cache import never_cache
 from django.views.decorators.http import require_http_methods
+from django.views.decorators.http import require_POST
+from django.utils import timezone
 
 from .forms import CadastroForm, EntrarForm, RecuperarSenhaForm
 from . import progresso
@@ -90,6 +92,9 @@ def area(request, pagina='home'):
     titulos = {'home': 'Vamos aprender?', 'trilha': 'Minha trilha', 'modulos': 'Meus módulos',
                'progresso': 'Meu progresso', 'perfil': 'Meu perfil'}
     contexto = {'pagina': pagina, 'titulo': titulos[pagina]}
+    if pagina == 'home':
+        contexto['mostrar_apresentacao'] = (
+            request.user.apresentacao_vista_em is None or request.GET.get('apresentacao') == '1')
     if pagina in ('trilha', 'modulos', 'progresso'):
         numeros = sorted(progresso.DESCOBERTAS_POR_MODULO)
         modulos = Modulo.objects.filter(ativo=True, numero__in=numeros).order_by('ordem')
@@ -147,3 +152,11 @@ def area(request, pagina='home'):
             'ultima_atividade': metricas['ultima_atividade'],
         })
     return render(request, 'core/area.html', contexto)
+
+
+@login_required
+@require_POST
+def concluir_apresentacao(request):
+    get_user_model().objects.filter(pk=request.user.pk, apresentacao_vista_em__isnull=True).update(
+        apresentacao_vista_em=timezone.now())
+    return redirect('trilha' if request.POST.get('destino') == 'trilha' else 'home')

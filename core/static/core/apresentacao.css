@@ -1,0 +1,16 @@
+.welcome-dialog { border:1px solid #e5defd; border-radius:28px; padding:32px; width:min(560px,calc(100vw - 32px)); max-height:calc(100dvh - 32px); overflow:auto; color:#171444; background:#fff; box-shadow:0 24px 80px #21154e30; }
+.welcome-dialog::backdrop { background:#17144480; }
+.welcome-dialog form { position:relative; }
+.welcome-dialog h2 { font-size:clamp(24px,4vw,32px); line-height:1.2; margin:16px 32px 16px 0; }
+.welcome-dialog p,.welcome-steps { line-height:1.6; }
+.welcome-dialog .eyebrow { padding-right:38px; }
+.welcome-close { position:absolute; top:-10px; right:-10px; width:44px; height:44px; border:0; border-radius:50%; background:#f0ebff; color:#5940d5; font-size:28px; cursor:pointer; }
+.welcome-steps { padding-left:25px; margin:24px 0; }
+.welcome-steps li { padding-left:6px; margin:14px 0; }
+.welcome-steps li::marker { color:#6b43f5; font-weight:700; }
+.welcome-note { color:#646080; font-size:14px; }
+.welcome-actions { display:grid; gap:10px; margin-top:24px; }
+.welcome-help { margin:0 0 20px; }
+.welcome-help a { color:#6541d7; font-weight:600; text-underline-offset:4px; }
+.welcome-dialog button:focus-visible { outline:3px solid #9b80ff; outline-offset:3px; }
+@media(max-width:480px) { .welcome-dialog { padding:24px; border-radius:22px; } .welcome-steps { margin:16px 0; } }

@@ -10,6 +10,7 @@ from django.utils.translation import gettext_lazy as _
 class Usuario(AbstractUser):
     email = models.EmailField(_('email address'), max_length=254, blank=True, unique=True)
     data_nascimento = models.DateField(null=True, blank=True)
+    apresentacao_vista_em = models.DateTimeField(null=True, blank=True, editable=False)
 
 
 class Modulo(models.Model):

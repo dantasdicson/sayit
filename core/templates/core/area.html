@@ -1,5 +1,7 @@
 {% extends 'core/base_app.html' %}
+{% load static %}
 {% block title %}{{ titulo }} | SayIt!{% endblock %}
+{% block page_styles %}{% if pagina == 'home' %}<link rel="stylesheet" href="{% static 'core/apresentacao.css' %}">{% endif %}{% endblock %}
 {% block content %}
 <header class="page-heading">
   <p class="eyebrow">SAYIT! • APRENDER E DESCOBRIR</p>
@@ -7,6 +9,29 @@
   {% else %}<h1>{{ titulo }}</h1>{% if pagina == 'trilha' %}<p class="page-description">Siga o caminho na ordem e avance uma descoberta de cada vez.</p>{% elif pagina == 'modulos' %}<p class="page-description">Veja o panorama do curso e retome exatamente de onde parou.</p>{% elif pagina == 'progresso' %}<p class="page-description">Acompanhe suas conquistas e a prática acumulada.</p>{% endif %}{% endif %}
 </header>
 {% if pagina == 'home' %}
+{% if mostrar_apresentacao %}
+<dialog open id="welcome-dialog" class="welcome-dialog" aria-labelledby="welcome-title" aria-describedby="welcome-description">
+  <form method="post" action="{% url 'concluir_apresentacao' %}" id="welcome-form">
+    {% csrf_token %}
+    <button class="welcome-close" type="submit" name="destino" value="home" aria-label="Fechar apresentação">×</button>
+    <p class="eyebrow">UMA DESCOBERTA A CADA SOM</p>
+    <h2 id="welcome-title">Vamos descobrir o inglês?</h2>
+    <p id="welcome-description">No SayIt!, você aprende palavras em inglês com imagens, sons e pequenas atividades. Vá no seu ritmo!</p>
+    <ol class="welcome-steps">
+      <li><strong>Veja e escute.</strong> Conheça a palavra e ouça como ela soa.</li>
+      <li><strong>Experimente falar.</strong> Use o microfone nas atividades e tente novamente quando precisar.</li>
+      <li><strong>Siga a trilha.</strong> Complete as descobertas para abrir os próximos módulos. No final, monte e fale frases!</li>
+    </ol>
+    <p class="welcome-note">O navegador pede acesso ao microfone quando você chega à atividade de fala. Suas conquistas ficam em Meu Progresso.</p>
+    <div class="welcome-actions">
+      <button class="sayit-button" type="submit" name="destino" value="trilha" autofocus>Vamos começar →</button>
+      <button class="sayit-button sayit-button--secondary" type="submit" name="destino" value="home">Explorar depois</button>
+    </div>
+  </form>
+</dialog>
+<script src="{% static 'core/apresentacao.js' %}" defer></script>
+{% endif %}
+<p class="welcome-help"><a href="{% url 'home' %}?apresentacao=1">Como funciona o SayIt?</a></p>
 <section class="dashboard-grid" aria-label="Explore o SayIt!">
   <article class="sayit-card dashboard-card"><span class="card-symbol" aria-hidden="true">↗</span><h2>Continuar aprendendo</h2><p>Explore a trilha e descubra novos sons.</p><a class="sayit-button" href="{% url 'trilha' %}">Explorar minha trilha →</a></article>
   <article class="sayit-card dashboard-card"><span class="card-symbol tone-blue" aria-hidden="true">▦</span><h2>Meus Módulos</h2><p>Conheça os temas e encontre sua próxima descoberta.</p><a class="sayit-button sayit-button--secondary" href="{% url 'modulos' %}">Ver módulos</a></article>
