@@ -7,7 +7,6 @@ import re
 from contextlib import contextmanager
 
 from django.db import transaction
-from django.db.models import F
 from django.utils import timezone
 
 from .models import Modulo, Palavra, Progresso, Tentativa
@@ -89,11 +88,8 @@ def _escrita(usuario, numero):
     if numero not in DESCOBERTAS_POR_MODULO:
         raise ErroProgresso('Módulo indisponível.', 'modulo_inexistente', 404)
     with transaction.atomic():
-        # PRIMEIRA consulta da transação é uma escrita sem mudança de valor.
-        # SQLite adquire o bloqueio de escrita antes de lermos tentativas; duas
-        # requisições não podem ler "ainda não existe" e inserir simultaneamente.
-        # Também serializa pelo módulo em bancos com bloqueio de linha.
-        if not Modulo.objects.filter(numero=numero, ativo=True).update(numero=F('numero')):
+        # O bloqueio de linha dura até o fim da transação e serializa reenvios.
+        if not Modulo.objects.select_for_update().filter(numero=numero, ativo=True).first():
             raise ErroProgresso('Módulo indisponível.', 'modulo_inexistente', 404)
         yield _catalogo(numero)
 

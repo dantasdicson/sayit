@@ -3,7 +3,6 @@ import uuid
 from django.core import signing
 from django.core.signing import loads as load_ticket
 from django.db import transaction
-from django.db.models import F
 from django.utils import timezone
 from . import progresso
 from .models import Modulo, Progresso, TentativaDesafio
@@ -92,8 +91,8 @@ def registrar(usuario, numero, token, transcricao):
     except (signing.BadSignature, ValueError, KeyError, TypeError):
         raise progresso.ErroProgresso('Monte a frase novamente para liberar o microfone.', 'montagem_expirada', 409)
     with transaction.atomic():
-        # Mesmo mecanismo de serialização SQLite usado no progresso das palavras.
-        Modulo.objects.filter(numero=10, ativo=True).update(numero=F('numero'))
+        # Mesmo bloqueio de linha PostgreSQL usado no progresso das palavras.
+        Modulo.objects.select_for_update().filter(numero=10, ativo=True).first()
         desafio = exigir(usuario, numero)
         antiga = TentativaDesafio.objects.filter(requisicao=requisicao, usuario=usuario).first()
         if antiga:

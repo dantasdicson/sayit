@@ -10,6 +10,9 @@
 .challenge-score{margin:18px 0 8px;font-size:clamp(36px,8vw,56px);font-weight:900;color:var(--sayit-primary)}
 .challenge-stars{color:#916700;font-size:28px;letter-spacing:4px}
 .challenge-feedback{border-radius:20px;background:var(--sayit-primary-light);padding:20px;margin:20px 0}
+.challenge-notice[data-state="error"]{background:#fff1f2;border:2px solid #be3455;border-left-width:6px;color:#8f1635;border-radius:14px;padding:16px;font-weight:700;line-height:1.6}
+.challenge-notice[data-state="success"]{background:#edf9f1;border:2px solid #358452;border-radius:14px;color:#205f37;padding:16px;line-height:1.6}
+.challenge-notice:focus-visible{outline:3px solid var(--sayit-primary);outline-offset:3px}
 .challenge-history,.challenge-results,.challenge-instructions{text-align:left;padding-left:24px;line-height:1.7}
 .challenge-history li{padding:14px 0;border-bottom:1px solid #ecebf5}.challenge-history p{margin:4px 0}
 @media(max-width:520px){.challenge-card{padding:18px}.word-bank,.sentence-tray{gap:8px}.word-token{padding:10px 13px}.challenge-actions{gap:10px}}

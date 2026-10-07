@@ -214,13 +214,13 @@ class Command(BaseCommand):
                                 ordem=1000000 + modulo.palavras.filter(palavra=antiga).values_list('pk', flat=True).first()
                             )
                     for antiga, nova, traducao in [('fin', 'can', 'lata'), ('fine', 'cane', 'cana')]:
+                        if modulo.palavras.filter(palavra=nova).exists():
+                            nova, traducao = ('pin', 'alfinete') if antiga == 'fin' else ('pine', 'pinheiro')
                         if not modulo.palavras.filter(palavra=nova).exists():
                             modulo.palavras.filter(palavra=antiga).update(
                                 palavra=nova, traducao=traducao, imagem='', audio=''
                             )
-                    # As comparações antigas podem ter a mesma ordem de uma nova;
-                    # recriá-las torna a carga idempotente sem apagar tentativas.
-                    modulo.comparacoes.all().delete()
+                    # A atualização das comparações mantém os identificadores.
                 # Mantém o PK e os acertos da versão inicial do Módulo 5.
                 if modulo.numero == 5 and not modulo.palavras.filter(palavra='shark').exists():
                     modulo.palavras.filter(palavra='shoe').update(
@@ -239,7 +239,7 @@ class Command(BaseCommand):
                 if modulo.numero == 2:
                     # Libera temporariamente as posições antigas antes de
                     # trocar palavras ou aumentar o catálogo. A constraint
-                    # modulo_id + ordem é única no SQLite.
+                    # modulo_id + ordem possui restrição única no PostgreSQL.
                     for palavra_existente in modulo.palavras.only('pk').iterator():
                         Palavra.objects.filter(pk=palavra_existente.pk).update(
                             ordem=1000000 + palavra_existente.pk
@@ -270,6 +270,11 @@ class Command(BaseCommand):
                         palavra_base=palavras_modulo[base],
                         palavra_comparada=palavras_modulo[destino],
                     ).first()
+                    if comparacao is None and modulo.numero == 2:
+                        comparacao = Comparacao.objects.filter(modulo=modulo, ordem=ordem).first()
+                        if comparacao:
+                            comparacao.palavra_base = palavras_modulo[base]
+                            comparacao.palavra_comparada = palavras_modulo[destino]
                     if comparacao is None:
                         comparacao = Comparacao(
                             modulo=modulo,

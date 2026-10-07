@@ -60,3 +60,7 @@ Antes de uso público em produção, configure limitação de solicitações no 
 ```
 
 Os testes usam o backend de e-mail em memória, sem enviar mensagens reais, e verificam solicitação, endereço desconhecido/inativo, validação de campos, HTTPS, troca completa, senha antiga, reutilização, expiração, link adulterado, invalidação de sessão e CSRF. Verifique também a apresentação no celular e a entrega real ao configurar SMTP.
+
+## Render Free e Vercel
+
+A configuração atual usa PostgreSQL e permite definir o domínio público por PUBLIC_BASE_URL. No Render Free, a entrega ocorre por API HTTPS do Resend, pois as portas SMTP usuais são bloqueadas. Configuração de chave, remetente, domínio e validação de entrega estão em [implantacao.md](implantacao.md). Sem essas credenciais, a entrega real permanece pendente.

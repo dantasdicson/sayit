@@ -74,6 +74,9 @@ media/palavras/audios/*
 !media/palavras/audios/trophy.mp3
 .idea/
 .runlogs/
+staticfiles/
+.vercel/
+backups/
 !media/palavras/imagens/pin.webp
 !media/palavras/imagens/pine.webp
 !media/palavras/audios/pin.mp3
@@ -81,3 +84,10 @@ media/palavras/audios/*
 !media/modulos/2/
 media/modulos/2/*
 !media/modulos/2/resumo.mp3
+
+# Recursos pedagógicos públicos distribuídos junto da demonstração.
+!media/modulos/**/
+!media/modulos/**/*.mp3
+!media/palavras/imagens/*.webp
+!media/palavras/audios/*.mp3
+media/**/*.json

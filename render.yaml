@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: sayit
+    runtime: python
+    plan: free
+    buildCommand: bash build.sh
+    startCommand: bash start.sh
+    healthCheckPath: /health/
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.13
+      - key: DEBUG
+        value: "false"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: sayit-postgres
+          property: connectionString
+      - key: TRUST_PROXY_SSL_HEADER
+        value: "true"
+      - key: EMAIL_BACKEND
+        value: core.email_backend.ResendEmailBackend
+databases:
+  - name: sayit-postgres
+    plan: free
+    ipAllowList: []
+    databaseName: sayit
+    user: sayit
+    postgresMajorVersion: "17"

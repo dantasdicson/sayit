@@ -4,7 +4,7 @@
 
 O Desafio Final foi recuperado do commit local `472230a` e integrado à cópia de `2026-10-06/vam/work/sayit`. A integração é restrita ao módulo 10 e suas dependências: mantém os catálogos e quantidades de descobertas atuais dos módulos 1–9, a recuperação de senha e os bypasses recentes.
 
-A migração `0008` foi aplicada após backup consistente em `work/sayit-before-modulo10.sqlite3`. A comparação dos bancos confirmou contas, palavras, comparações, tentativas e progressos idênticos; os módulos 1–9 também permaneceram idênticos. Só os metadados do módulo 10 foram atualizados, além da nova tabela de tentativas de desafios.
+A migração `0008` foi aplicada após backup consistente do banco anterior, preservado em arquivo privado. A comparação dos bancos confirmou contas, palavras, comparações, tentativas e progressos idênticos; os módulos 1–9 também permaneceram idênticos. Só os metadados do módulo 10 foram atualizados, além da nova tabela de tentativas de desafios.
 
 O acesso no celular continua pelo túnel atual na porta 8000. O módulo exige conclusão dos módulos 1–9; a integração não marca atividades como concluídas nem libera etapas artificialmente. As informações de verificação e implantação de setembro nas seções abaixo descrevem a cópia original recuperada.
 
@@ -19,6 +19,8 @@ Substitui a experiência de revisão geral por três desafios:
 Configuração única: core/desafio_config.py. Ao trocar frases ou critérios, incremente VERSAO para não misturar notas de avaliações diferentes.
 
 ## Fluxo e nota
+
+Ao conferir uma montagem incorreta, aparece um aviso destacado explicando que é preciso corrigir a ordem e conferir novamente para liberar o microfone. O aviso recebe foco e fica visível na tela. Depois da montagem correta, a mensagem muda para confirmação. Uma avaliação abaixo de 70, sem aprovação anterior, também exibe aviso explícito de que ainda não é possível avançar.
 
 Montar por toque ou teclado → conferir no servidor → liberar microfone em en-US → avaliar e salvar → avançar com melhor nota de pelo menos 70.
 
@@ -53,7 +55,7 @@ Reaproveitamento: base_app, tokens CSS, breakpoints, módulo de reprodução de 
 
 ## Atualização
 
-1. Faça backup consistente do banco SQLite e preserve media/.
+1. Faça backup consistente do PostgreSQL com pg_dump e preserve media/.
 2. Execute python manage.py migrate.
 3. Execute python manage.py popular_sayit --modulo 10 (atualiza metadados, preserva catálogo existente).
 4. Reinicie Django. Em produção, atualize estáticos com o procedimento de implantação.
@@ -94,7 +96,7 @@ Os arquivos JavaScript compartilhados têm novas versões na URL para impedir mi
 
 Resultado final: 247 testes Django + 167 testes JavaScript = 414 testes aprovados. Django check sem problemas; makemigrations --check --dry-run sem alterações pendentes; git diff --check sem erros.
 
-Migration aplicada após backup consistente em work/db-before-desafio-final-20260924-231511.sqlite3. Comparação antes/depois confirmou usuários, palavras, comparações, tentativas, progressos e metadados dos módulos 1–9 integralmente preservados.
+Migration aplicada após backup consistente privado do banco usado naquela revisão. Comparação antes/depois confirmou usuários, palavras, comparações, tentativas, progressos e metadados dos módulos 1–9 integralmente preservados.
 
 Servidor atualizado na porta 8001. Link temporário https://accurate-communication-usgs-thank.trycloudflare.com (login e script do desafio verificados com HTTP 200).
 
@@ -105,3 +107,7 @@ Os 20 testes JavaScript específicos abrangem montagem, palavras repetidas, bloq
 Validação visual realizada em 390, 768 e 1280 pixels, sem transbordamento horizontal nos estados conferidos. Montagem incorreta recusada, montagem correta libera o microfone, próximo bloqueado antes de nota aprovada; histórico e resultado final persistem ao recarregar.
 
 Teste integrado da conta QA via views com CSRF: 50, 70 e 100 no primeiro desafio, 75 no segundo e 81 no terceiro; resultado final 85. Nenhum outro usuário alterado. Transcrições são sintéticas — teste de fala real no celular ainda exige validação humana.
+
+## Configuração atual de banco e hospedagem
+
+O projeto utiliza PostgreSQL 17. A implantação gratuita no Render e a entrada pelo Vercel estão descritas em [implantacao.md](implantacao.md). Resultados e links desta seção de verificação histórica não comprovam publicação atual em nuvem.

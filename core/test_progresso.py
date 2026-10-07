@@ -414,8 +414,11 @@ class ProgressoTests(TestCase):
         self.assertFalse(Tentativa.objects.exists())
         self.assertFalse(Progresso.objects.exists())
 
-    def test_bloqueio_sqlite_resposta_repetivel(self):
-        with patch.object(servico, 'registrar_acerto', side_effect=OperationalError('database is locked')):
+    def test_deadlock_postgres_resposta_repetivel(self):
+        from psycopg.errors import DeadlockDetected
+        error = OperationalError('deadlock detected')
+        error.__cause__ = DeadlockDetected('deadlock detected')
+        with patch.object(servico, 'registrar_acerto', side_effect=error):
             resposta = self.post_acerto()
         self.assertEqual(resposta.status_code, 503)
         self.assertEqual(resposta['Retry-After'], '1')
@@ -442,9 +445,8 @@ class ProgressoTests(TestCase):
 
 
 class ConcorrenciaProgressoTests(TransactionTestCase):
-    def test_reenvios_simultaneos_sqlite_nao_duplicam(self):
-        if connection.vendor != 'sqlite':
-            self.skipTest('Verificação específica do banco SQLite utilizado pelo projeto.')
+    def test_reenvios_simultaneos_postgres_nao_duplicam(self):
+        self.assertEqual(connection.vendor, 'postgresql')
         usuario = get_user_model().objects.create_user(username='concorrente', email='concorrente@teste.com')
         _, pares = criar_catalogo()
         barreira = Barrier(2)
@@ -458,13 +460,15 @@ class ConcorrenciaProgressoTests(TransactionTestCase):
                     try:
                         return servico.registrar_acerto(aluno, 1, pares[0].pk, pares[0].palavra_base_id, 'cat')
                     except OperationalError as erro:
-                        if 'locked' not in str(erro).lower():
+                        from .database import conflito_transitorio
+                        if not conflito_transitorio(erro):
                             raise
                         # Mesmo contrato de reenvio usado por um cliente após HTTP 503.
                         sleep(.025)
                 raise AssertionError('Banco permaneceu bloqueado')
             finally:
-                close_old_connections()
+                from django.db import connections
+                connections['default'].close()
 
         with ThreadPoolExecutor(max_workers=2) as pool:
             resultados = list(pool.map(lambda _: enviar(), range(2)))

@@ -1,0 +1,1488 @@
+[
+  {
+    "model": "core.modulo",
+    "pk": 1,
+    "fields": {
+      "numero": 1,
+      "titulo": "Magic E: mudança do som do A",
+      "descricao": "Aprenda como o E final silencioso pode modificar a pronúncia da vogal A.",
+      "conteudo_teorico": "O E no final fica silencioso e pode mudar o som do A. Compare cat e cake: em cake, o A soa como seu nome em inglês. Escute e repita devagar!",
+      "ordem": 1,
+      "ativo": true
+    }
+  },
+  {
+    "model": "core.modulo",
+    "pk": 2,
+    "fields": {
+      "numero": 2,
+      "titulo": "Magic E: mudança do som do I",
+      "descricao": "Aprenda como o E final silencioso pode modificar a pronúncia da vogal I.",
+      "conteudo_teorico": "O E silencioso pode mudar o som do I. Compare kit e kite: em kite, o I soa como seu nome em inglês. Vamos ouvir a diferença?",
+      "ordem": 2,
+      "ativo": true
+    }
+  },
+  {
+    "model": "core.modulo",
+    "pk": 3,
+    "fields": {
+      "numero": 3,
+      "titulo": "Magic E: mudança do som do O",
+      "descricao": "Aprenda como o E final silencioso pode modificar a pronúncia da vogal O.",
+      "conteudo_teorico": "O E no final pode mudar o som do O sem ter um som próprio. Compare hop e hope e repita cada palavra com calma.",
+      "ordem": 3,
+      "ativo": true
+    }
+  },
+  {
+    "model": "core.modulo",
+    "pk": 4,
+    "fields": {
+      "numero": 4,
+      "titulo": "Magic E: mudança do som do U",
+      "descricao": "Aprenda como o E final silencioso pode modificar a pronúncia da vogal U.",
+      "conteudo_teorico": "O E silencioso pode mudar o som do U. Compare cub e cube, tub e tube, cut e cute. Escute cada palavra: a pronúncia também pode variar entre sotaques.",
+      "ordem": 4,
+      "ativo": true
+    }
+  },
+  {
+    "model": "core.modulo",
+    "pk": 5,
+    "fields": {
+      "numero": 5,
+      "titulo": "SH",
+      "descricao": "Aprenda a reconhecer e pronunciar palavras que apresentam a combinação SH.",
+      "conteudo_teorico": "S e H juntos fazem um som parecido com o pedido de silêncio: shhh! Procure esse som em ship e fish. Ele pode aparecer no começo ou no final.",
+      "ordem": 5,
+      "ativo": true
+    }
+  },
+  {
+    "model": "core.modulo",
+    "pk": 6,
+    "fields": {
+      "numero": 6,
+      "titulo": "CH",
+      "descricao": "Aprenda a reconhecer e pronunciar palavras que apresentam a combinação CH.",
+      "conteudo_teorico": "Nestas palavras, C e H juntos fazem um som parecido com tch. Escute chair e beach e tente repetir. Nem toda palavra com CH segue essa regra!",
+      "ordem": 6,
+      "ativo": true
+    }
+  },
+  {
+    "model": "core.modulo",
+    "pk": 7,
+    "fields": {
+      "numero": 7,
+      "titulo": "TH",
+      "descricao": "Aprenda os dois principais sons encontrados na combinação TH.",
+      "conteudo_teorico": "Para experimentar TH, coloque de leve a ponta da língua entre os dentes e sopre. Em think, a garganta não vibra; em this, ela vibra. Tente sentir a diferença!",
+      "ordem": 7,
+      "ativo": true
+    }
+  },
+  {
+    "model": "core.modulo",
+    "pk": 8,
+    "fields": {
+      "numero": 8,
+      "titulo": "PH",
+      "descricao": "Aprenda palavras em que a combinação PH normalmente possui som de F.",
+      "conteudo_teorico": "P e H juntos costumam soar como F. Escute phone e elephant e procure esse som. Duas letras podem trabalhar juntas para formar um só som!",
+      "ordem": 8,
+      "ativo": true
+    }
+  },
+  {
+    "model": "core.modulo",
+    "pk": 9,
+    "fields": {
+      "numero": 9,
+      "titulo": "OO",
+      "descricao": "Compare diferentes sons encontrados em palavras escritas com a combinação OO.",
+      "conteudo_teorico": "OO pode ter sons diferentes. Compare moon e book: a posição da boca muda, não apenas a duração do som. Ouça as palavras e repita sem pressa.",
+      "ordem": 9,
+      "ativo": true
+    }
+  },
+  {
+    "model": "core.modulo",
+    "pk": 10,
+    "fields": {
+      "numero": 10,
+      "titulo": "Desafio Final",
+      "descricao": "Monte e fale frases em inglês em três desafios para concluir sua jornada.",
+      "conteudo_teorico": "Monte as palavras na ordem correta e use o microfone para falar a frase. Alcance pelo menos 70 pontos em cada um dos três desafios.",
+      "ordem": 10,
+      "ativo": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 1,
+    "fields": {
+      "modulo": 1,
+      "palavra": "cat",
+      "traducao": "gato",
+      "imagem": "palavras/imagens/cat.webp",
+      "audio": "palavras/audios/cat.mp3",
+      "observacao": "",
+      "ordem": 1,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 2,
+    "fields": {
+      "modulo": 1,
+      "palavra": "cake",
+      "traducao": "bolo",
+      "imagem": "palavras/imagens/cake.webp",
+      "audio": "palavras/audios/cake.mp3",
+      "observacao": "",
+      "ordem": 2,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 3,
+    "fields": {
+      "modulo": 1,
+      "palavra": "cap",
+      "traducao": "boné",
+      "imagem": "palavras/imagens/cap.webp",
+      "audio": "palavras/audios/cap.mp3",
+      "observacao": "",
+      "ordem": 3,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 4,
+    "fields": {
+      "modulo": 1,
+      "palavra": "cape",
+      "traducao": "capa",
+      "imagem": "palavras/imagens/cape.webp",
+      "audio": "palavras/audios/cape.mp3",
+      "observacao": "",
+      "ordem": 4,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 5,
+    "fields": {
+      "modulo": 1,
+      "palavra": "tap",
+      "traducao": "tocar",
+      "imagem": "palavras/imagens/tap.webp",
+      "audio": "palavras/audios/tap.mp3",
+      "observacao": "",
+      "ordem": 5,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 6,
+    "fields": {
+      "modulo": 1,
+      "palavra": "tape",
+      "traducao": "fita",
+      "imagem": "palavras/imagens/tape.webp",
+      "audio": "palavras/audios/tape.mp3",
+      "observacao": "",
+      "ordem": 6,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 7,
+    "fields": {
+      "modulo": 1,
+      "palavra": "mad",
+      "traducao": "zangado",
+      "imagem": "palavras/imagens/mad.webp",
+      "audio": "palavras/audios/mad.mp3",
+      "observacao": "",
+      "ordem": 7,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 8,
+    "fields": {
+      "modulo": 1,
+      "palavra": "made",
+      "traducao": "feito",
+      "imagem": "palavras/imagens/made.webp",
+      "audio": "palavras/audios/made.mp3",
+      "observacao": "",
+      "ordem": 8,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 9,
+    "fields": {
+      "modulo": 2,
+      "palavra": "bit",
+      "traducao": "pedaço",
+      "imagem": "palavras/imagens/bit.webp",
+      "audio": "palavras/audios/bit.mp3",
+      "observacao": "",
+      "ordem": 1,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 10,
+    "fields": {
+      "modulo": 2,
+      "palavra": "bite",
+      "traducao": "mordida",
+      "imagem": "palavras/imagens/bite.webp",
+      "audio": "palavras/audios/bite.mp3",
+      "observacao": "",
+      "ordem": 2,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 11,
+    "fields": {
+      "modulo": 2,
+      "palavra": "can",
+      "traducao": "lata",
+      "imagem": "palavras/imagens/can.webp",
+      "audio": "palavras/audios/can.mp3",
+      "observacao": "",
+      "ordem": 3,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 12,
+    "fields": {
+      "modulo": 2,
+      "palavra": "cane",
+      "traducao": "cana",
+      "imagem": "palavras/imagens/cane.webp",
+      "audio": "palavras/audios/cane.mp3",
+      "observacao": "",
+      "ordem": 4,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 13,
+    "fields": {
+      "modulo": 2,
+      "palavra": "pin",
+      "traducao": "alfinete",
+      "imagem": "palavras/imagens/pin.webp",
+      "audio": "palavras/audios/pin.mp3",
+      "observacao": "",
+      "ordem": 5,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 14,
+    "fields": {
+      "modulo": 2,
+      "palavra": "pine",
+      "traducao": "pinheiro",
+      "imagem": "palavras/imagens/pine.webp",
+      "audio": "palavras/audios/pine.mp3",
+      "observacao": "",
+      "ordem": 6,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 15,
+    "fields": {
+      "modulo": 2,
+      "palavra": "sit",
+      "traducao": "sentar",
+      "imagem": "palavras/imagens/sit.webp",
+      "audio": "palavras/audios/sit.mp3",
+      "observacao": "",
+      "ordem": 7,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 16,
+    "fields": {
+      "modulo": 2,
+      "palavra": "site",
+      "traducao": "local",
+      "imagem": "palavras/imagens/site.webp",
+      "audio": "palavras/audios/site.mp3",
+      "observacao": "",
+      "ordem": 8,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 17,
+    "fields": {
+      "modulo": 3,
+      "palavra": "hop",
+      "traducao": "pular",
+      "imagem": "palavras/imagens/hop.webp",
+      "audio": "palavras/audios/hop.mp3",
+      "observacao": "",
+      "ordem": 1,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 18,
+    "fields": {
+      "modulo": 3,
+      "palavra": "hope",
+      "traducao": "esperança",
+      "imagem": "palavras/imagens/hope.webp",
+      "audio": "palavras/audios/hope.mp3",
+      "observacao": "",
+      "ordem": 2,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 19,
+    "fields": {
+      "modulo": 3,
+      "palavra": "not",
+      "traducao": "não",
+      "imagem": "palavras/imagens/not.webp",
+      "audio": "palavras/audios/not.mp3",
+      "observacao": "",
+      "ordem": 3,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 20,
+    "fields": {
+      "modulo": 3,
+      "palavra": "note",
+      "traducao": "nota",
+      "imagem": "palavras/imagens/note.webp",
+      "audio": "palavras/audios/note.mp3",
+      "observacao": "",
+      "ordem": 4,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 21,
+    "fields": {
+      "modulo": 3,
+      "palavra": "rob",
+      "traducao": "roubar",
+      "imagem": "palavras/imagens/rob.webp",
+      "audio": "palavras/audios/rob.mp3",
+      "observacao": "",
+      "ordem": 5,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 22,
+    "fields": {
+      "modulo": 3,
+      "palavra": "robe",
+      "traducao": "roupão",
+      "imagem": "palavras/imagens/robe.webp",
+      "audio": "palavras/audios/robe.mp3",
+      "observacao": "",
+      "ordem": 6,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 23,
+    "fields": {
+      "modulo": 4,
+      "palavra": "cub",
+      "traducao": "filhote",
+      "imagem": "palavras/imagens/cub.webp",
+      "audio": "palavras/audios/cub.mp3",
+      "observacao": "",
+      "ordem": 1,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 24,
+    "fields": {
+      "modulo": 4,
+      "palavra": "cube",
+      "traducao": "cubo",
+      "imagem": "palavras/imagens/cube.webp",
+      "audio": "palavras/audios/cube.mp3",
+      "observacao": "",
+      "ordem": 2,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 25,
+    "fields": {
+      "modulo": 4,
+      "palavra": "tub",
+      "traducao": "banheira",
+      "imagem": "palavras/imagens/tub.webp",
+      "audio": "palavras/audios/tub.mp3",
+      "observacao": "",
+      "ordem": 3,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 26,
+    "fields": {
+      "modulo": 4,
+      "palavra": "tube",
+      "traducao": "tubo",
+      "imagem": "palavras/imagens/tube.webp",
+      "audio": "palavras/audios/tube.mp3",
+      "observacao": "",
+      "ordem": 4,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 27,
+    "fields": {
+      "modulo": 4,
+      "palavra": "cut",
+      "traducao": "cortar",
+      "imagem": "palavras/imagens/cut.webp",
+      "audio": "palavras/audios/cut.mp3",
+      "observacao": "",
+      "ordem": 5,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 28,
+    "fields": {
+      "modulo": 4,
+      "palavra": "cute",
+      "traducao": "fofo",
+      "imagem": "palavras/imagens/cute.webp",
+      "audio": "palavras/audios/cute.mp3",
+      "observacao": "",
+      "ordem": 6,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 29,
+    "fields": {
+      "modulo": 5,
+      "palavra": "ship",
+      "traducao": "navio",
+      "imagem": "palavras/imagens/ship.webp",
+      "audio": "palavras/audios/ship.mp3",
+      "observacao": "",
+      "ordem": 1,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 30,
+    "fields": {
+      "modulo": 5,
+      "palavra": "fish",
+      "traducao": "peixe",
+      "imagem": "palavras/imagens/fish.webp",
+      "audio": "palavras/audios/fish.mp3",
+      "observacao": "",
+      "ordem": 2,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 31,
+    "fields": {
+      "modulo": 5,
+      "palavra": "shark",
+      "traducao": "tubarão",
+      "imagem": "palavras/imagens/shark.webp",
+      "audio": "palavras/audios/shark.mp3",
+      "observacao": "",
+      "ordem": 3,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 32,
+    "fields": {
+      "modulo": 5,
+      "palavra": "sheep",
+      "traducao": "ovelha",
+      "imagem": "palavras/imagens/sheep.webp",
+      "audio": "palavras/audios/sheep.mp3",
+      "observacao": "",
+      "ordem": 4,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 33,
+    "fields": {
+      "modulo": 5,
+      "palavra": "shop",
+      "traducao": "loja",
+      "imagem": "palavras/imagens/shop.webp",
+      "audio": "palavras/audios/shop.mp3",
+      "observacao": "",
+      "ordem": 5,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 34,
+    "fields": {
+      "modulo": 5,
+      "palavra": "shovel",
+      "traducao": "pá",
+      "imagem": "palavras/imagens/shovel.webp",
+      "audio": "palavras/audios/shovel.mp3",
+      "observacao": "",
+      "ordem": 6,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 35,
+    "fields": {
+      "modulo": 6,
+      "palavra": "chair",
+      "traducao": "cadeira",
+      "imagem": "palavras/imagens/chair.webp",
+      "audio": "palavras/audios/chair.mp3",
+      "observacao": "",
+      "ordem": 1,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 36,
+    "fields": {
+      "modulo": 6,
+      "palavra": "chicken",
+      "traducao": "galinha",
+      "imagem": "palavras/imagens/chicken.webp",
+      "audio": "palavras/audios/chicken.mp3",
+      "observacao": "",
+      "ordem": 2,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 37,
+    "fields": {
+      "modulo": 6,
+      "palavra": "cheese",
+      "traducao": "queijo",
+      "imagem": "palavras/imagens/cheese.webp",
+      "audio": "palavras/audios/cheese.mp3",
+      "observacao": "",
+      "ordem": 3,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 38,
+    "fields": {
+      "modulo": 6,
+      "palavra": "beach",
+      "traducao": "praia",
+      "imagem": "palavras/imagens/beach.webp",
+      "audio": "palavras/audios/beach.mp3",
+      "observacao": "",
+      "ordem": 4,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 39,
+    "fields": {
+      "modulo": 6,
+      "palavra": "child",
+      "traducao": "criança",
+      "imagem": "palavras/imagens/child.webp",
+      "audio": "palavras/audios/child.mp3",
+      "observacao": "",
+      "ordem": 5,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 40,
+    "fields": {
+      "modulo": 6,
+      "palavra": "chocolate",
+      "traducao": "chocolate",
+      "imagem": "palavras/imagens/chocolate.webp",
+      "audio": "palavras/audios/chocolate.mp3",
+      "observacao": "",
+      "ordem": 6,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 41,
+    "fields": {
+      "modulo": 7,
+      "palavra": "think",
+      "traducao": "pensar",
+      "imagem": "palavras/imagens/think.webp",
+      "audio": "palavras/audios/think.mp3",
+      "observacao": "",
+      "ordem": 1,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 42,
+    "fields": {
+      "modulo": 7,
+      "palavra": "tooth",
+      "traducao": "dente",
+      "imagem": "palavras/imagens/tooth.webp",
+      "audio": "palavras/audios/tooth.mp3",
+      "observacao": "",
+      "ordem": 2,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 43,
+    "fields": {
+      "modulo": 7,
+      "palavra": "bath",
+      "traducao": "banho",
+      "imagem": "palavras/imagens/bath.webp",
+      "audio": "palavras/audios/bath.mp3",
+      "observacao": "",
+      "ordem": 3,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 44,
+    "fields": {
+      "modulo": 7,
+      "palavra": "this",
+      "traducao": "isto",
+      "imagem": "palavras/imagens/this.webp",
+      "audio": "palavras/audios/this.mp3",
+      "observacao": "",
+      "ordem": 4,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 45,
+    "fields": {
+      "modulo": 7,
+      "palavra": "that",
+      "traducao": "aquilo",
+      "imagem": "palavras/imagens/that.webp",
+      "audio": "palavras/audios/that.mp3",
+      "observacao": "",
+      "ordem": 5,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 46,
+    "fields": {
+      "modulo": 7,
+      "palavra": "mother",
+      "traducao": "mãe",
+      "imagem": "palavras/imagens/mother.webp",
+      "audio": "palavras/audios/mother.mp3",
+      "observacao": "",
+      "ordem": 6,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 47,
+    "fields": {
+      "modulo": 8,
+      "palavra": "phone",
+      "traducao": "telefone",
+      "imagem": "palavras/imagens/phone.webp",
+      "audio": "palavras/audios/phone.mp3",
+      "observacao": "",
+      "ordem": 1,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 48,
+    "fields": {
+      "modulo": 8,
+      "palavra": "photo",
+      "traducao": "foto",
+      "imagem": "palavras/imagens/photo.webp",
+      "audio": "palavras/audios/photo.mp3",
+      "observacao": "",
+      "ordem": 2,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 49,
+    "fields": {
+      "modulo": 8,
+      "palavra": "elephant",
+      "traducao": "elefante",
+      "imagem": "palavras/imagens/elephant.webp",
+      "audio": "palavras/audios/elephant.mp3",
+      "observacao": "",
+      "ordem": 3,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 50,
+    "fields": {
+      "modulo": 8,
+      "palavra": "dolphin",
+      "traducao": "golfinho",
+      "imagem": "palavras/imagens/dolphin.webp",
+      "audio": "palavras/audios/dolphin.mp3",
+      "observacao": "",
+      "ordem": 4,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 51,
+    "fields": {
+      "modulo": 8,
+      "palavra": "alphabet",
+      "traducao": "alfabeto",
+      "imagem": "palavras/imagens/alphabet.webp",
+      "audio": "palavras/audios/alphabet.mp3",
+      "observacao": "",
+      "ordem": 5,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 52,
+    "fields": {
+      "modulo": 8,
+      "palavra": "trophy",
+      "traducao": "troféu",
+      "imagem": "palavras/imagens/trophy.webp",
+      "audio": "palavras/audios/trophy.mp3",
+      "observacao": "",
+      "ordem": 6,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 53,
+    "fields": {
+      "modulo": 9,
+      "palavra": "moon",
+      "traducao": "lua",
+      "imagem": "palavras/imagens/moon.webp",
+      "audio": "palavras/audios/moon.mp3",
+      "observacao": "",
+      "ordem": 1,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 54,
+    "fields": {
+      "modulo": 9,
+      "palavra": "food",
+      "traducao": "comida",
+      "imagem": "palavras/imagens/food.webp",
+      "audio": "palavras/audios/food.mp3",
+      "observacao": "",
+      "ordem": 2,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 55,
+    "fields": {
+      "modulo": 9,
+      "palavra": "room",
+      "traducao": "quarto",
+      "imagem": "palavras/imagens/room.webp",
+      "audio": "palavras/audios/room.mp3",
+      "observacao": "",
+      "ordem": 3,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 56,
+    "fields": {
+      "modulo": 9,
+      "palavra": "school",
+      "traducao": "escola",
+      "imagem": "palavras/imagens/school.webp",
+      "audio": "palavras/audios/school.mp3",
+      "observacao": "",
+      "ordem": 4,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 57,
+    "fields": {
+      "modulo": 9,
+      "palavra": "book",
+      "traducao": "livro",
+      "imagem": "palavras/imagens/book.webp",
+      "audio": "palavras/audios/book.mp3",
+      "observacao": "",
+      "ordem": 5,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 58,
+    "fields": {
+      "modulo": 9,
+      "palavra": "look",
+      "traducao": "olhar",
+      "imagem": "palavras/imagens/look.webp",
+      "audio": "palavras/audios/look.mp3",
+      "observacao": "",
+      "ordem": 6,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 59,
+    "fields": {
+      "modulo": 9,
+      "palavra": "good",
+      "traducao": "bom",
+      "imagem": "palavras/imagens/good.webp",
+      "audio": "palavras/audios/good.mp3",
+      "observacao": "",
+      "ordem": 7,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 60,
+    "fields": {
+      "modulo": 9,
+      "palavra": "foot",
+      "traducao": "pé",
+      "imagem": "palavras/imagens/foot.webp",
+      "audio": "palavras/audios/foot.mp3",
+      "observacao": "",
+      "ordem": 8,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 61,
+    "fields": {
+      "modulo": 10,
+      "palavra": "cat",
+      "traducao": "gato",
+      "imagem": "palavras/imagens/cat.webp",
+      "audio": "palavras/audios/cat.mp3",
+      "observacao": "",
+      "ordem": 1,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 62,
+    "fields": {
+      "modulo": 10,
+      "palavra": "cake",
+      "traducao": "bolo",
+      "imagem": "palavras/imagens/cake.webp",
+      "audio": "palavras/audios/cake.mp3",
+      "observacao": "",
+      "ordem": 2,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 63,
+    "fields": {
+      "modulo": 10,
+      "palavra": "kit",
+      "traducao": "kit",
+      "imagem": "palavras/imagens/kit.webp",
+      "audio": "palavras/audios/kit.mp3",
+      "observacao": "",
+      "ordem": 3,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 64,
+    "fields": {
+      "modulo": 10,
+      "palavra": "kite",
+      "traducao": "pipa",
+      "imagem": "palavras/imagens/kite.webp",
+      "audio": "palavras/audios/kite.mp3",
+      "observacao": "",
+      "ordem": 4,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 65,
+    "fields": {
+      "modulo": 10,
+      "palavra": "hop",
+      "traducao": "pular",
+      "imagem": "palavras/imagens/hop.webp",
+      "audio": "palavras/audios/hop.mp3",
+      "observacao": "",
+      "ordem": 5,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 66,
+    "fields": {
+      "modulo": 10,
+      "palavra": "hope",
+      "traducao": "esperança",
+      "imagem": "palavras/imagens/hope.webp",
+      "audio": "palavras/audios/hope.mp3",
+      "observacao": "",
+      "ordem": 6,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 67,
+    "fields": {
+      "modulo": 10,
+      "palavra": "cub",
+      "traducao": "filhote",
+      "imagem": "palavras/imagens/cub.webp",
+      "audio": "palavras/audios/cub.mp3",
+      "observacao": "",
+      "ordem": 7,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 68,
+    "fields": {
+      "modulo": 10,
+      "palavra": "cube",
+      "traducao": "cubo",
+      "imagem": "palavras/imagens/cube.webp",
+      "audio": "palavras/audios/cube.mp3",
+      "observacao": "",
+      "ordem": 8,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 69,
+    "fields": {
+      "modulo": 10,
+      "palavra": "ship",
+      "traducao": "navio",
+      "imagem": "palavras/imagens/ship.webp",
+      "audio": "palavras/audios/ship.mp3",
+      "observacao": "",
+      "ordem": 9,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 70,
+    "fields": {
+      "modulo": 10,
+      "palavra": "chip",
+      "traducao": "chip",
+      "imagem": "palavras/imagens/chip.webp",
+      "audio": "palavras/audios/chip.mp3",
+      "observacao": "",
+      "ordem": 10,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 71,
+    "fields": {
+      "modulo": 10,
+      "palavra": "think",
+      "traducao": "pensar",
+      "imagem": "palavras/imagens/think.webp",
+      "audio": "palavras/audios/think.mp3",
+      "observacao": "",
+      "ordem": 11,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 72,
+    "fields": {
+      "modulo": 10,
+      "palavra": "this",
+      "traducao": "isto",
+      "imagem": "palavras/imagens/this.webp",
+      "audio": "palavras/audios/this.mp3",
+      "observacao": "",
+      "ordem": 12,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 73,
+    "fields": {
+      "modulo": 10,
+      "palavra": "book",
+      "traducao": "livro",
+      "imagem": "palavras/imagens/book.webp",
+      "audio": "palavras/audios/book.mp3",
+      "observacao": "",
+      "ordem": 13,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.palavra",
+    "pk": 74,
+    "fields": {
+      "modulo": 10,
+      "palavra": "moon",
+      "traducao": "lua",
+      "imagem": "palavras/imagens/moon.webp",
+      "audio": "palavras/audios/moon.mp3",
+      "observacao": "",
+      "ordem": 14,
+      "ativa": true
+    }
+  },
+  {
+    "model": "core.comparacao",
+    "pk": 1,
+    "fields": {
+      "modulo": 1,
+      "palavra_base": 1,
+      "palavra_comparada": 2,
+      "explicacao": "Compare cat e cake: o E final de cake é silencioso e muda o som da vogal. Observe também as outras letras e o significado de cada palavra.",
+      "ordem": 1
+    }
+  },
+  {
+    "model": "core.comparacao",
+    "pk": 2,
+    "fields": {
+      "modulo": 1,
+      "palavra_base": 3,
+      "palavra_comparada": 4,
+      "explicacao": "Compare cap e cape: o E final de cape é silencioso e muda o som da vogal. Observe também as outras letras e o significado de cada palavra.",
+      "ordem": 2
+    }
+  },
+  {
+    "model": "core.comparacao",
+    "pk": 3,
+    "fields": {
+      "modulo": 1,
+      "palavra_base": 5,
+      "palavra_comparada": 6,
+      "explicacao": "Compare tap e tape: o E final de tape é silencioso e muda o som da vogal. Observe também as outras letras e o significado de cada palavra.",
+      "ordem": 3
+    }
+  },
+  {
+    "model": "core.comparacao",
+    "pk": 4,
+    "fields": {
+      "modulo": 1,
+      "palavra_base": 7,
+      "palavra_comparada": 8,
+      "explicacao": "Compare mad e made: o E final de made é silencioso e muda o som da vogal. Observe também as outras letras e o significado de cada palavra.",
+      "ordem": 4
+    }
+  },
+  {
+    "model": "core.comparacao",
+    "pk": 9,
+    "fields": {
+      "modulo": 3,
+      "palavra_base": 17,
+      "palavra_comparada": 18,
+      "explicacao": "Compare hop e hope: o E final de hope é silencioso e muda o som da vogal. Observe também as outras letras e o significado de cada palavra.",
+      "ordem": 1
+    }
+  },
+  {
+    "model": "core.comparacao",
+    "pk": 10,
+    "fields": {
+      "modulo": 3,
+      "palavra_base": 19,
+      "palavra_comparada": 20,
+      "explicacao": "Compare not e note: o E final de note é silencioso e muda o som da vogal. Observe também as outras letras e o significado de cada palavra.",
+      "ordem": 2
+    }
+  },
+  {
+    "model": "core.comparacao",
+    "pk": 11,
+    "fields": {
+      "modulo": 3,
+      "palavra_base": 21,
+      "palavra_comparada": 22,
+      "explicacao": "Compare rob e robe: o E final de robe é silencioso e muda o som da vogal. Observe também as outras letras e o significado de cada palavra.",
+      "ordem": 3
+    }
+  },
+  {
+    "model": "core.comparacao",
+    "pk": 12,
+    "fields": {
+      "modulo": 4,
+      "palavra_base": 23,
+      "palavra_comparada": 24,
+      "explicacao": "Compare cub e cube: o E final de cube é silencioso e muda o som da vogal. Observe também as outras letras e o significado de cada palavra.",
+      "ordem": 1
+    }
+  },
+  {
+    "model": "core.comparacao",
+    "pk": 13,
+    "fields": {
+      "modulo": 4,
+      "palavra_base": 25,
+      "palavra_comparada": 26,
+      "explicacao": "Compare tub e tube: o E final de tube é silencioso e muda o som da vogal. Observe também as outras letras e o significado de cada palavra.",
+      "ordem": 2
+    }
+  },
+  {
+    "model": "core.comparacao",
+    "pk": 14,
+    "fields": {
+      "modulo": 4,
+      "palavra_base": 27,
+      "palavra_comparada": 28,
+      "explicacao": "Compare cut e cute: o E final de cute é silencioso e muda o som da vogal. Observe também as outras letras e o significado de cada palavra.",
+      "ordem": 3
+    }
+  },
+  {
+    "model": "core.comparacao",
+    "pk": 15,
+    "fields": {
+      "modulo": 5,
+      "palavra_base": 29,
+      "palavra_comparada": 30,
+      "explicacao": "Escute ship e fish: procure o som SH nas duas palavras. S e H juntos fazem um som parecido com o pedido de silêncio: shhh!",
+      "ordem": 1
+    }
+  },
+  {
+    "model": "core.comparacao",
+    "pk": 16,
+    "fields": {
+      "modulo": 5,
+      "palavra_base": 31,
+      "palavra_comparada": 32,
+      "explicacao": "Escute shark e sheep: procure o som SH nas duas palavras. S e H juntos fazem um som parecido com o pedido de silêncio: shhh!",
+      "ordem": 2
+    }
+  },
+  {
+    "model": "core.comparacao",
+    "pk": 17,
+    "fields": {
+      "modulo": 5,
+      "palavra_base": 33,
+      "palavra_comparada": 34,
+      "explicacao": "Escute shop e shovel: procure o som SH nas duas palavras. S e H juntos fazem um som parecido com o pedido de silêncio: shhh!",
+      "ordem": 3
+    }
+  },
+  {
+    "model": "core.comparacao",
+    "pk": 18,
+    "fields": {
+      "modulo": 6,
+      "palavra_base": 35,
+      "palavra_comparada": 36,
+      "explicacao": "Escute chair e chicken: procure o som CH nas duas palavras. C e H juntos fazem um som parecido com tch.",
+      "ordem": 1
+    }
+  },
+  {
+    "model": "core.comparacao",
+    "pk": 19,
+    "fields": {
+      "modulo": 6,
+      "palavra_base": 37,
+      "palavra_comparada": 38,
+      "explicacao": "Escute cheese e beach: procure o som CH nas duas palavras. C e H juntos fazem um som parecido com tch.",
+      "ordem": 2
+    }
+  },
+  {
+    "model": "core.comparacao",
+    "pk": 20,
+    "fields": {
+      "modulo": 6,
+      "palavra_base": 39,
+      "palavra_comparada": 40,
+      "explicacao": "Escute child e chocolate: procure o som CH nas duas palavras. C e H juntos fazem um som parecido com tch.",
+      "ordem": 3
+    }
+  },
+  {
+    "model": "core.comparacao",
+    "pk": 21,
+    "fields": {
+      "modulo": 7,
+      "palavra_base": 41,
+      "palavra_comparada": 44,
+      "explicacao": "Escute think e this: compare os dois sons de TH. Em think, a garganta não vibra; em this, ela vibra.",
+      "ordem": 1
+    }
+  },
+  {
+    "model": "core.comparacao",
+    "pk": 22,
+    "fields": {
+      "modulo": 7,
+      "palavra_base": 42,
+      "palavra_comparada": 45,
+      "explicacao": "Escute tooth e that: compare os dois sons de TH. Em tooth, a garganta não vibra; em that, ela vibra.",
+      "ordem": 2
+    }
+  },
+  {
+    "model": "core.comparacao",
+    "pk": 23,
+    "fields": {
+      "modulo": 7,
+      "palavra_base": 43,
+      "palavra_comparada": 46,
+      "explicacao": "Escute bath e mother: compare os dois sons de TH. Em bath, a garganta não vibra; em mother, ela vibra.",
+      "ordem": 3
+    }
+  },
+  {
+    "model": "core.comparacao",
+    "pk": 24,
+    "fields": {
+      "modulo": 8,
+      "palavra_base": 47,
+      "palavra_comparada": 48,
+      "explicacao": "Escute phone e photo: procure o som de F nas duas palavras. Nestas palavras, P e H trabalham juntos e soam como F.",
+      "ordem": 1
+    }
+  },
+  {
+    "model": "core.comparacao",
+    "pk": 25,
+    "fields": {
+      "modulo": 8,
+      "palavra_base": 49,
+      "palavra_comparada": 50,
+      "explicacao": "Escute elephant e dolphin: procure o som de F nas duas palavras. Nestas palavras, P e H trabalham juntos e soam como F.",
+      "ordem": 2
+    }
+  },
+  {
+    "model": "core.comparacao",
+    "pk": 26,
+    "fields": {
+      "modulo": 8,
+      "palavra_base": 51,
+      "palavra_comparada": 52,
+      "explicacao": "Escute alphabet e trophy: procure o som de F nas duas palavras. Nestas palavras, P e H trabalham juntos e soam como F.",
+      "ordem": 3
+    }
+  },
+  {
+    "model": "core.comparacao",
+    "pk": 27,
+    "fields": {
+      "modulo": 9,
+      "palavra_base": 53,
+      "palavra_comparada": 57,
+      "explicacao": "Escute moon e book: compare os dois sons de OO. Em moon, o som é longo; em book, o som é curto.",
+      "ordem": 1
+    }
+  },
+  {
+    "model": "core.comparacao",
+    "pk": 28,
+    "fields": {
+      "modulo": 9,
+      "palavra_base": 54,
+      "palavra_comparada": 59,
+      "explicacao": "Escute food e good: compare os dois sons de OO. Em food, o som é longo; em good, o som é curto.",
+      "ordem": 2
+    }
+  },
+  {
+    "model": "core.comparacao",
+    "pk": 29,
+    "fields": {
+      "modulo": 9,
+      "palavra_base": 55,
+      "palavra_comparada": 58,
+      "explicacao": "Escute room e look: compare os dois sons de OO. Em room, o som é longo; em look, o som é curto.",
+      "ordem": 3
+    }
+  },
+  {
+    "model": "core.comparacao",
+    "pk": 30,
+    "fields": {
+      "modulo": 9,
+      "palavra_base": 56,
+      "palavra_comparada": 60,
+      "explicacao": "Escute school e foot: compare os dois sons de OO. Em school, o som é longo; em foot, o som é curto.",
+      "ordem": 4
+    }
+  },
+  {
+    "model": "core.comparacao",
+    "pk": 31,
+    "fields": {
+      "modulo": 2,
+      "palavra_base": 9,
+      "palavra_comparada": 10,
+      "explicacao": "Compare bit e bite: o E final de bite é silencioso e muda o som da vogal. Observe também as outras letras e o significado de cada palavra.",
+      "ordem": 1
+    }
+  },
+  {
+    "model": "core.comparacao",
+    "pk": 32,
+    "fields": {
+      "modulo": 2,
+      "palavra_base": 11,
+      "palavra_comparada": 12,
+      "explicacao": "Compare can e cane: o E final de cane é silencioso e muda o som da vogal. Observe também as outras letras e o significado de cada palavra.",
+      "ordem": 2
+    }
+  },
+  {
+    "model": "core.comparacao",
+    "pk": 33,
+    "fields": {
+      "modulo": 2,
+      "palavra_base": 13,
+      "palavra_comparada": 14,
+      "explicacao": "Compare pin e pine: o E final de pine é silencioso e muda o som da vogal. Observe também as outras letras e o significado de cada palavra.",
+      "ordem": 3
+    }
+  },
+  {
+    "model": "core.comparacao",
+    "pk": 34,
+    "fields": {
+      "modulo": 2,
+      "palavra_base": 15,
+      "palavra_comparada": 16,
+      "explicacao": "Compare sit e site: o E final de site é silencioso e muda o som da vogal. Observe também as outras letras e o significado de cada palavra.",
+      "ordem": 4
+    }
+  }
+]

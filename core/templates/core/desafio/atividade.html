@@ -5,7 +5,7 @@
 {{ dados|json_script:'desafio-config' }}
 <script src="{% static 'core/pronuncia.js' %}?v=6" defer></script>
 <script src="{% static 'core/modulo_1.js' %}" defer></script>
-<script src="{% static 'core/desafio_final.js' %}?v=1" defer></script>
+<script src="{% static 'core/desafio_final.js' %}?v=2" defer></script>
 {% endblock %}
 {% block content %}
 <header class="intro"><p class="eyebrow">MÓDULO 10 · DESAFIO FINAL</p>
@@ -23,7 +23,7 @@
     <button id="assembly-reset" class="sayit-button sayit-button--secondary" type="button" disabled>Recomeçar montagem</button>
     <button id="assembly-check" class="sayit-button" type="button" disabled>Conferir frase</button>
   </div>
-  <p id="assembly-status" role="status">Monte a frase para liberar o microfone.</p>
+  <p id="assembly-status" class="challenge-notice" role="status" aria-live="polite" aria-atomic="true" tabindex="-1">Monte a frase para liberar o microfone.</p>
   <h2>Ouça as palavras importantes</h2>
   <div class="challenge-actions">
     {% for audio in audios %}<audio id="challenge-audio-{{ forloop.counter }}" preload="none" src="{{ audio.url }}" controls></audio>
@@ -31,7 +31,7 @@
   </div>
   <p id="audio-status" role="status"></p>
   <button id="challenge-speak" class="sayit-button" type="button" disabled aria-describedby="challenge-status">Agora fale a frase</button>
-  <p id="challenge-status" role="status">O microfone é obrigatório. Permita o acesso quando o navegador pedir.</p>
+  <p id="challenge-status" class="challenge-notice" role="status">O microfone é obrigatório. Permita o acesso quando o navegador pedir.</p>
   <noscript><p>Ative o JavaScript e use um navegador com reconhecimento de voz para realizar os desafios.</p></noscript>
   <div id="challenge-feedback" class="challenge-feedback" role="status" tabindex="-1" hidden>
     <p id="challenge-score" class="challenge-score"></p>

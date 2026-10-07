@@ -2,12 +2,13 @@
 import json
 
 from django.contrib.auth.decorators import login_required
-from django.db import OperationalError, connection
+from django.db import OperationalError
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.http import require_POST
 
 from . import progresso
+from .database import conflito_transitorio
 
 
 def _payload(request, campos):
@@ -32,7 +33,7 @@ def _responder(operacao):
         return JsonResponse({'erro': erro.codigo, 'mensagem': str(erro)}, status=erro.status)
     except OperationalError as erro:
         # Não esconder outros erros do banco. Um bloqueio é recuperável pelo cliente.
-        if connection.vendor != 'sqlite' or 'locked' not in str(erro).lower():
+        if not conflito_transitorio(erro):
             raise
         resposta = JsonResponse({'erro': 'tente_novamente',
             'mensagem': 'Não foi possível salvar agora. Tente novamente.'}, status=503)

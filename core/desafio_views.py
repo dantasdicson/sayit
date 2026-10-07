@@ -1,6 +1,7 @@
 import random
 from django.contrib.auth.decorators import login_required
-from django.db import OperationalError, connection
+from django.db import OperationalError
+from .database import conflito_transitorio
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
@@ -67,7 +68,7 @@ def _api(operacao):
     except progresso.ErroProgresso as erro:
         return JsonResponse({'mensagem': str(erro), 'erro': erro.codigo}, status=erro.status)
     except OperationalError as erro:
-        if connection.vendor != 'sqlite' or 'locked' not in str(erro).lower():
+        if not conflito_transitorio(erro):
             raise
         return JsonResponse({'mensagem': 'Não foi possível salvar agora. Tente novamente.'}, status=503)
 

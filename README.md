@@ -68,7 +68,7 @@ No exemplo abaixo, **CAT** e **CAKE** demonstram como o **E final silencioso** m
 
 - Python
 - Django
-- SQLite
+- PostgreSQL 17
 - HTML5
 - CSS3
 - JavaScript
@@ -78,9 +78,9 @@ No exemplo abaixo, **CAT** e **CAKE** demonstram como o **E final silencioso** m
 ## Estado atual
 
 - 10 módulos cadastrados
-- 71 registros de palavras
-- 58 palavras distintas
-- 13 comparações didáticas
+- 74 registros de palavras
+- 63 palavras distintas
+- 30 comparações didáticas
 - banco base populado
 - comando de associação de imagens implementado
 
@@ -95,3 +95,11 @@ O módulo 10 recuperado possui três desafios de montagem e fala, histórico de 
 ## Status do projeto
 
 Projeto em desenvolvimento.
+
+## PostgreSQL, Render e Vercel
+
+O banco configurado é PostgreSQL. Django e arquivos pedagógicos ficam no Render;
+Vercel encaminha o acesso público para o Render. Não existe um frontend separado.
+Veja [configuração local, implantação e migração dos dados](docs/implantacao.md).
+Os arquivos de implantação estão preparados; serviços publicados e SMTP dependem
+das configurações nas contas do responsável.

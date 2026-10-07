@@ -1,6 +1,9 @@
 import os
 from pathlib import Path
+from urllib.parse import urlsplit
 
+import dj_database_url
+from django.core.exceptions import ImproperlyConfigured
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -25,21 +28,43 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-s0gig8kqprn1x^69t3_v$a7f__xb3dt)nl4(xlgn-d0a5o62q='
+DEBUG = os.getenv('DEBUG', 'false').lower() == 'true'
+SECRET_KEY = os.getenv('SECRET_KEY', '')
+if not SECRET_KEY:
+    raise ImproperlyConfigured('Configure SECRET_KEY no ambiente ou no arquivo .env.')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+def env_list(name):
+    return [value.strip() for value in os.getenv(name, '').split(',') if value.strip()]
 
-ALLOWED_HOSTS = [
-    "localhost",
-    "127.0.0.1",
-    "10.0.0.150",
-    ".trycloudflare.com",
-]
+ALLOWED_HOSTS = env_list('ALLOWED_HOSTS')
+if DEBUG:
+    ALLOWED_HOSTS += ['localhost', '127.0.0.1', '[::1]']
+render_host = os.getenv('RENDER_EXTERNAL_HOSTNAME')
+if render_host:
+    ALLOWED_HOSTS.append(render_host)
+CSRF_TRUSTED_ORIGINS = env_list('CSRF_TRUSTED_ORIGINS')
+PUBLIC_BASE_URL = os.getenv('PUBLIC_BASE_URL', '').rstrip('/')
+if PUBLIC_BASE_URL:
+    public = urlsplit(PUBLIC_BASE_URL)
+    if public.scheme not in ('http', 'https') or not public.hostname or public.path or public.query or public.fragment or public.username:
+        raise ImproperlyConfigured('PUBLIC_BASE_URL deve conter apenas esquema e domínio.')
+    if not DEBUG and public.scheme != 'https':
+        raise ImproperlyConfigured('PUBLIC_BASE_URL deve usar HTTPS em produção.')
+    ALLOWED_HOSTS.append(public.hostname)
+    CSRF_TRUSTED_ORIGINS.append(PUBLIC_BASE_URL)
 
-CSRF_TRUSTED_ORIGINS = [
-     "https://*.trycloudflare.com",
-]
+# Render termina TLS e define X-Forwarded-Proto na borda confiável.
+# Não confiamos em X-Forwarded-Host; o link de recuperação usa domínio explícito.
+if os.getenv('TRUST_PROXY_SSL_HEADER', 'false').lower() == 'true':
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+USE_X_FORWARDED_HOST = False
+SECURE_SSL_REDIRECT = not DEBUG
+SESSION_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SECURE = not DEBUG
+SECURE_HSTS_SECONDS = 31536000 if not DEBUG else 0
+SECURE_HSTS_INCLUDE_SUBDOMAINS = False
+SECURE_HSTS_PRELOAD = False
 
 
 # Application definition
@@ -56,6 +81,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'core.middleware.PrivateResponseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -87,12 +114,13 @@ WSGI_APPLICATION = 'sayit.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+database_url = os.getenv('DATABASE_URL', '')
+if not database_url:
+    raise ImproperlyConfigured('Configure DATABASE_URL para o PostgreSQL.')
+database = dj_database_url.parse(database_url, conn_max_age=60, conn_health_checks=True)
+if database['ENGINE'] != 'django.db.backends.postgresql':
+    raise ImproperlyConfigured('O SayIt utiliza exclusivamente PostgreSQL.')
+DATABASES = {'default': database}
 
 
 # Password validation
@@ -135,10 +163,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STORAGES = {
+    'default': {'BACKEND': 'django.core.files.storage.FileSystemStorage'},
+    'staticfiles': {'BACKEND': 'django.contrib.staticfiles.storage.StaticFilesStorage' if DEBUG else 'whitenoise.storage.CompressedManifestStaticFilesStorage'},
+}
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = Path(os.getenv('MEDIA_ROOT', str(BASE_DIR / 'media')))
 
 
 # Default primary key field type
@@ -148,7 +181,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Local development prints recovery emails to the server terminal/log.
 # Configure SMTP through .env to deliver messages to real mailboxes.
-EMAIL_BACKEND = os.getenv('EMAIL_BACKEND', 'django.core.mail.backends.console.EmailBackend')
+EMAIL_BACKEND = os.getenv('EMAIL_BACKEND', 'django.core.mail.backends.console.EmailBackend' if DEBUG else 'django.core.mail.backends.smtp.EmailBackend')
 EMAIL_HOST = os.getenv('EMAIL_HOST', '')
 EMAIL_PORT = int(os.getenv('EMAIL_PORT', '587'))
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
@@ -156,5 +189,6 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
 EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'true').lower() == 'true'
 EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL', 'false').lower() == 'true'
 EMAIL_TIMEOUT = 15
+RESEND_API_KEY = os.getenv('RESEND_API_KEY', '')
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'SayIt! <nao-responda@localhost>')
 PASSWORD_RESET_TIMEOUT = 3600

@@ -1,0 +1,5 @@
+{
+  "name": "sayit-public-gateway",
+  "private": true,
+  "scripts": {"build": "node build.mjs"}
+}

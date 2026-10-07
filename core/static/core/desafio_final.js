@@ -54,6 +54,7 @@
       tray.appendChild(button);
     }
     byId('assembly-status').textContent = 'Monte a frase e toque em Conferir frase.';
+    byId('assembly-status').dataset.state = 'info';
     controls();
   }
   async function post(url, payload) {
@@ -78,6 +79,7 @@
     token = result.token;
     verified = true;
     byId('assembly-status').textContent = 'Muito bem! Agora fale a frase usando o microfone.';
+    byId('assembly-status').dataset.state = 'success';
   }
   function show(result, transcript) {
     const a = result.avaliacao;
@@ -103,7 +105,8 @@
     feedback.hidden = false;
     feedback.focus();
     status.textContent = passed ? 'Você já pode avançar ou tentar melhorar sua nota!'
-      : 'Vamos tentar de novo? Precisamos de pelo menos ' + config.minimo + ' pontos.';
+      : 'Ainda não é possível avançar. Fale a frase novamente e alcance pelo menos ' + config.minimo + ' pontos para liberar o próximo desafio.';
+    status.dataset.state = passed ? 'success' : 'error';
   }
   async function save() {
     if (!pending || leaving) return;
@@ -132,7 +135,16 @@
     if (busy || pending || !assembly.full()) return;
     busy = true; controls();
     try { await verify(); }
-    catch (error) { verified = false; byId('assembly-status').textContent = error.message; }
+    catch (error) {
+      verified = false;
+      const notice = byId('assembly-status');
+      notice.textContent = error.code === 'montagem_incorreta'
+        ? 'A frase ainda não está na ordem certa. Corrija a ordem das palavras e toque em Conferir frase novamente. O microfone só será liberado após a montagem correta.'
+        : error.message;
+      notice.dataset.state = 'error';
+      notice.focus();
+      notice.scrollIntoView?.({behavior: 'smooth', block: 'nearest'});
+    }
     finally { busy = false; controls(); }
   });
   async function start() {
@@ -169,6 +181,7 @@
       recognition.onend = () => finish();
       session.timer = setTimeout(() => { finish('no-speech'); recognition.abort(); }, 25000);
       status.textContent = 'Preparando o microfone...';
+      status.dataset.state = 'info';
       try { recognition.start(); }
       catch (error) { await finish(['NotAllowedError', 'SecurityError'].includes(error.name) ? 'not-allowed' : 'network'); }
     } catch (error) {

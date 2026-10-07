@@ -43,7 +43,7 @@ function setup(options = {}) {
   const fetch = async (url, init) => {
     const payload = JSON.parse(init.body); requests.push({url, payload});
     if (url === '/montar') {
-      if (JSON.stringify(payload.palavras) !== JSON.stringify(words)) return {ok:false, json:async()=>({mensagem:'Confira a ordem.'})};
+      if (JSON.stringify(payload.palavras) !== JSON.stringify(words)) return {ok:false, json:async()=>({erro:'montagem_incorreta', mensagem:'Confira a ordem.'})};
       return {ok:true, json:async()=>({token:'token-' + (++nonce)})};
     }
     if (options.saveFailure && saves++ === 0) throw new Error('Sem conexão');
@@ -76,7 +76,12 @@ test('microfone e próximo bloqueados antes de montagem', () => {
 });
 test('ordem errada mantém microfone bloqueado; corrigir libera', async () => {
   const a=setup(); await a.assemble([2,0,1]); assert.equal(a.elements['challenge-speak'].disabled,true);
+  assert.equal(a.elements['assembly-status'].dataset.state, 'error');
+  assert.match(a.elements['assembly-status'].textContent, /Corrija a ordem das palavras/);
+  assert.match(a.elements['assembly-status'].textContent, /microfone só será liberado/);
+  assert.equal(a.elements['challenge-next'].disabled, true);
   a.elements['assembly-reset'].click(); await a.assemble(); assert.equal(a.elements['challenge-speak'].disabled,false);
+  assert.equal(a.elements['assembly-status'].dataset.state, 'success');
 });
 test('microfone em inglês compartilha configuração existente', async () => {
   const a=setup({webkit:true}); await a.assemble(); const r=await a.start();
@@ -87,6 +92,8 @@ for (const [text, passed] of [['cake',false],['I cake',true],['I like cake',true
   test('avaliação da fala e avanço: '+JSON.stringify(text), async () => {
     const a=setup(); await a.assemble(); await a.say(text);
     assert.equal(a.elements['challenge-next'].disabled,!passed);
+    assert.equal(a.elements['challenge-status'].dataset.state, passed ? 'success' : 'error');
+    if (!passed) assert.match(a.elements['challenge-status'].textContent, /Ainda não é possível avançar/);
     assert.equal(a.elements['challenge-history'].children.length,1);
     a.elements['challenge-next'].click();
     assert.equal(a.navigations.length,passed?1:0);

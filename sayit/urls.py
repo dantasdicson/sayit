@@ -19,6 +19,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth.views import PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 from django.urls import path
+from core.deployment_views import health, pedagogical_media
 from core.auth_views import EntrarView, SairView, RecuperarSenhaView, area, cadastro
 from core.forms import NovaSenhaForm
 from core import progresso_views
@@ -29,6 +30,8 @@ from core.views import (
 )
 
 urlpatterns = [
+    path('health/', health, name='health'),
+    path('media/<path:path>', pedagogical_media, name='pedagogical_media'),
     path('', area, name='home'),
     path('cadastro/', cadastro, name='cadastro'),
     path('login/', EntrarView.as_view(), name='login'),

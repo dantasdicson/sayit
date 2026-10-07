@@ -1,7 +1,9 @@
+from urllib.parse import urlsplit
+from django.conf import settings
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView, LogoutView, PasswordResetView
-from django.db import IntegrityError, OperationalError, connection, transaction
+from django.db import IntegrityError, OperationalError, transaction
 from django.db.models import Count, Max, Q
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
@@ -12,6 +14,7 @@ from django.views.decorators.http import require_http_methods
 from .forms import CadastroForm, EntrarForm, RecuperarSenhaForm
 from . import progresso
 from .models import Modulo, Tentativa
+from .database import conflito_transitorio
 
 
 class EntrarView(LoginView):
@@ -40,11 +43,11 @@ class RecuperarSenhaView(PasswordResetView):
     subject_template_name = 'core/auth/password_reset_subject.txt'
 
     def form_valid(self, form):
-        # The local Cloudflare tunnel terminates TLS before reaching Django.
-        # ALLOWED_HOSTS validates this host; arbitrary proxy headers are ignored.
+        public = urlsplit(settings.PUBLIC_BASE_URL) if settings.PUBLIC_BASE_URL else None
         form.save(
             request=self.request,
-            use_https=self.request.is_secure() or self.request.get_host().split(':')[0].endswith('.trycloudflare.com'),
+            domain_override=public.netloc if public else None,
+            use_https=public.scheme == 'https' if public else self.request.is_secure(),
             token_generator=self.token_generator,
             from_email=self.from_email,
             email_template_name=self.email_template_name,
@@ -63,16 +66,14 @@ def cadastro(request):
     if request.method == 'POST':
         user = None
         try:
-            # Keep the uniqueness reads and insert in one transaction. SQLite
-            # rejects a concurrent read-to-write upgrade rather than inserting
-            # a second account based on a stale email check.
+            # PostgreSQL verifica as restrições únicas durante a inserção.
             with transaction.atomic():
                 if form.is_valid():
                     user = form.save()
         except IntegrityError:
             form.add_error(None, 'Não foi possível criar a conta. Confira o nome de usuário e o e-mail e tente novamente.')
         except OperationalError as error:
-            if connection.vendor != 'sqlite' or 'locked' not in str(error).lower():
+            if not conflito_transitorio(error):
                 raise
             form.add_error(None, 'Há outro cadastro em andamento. Tente novamente em alguns instantes.')
         else:

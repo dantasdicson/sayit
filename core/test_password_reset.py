@@ -12,7 +12,7 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 
 
-@override_settings(EMAIL_BACKEND='django.core.mail.backends.locmem.EmailBackend')
+@override_settings(EMAIL_BACKEND='django.core.mail.backends.locmem.EmailBackend', PUBLIC_BASE_URL='', SECURE_PROXY_SSL_HEADER=None)
 class RecuperacaoSenhaTests(TestCase):
     @classmethod
     def setUpTestData(cls):
@@ -59,11 +59,15 @@ class RecuperacaoSenhaTests(TestCase):
         self.assertContains(self.request_link('invalido'), 'Digite um endereço de e-mail válido.')
         self.assertEqual(len(mail.outbox), 0)
 
-    def test_tunnel_gera_https_sem_confiar_em_header_arbitrario(self):
-        self.request_link(HTTP_HOST='sayit-teste.trycloudflare.com')
-        self.assertIn('https://sayit-teste.trycloudflare.com/redefinir-senha/', mail.outbox[-1].body)
+    def test_header_arbitrario_nao_altera_link(self):
         self.request_link(HTTP_X_FORWARDED_PROTO='https')
         self.assertIn('http://testserver/redefinir-senha/', mail.outbox[-1].body)
+
+    @override_settings(PUBLIC_BASE_URL='https://sayit-demo.vercel.app')
+    def test_proxy_usa_dominio_publico_configurado(self):
+        self.request_link(HTTP_HOST='testserver', HTTP_X_FORWARDED_HOST='evil.example')
+        self.assertIn('https://sayit-demo.vercel.app/redefinir-senha/', mail.outbox[-1].body)
+        self.assertNotIn('evil.example', mail.outbox[-1].body)
 
     def test_https_direto(self):
         self.request_link(secure=True)

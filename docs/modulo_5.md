@@ -124,7 +124,7 @@ Alterados:
 - `core/test_resumo.py`
 
 Os seis MP3s de palavras existentes passam a estar visíveis ao Git, sem
-alteração de conteúdo. `db.sqlite3` recebeu os três pares e as associações
+alteração de conteúdo. O banco utilizado naquela revisão recebeu os três pares e as associações
 do Módulo 5; continua ignorado pelo Git. Nenhuma migration, biblioteca ou
 dependência foi adicionada; `settings.py` não foi alterado.
 
@@ -169,3 +169,5 @@ reprodução audível das palavras e do resumo, permissão/início do microfone,
 pronúncia das seis palavras e navegação até a conclusão. A implementação
 automatizada está entregue; a homologação manual não deve ser considerada
 concluída até essa checagem.
+
+A configuração atual utiliza PostgreSQL; consulte [implantacao.md](implantacao.md).

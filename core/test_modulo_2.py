@@ -42,7 +42,7 @@ class Modulo2Tests(TestCase):
 
     def test_catalogo_e_explicacao(self):
         self.assertEqual([(p.palavra_base.palavra, p.palavra_comparada.palavra) for p in self.pares],
-                         [('bit', 'bite'), ('fin', 'pin'), ('pin', 'pine'), ('sit', 'site')])
+                         [('bit', 'bite'), ('can', 'cane'), ('pin', 'pine'), ('sit', 'site')])
         r = self.client.get(reverse('explicacao_modulo_2'))
         self.assertContains(r, 'MAGIC E — SOM DO I')
         self.assertContains(r, self.modulo.conteudo_teorico)
@@ -59,7 +59,7 @@ class Modulo2Tests(TestCase):
         par.refresh_from_db()
         self.assertEqual((par.pk, par.palavra_base_id, par.palavra_comparada_id), ids)
         self.assertEqual((par.palavra_base.palavra, par.palavra_comparada.palavra), ('pin', 'pine'))
-        self.assertEqual(self.modulo.palavras.count(), 7)
+        self.assertEqual(self.modulo.palavras.count(), 8)
         call_command('associar_imagens', modulo=2, stdout=StringIO())
         call_command('associar_audios', modulo=2, stdout=StringIO())
         for word in self.modulo.palavras.filter(palavra__in=['pin', 'pine']):
@@ -161,7 +161,8 @@ class Modulo2Tests(TestCase):
             self.assertEqual(self.client.get(url).status_code, 302)
 
     def test_ordem_invalida_e_modulo_inativo(self):
-        self.assertEqual(self.client.get(self.url(4)).status_code, 404)
+        self.assertEqual(self.client.get(self.url(5)).status_code, 404)
+        self.assertEqual(self.client.get(self.url(4)).status_code, 409)
         self.modulo.ativo = False
         self.modulo.save(update_fields=['ativo'])
         self.assertEqual(self.client.get(self.url(1)).status_code, 404)
