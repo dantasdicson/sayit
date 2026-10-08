@@ -76,7 +76,7 @@ O manifesto de imagens agora marca essas seis entradas como `gerado`.
 e associados com `associar_audios --modulo 5`, após dry-run sem erros.
 Nenhum áudio anterior foi recriado ou alterado.
 
-Resumo: `media/modulos/5/resumo.mp3`, **36,31 segundos**, MP3 mono, 24 kHz.
+Resumo: `media/modulos/5/resumo.mp3`, **31,49 segundos**, MP3 mono, 24 kHz, 96 kbps. Narração atualizada com o gerador `docs/gerar_resumos_naturais.py`.
 Gerador: `docs/gerar_resumo_modulo_5.py`. Português com
 `pt-BR-FranciscaNeural`; cada exemplo inglês com `en-US-JennyNeural`.
 Taxa `+0%`, concatenação dos segmentos e pausas naturais iguais ao gerador

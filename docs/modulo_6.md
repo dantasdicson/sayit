@@ -14,7 +14,7 @@ Fluxo implementado: Trilha → Explicação → 3 descobertas → Resumo → Con
 
 - Imagens WebP: `media/palavras/imagens/<palavra>.webp`, todas com 1254 × 1254 px.
 - Áudios das palavras: `media/palavras/audios/<palavra>.mp3`.
-- Resumo: `media/modulos/6/resumo.mp3`, 34,44 segundos, 48 kbps.
+- Resumo: `media/modulos/6/resumo.mp3`, 31,90 segundos, 96 kbps. Narração atualizada com o gerador `docs/gerar_resumos_naturais.py`.
 - Narração em português: `pt-BR-FranciscaNeural`.
 - Palavras em inglês: `en-US-JennyNeural`.
 
