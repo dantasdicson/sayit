@@ -1,6 +1,6 @@
 ﻿# SayIt! 🎤📚
 
-Progressive Web App educacional para auxiliar crianças dos anos iniciais do Ensino Fundamental na aprendizagem de vocabulário e pronúncia da língua inglesa.
+Aplicação web responsiva educacional para apoiar a prática de vocabulário e fala em inglês nos anos iniciais do Ensino Fundamental. A versão atual não oferece instalação como PWA nem uso offline.
 
 ## Objetivo
 
@@ -73,7 +73,6 @@ No exemplo abaixo, **CAT** e **CAKE** demonstram como o **E final silencioso** m
 - CSS3
 - JavaScript
 - Pillow
-- PWA
 
 ## Estado atual
 
@@ -86,7 +85,7 @@ No exemplo abaixo, **CAT** e **CAKE** demonstram como o **E final silencioso** m
 
 ## Recuperação de senha
 
-A tela de entrada oferece **Esqueci minha senha**, com recuperação por e-mail e link válido por uma hora. Veja o [guia de uso, configuração SMTP e testes](docs/recuperacao-senha.md). Em desenvolvimento, as mensagens aparecem no log do servidor; o envio real requer configuração de SMTP em `.env`.
+A tela de entrada oferece **Esqueci minha senha**, com recuperação por e-mail e link válido por uma hora. Veja o [guia de uso, configuração e testes](docs/recuperacao-senha.md). Em desenvolvimento, as mensagens aparecem no log do servidor. No Render Free, o envio utiliza a API HTTPS do Resend e depende de chave e remetente autorizado; a confirmação na tela não comprova a entrega do e-mail.
 
 ## Desafio Final — Módulo 10
 

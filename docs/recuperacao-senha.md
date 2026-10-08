@@ -18,7 +18,16 @@ Cadastre uma conta de teste com um e-mail válido, solicite a recuperação e ab
 
 ## Configuração de envio real
 
-Copie `.env.example` para `.env` na raiz do repositório e configure os dados de SMTP fornecidos pelo provedor:
+No Render Free, use a API HTTPS do Resend, com chave e remetente autorizado configurados em **Environment**:
+
+```dotenv
+EMAIL_BACKEND=core.email_backend.ResendEmailBackend
+RESEND_API_KEY=sua-chave-configurada-no-painel
+DEFAULT_FROM_EMAIL=SayIt! <contato@seu-dominio-verificado.com>
+PUBLIC_BASE_URL=https://sayit-vercel.vercel.app
+```
+
+Teste a chegada do e-mail e a troca de senha com uma conta de demonstração. As portas SMTP usuais são bloqueadas nesse plano. Para ambientes que permitem SMTP, copie `.env.example` para `.env` e configure os dados fornecidos pelo provedor:
 
 ```dotenv
 EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
