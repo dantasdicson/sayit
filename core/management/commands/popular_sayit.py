@@ -22,13 +22,13 @@ MODULOS = [
     },
     {
         "numero": 2,
-        "titulo": "Magic E — o efeito do E final",
-        "descricao": "Descubra como o E final silencioso pode mudar o som da vogal anterior.",
+        "titulo": "Magic E: mudança do som do I",
+        "descricao": "Aprenda como o E final silencioso pode modificar a pronúncia da vogal I.",
         "palavras": [
             ("bit", "pedaço", 1),
             ("bite", "mordida", 2),
-            ("can", "lata", 3),
-            ("cane", "cana", 4),
+            ("kit", "conjunto", 3),
+            ("kite", "pipa", 4),
             ("pin", "alfinete", 5),
             ("pine", "pinheiro", 6),
             ("sit", "sentar", 7),
@@ -154,7 +154,7 @@ MODULOS = [
 
 CONTEUDOS_TEORICOS = {
     1: "O E no final fica silencioso e pode mudar o som do A. Compare cat e cake: em cake, o A soa como seu nome em inglês. Escute e repita devagar!",
-    2: "O E no final fica silencioso e pode mudar o som da vogal anterior. Compare bit e bite, can e cane, pin e pine, sit e site. Nestes exemplos, o E modifica o som do I ou do A. Ouça cada par e perceba a diferença!",
+    2: "O E final fica silencioso e pode mudar o som do I. Compare bit e bite, kit e kite, pin e pine, sit e site. Nessas palavras, o I passa a soar como o nome da letra I em inglês. Ouça cada par e perceba a diferença!",
     3: "O E no final pode mudar o som do O sem ter um som próprio. Compare hop e hope e repita cada palavra com calma.",
     4: "O E silencioso pode mudar o som do U. Compare cub e cube, tub e tube, cut e cute. Escute cada palavra: a pronúncia também pode variar entre sotaques.",
     5: "S e H juntos fazem um som parecido com o pedido de silêncio: shhh! Procure esse som em ship e fish. Ele pode aparecer no começo ou no final.",
@@ -168,7 +168,7 @@ CONTEUDOS_TEORICOS = {
 PARES_DIDATICOS = {
     10: [("cat", "cake"), ("ship", "chip"), ("think", "this"), ("moon", "book")],
     1: [("cat", "cake"), ("cap", "cape"), ("tap", "tape"), ("mad", "made")],
-    2: [("bit", "bite"), ("can", "cane"), ("pin", "pine"), ("sit", "site")],
+    2: [("bit", "bite"), ("kit", "kite"), ("pin", "pine"), ("sit", "site")],
     3: [("hop", "hope"), ("not", "note"), ("rob", "robe")],
     4: [("cub", "cube"), ("tub", "tube"), ("cut", "cute")],
     5: [("ship", "fish"), ("shark", "sheep"), ("shop", "shovel")],
@@ -213,12 +213,11 @@ class Command(BaseCommand):
                                 palavra=nova, traducao=traducao, imagem='', audio='',
                                 ordem=1000000 + modulo.palavras.filter(palavra=antiga).values_list('pk', flat=True).first()
                             )
-                    for antiga, nova, traducao in [('fin', 'can', 'lata'), ('fine', 'cane', 'cana')]:
-                        if modulo.palavras.filter(palavra=nova).exists():
-                            nova, traducao = ('pin', 'alfinete') if antiga == 'fin' else ('pine', 'pinheiro')
+                    for antiga, nova, traducao in [('can', 'kit', 'conjunto'), ('cane', 'kite', 'pipa'), ('fin', 'pin', 'alfinete'), ('fine', 'pine', 'pinheiro')]:
                         if not modulo.palavras.filter(palavra=nova).exists():
                             modulo.palavras.filter(palavra=antiga).update(
-                                palavra=nova, traducao=traducao, imagem='', audio=''
+                                palavra=nova, traducao=traducao,
+                                imagem=f'palavras/imagens/{nova}.webp', audio=f'palavras/audios/{nova}.mp3'
                             )
                     # A atualização das comparações mantém os identificadores.
                 # Mantém o PK e os acertos da versão inicial do Módulo 5.

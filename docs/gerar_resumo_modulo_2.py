@@ -6,9 +6,9 @@ import edge_tts
 
 OUTPUT = Path(__file__).resolve().parents[1] / 'media/modulos/2/resumo.mp3'
 SEGMENTOS = [
-    ('Muito bem! Vamos lembrar o que você aprendeu. O E no final fica silencioso e pode mudar o som da vogal anterior. Você ouviu e falou:', 'pt-BR-FranciscaNeural'),
-    *[(word, 'en-US-JennyNeural') for word in ('kit', 'kite', 'bit', 'bite', 'pin', 'pine')],
-    ('Nessas palavras, o E final muda o som da vogal anterior. Uma letra muda o som e o significado! Muito bem! Você terminou a revisão do Magic E, o efeito do E final.', 'pt-BR-FranciscaNeural'),
+    ('Muito bem! Vamos lembrar o que você aprendeu. O E no final fica silencioso e pode mudar o som da vogal I. Você ouviu e falou:', 'pt-BR-FranciscaNeural'),
+    *[(word, 'en-US-JennyNeural') for word in ('bit', 'bite', 'kit', 'kite', 'pin', 'pine', 'sit', 'site')],
+    ('Nessas palavras, o E final muda o som da vogal I. Uma letra muda o som e o significado! Muito bem! Você terminou a revisão do Magic E, som do I.', 'pt-BR-FranciscaNeural'),
 ]
 
 async def main(sobrescrever=False):

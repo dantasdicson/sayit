@@ -16,9 +16,9 @@
     "pk": 2,
     "fields": {
       "numero": 2,
-      "titulo": "Magic E — o efeito do E final",
-      "descricao": "Descubra como o E final silencioso pode mudar o som da vogal anterior.",
-      "conteudo_teorico": "O E no final fica silencioso e pode mudar o som da vogal anterior. Compare bit e bite, can e cane, pin e pine, sit e site. Nestes exemplos, o E modifica o som do I ou do A. Ouça cada par e perceba a diferença!",
+      "titulo": "Magic E: mudança do som do I",
+      "descricao": "Aprenda como o E final silencioso pode modificar a pronúncia da vogal I.",
+      "conteudo_teorico": "O E final fica silencioso e pode mudar o som do I. Compare bit e bite, kit e kite, pin e pine, sit e site. Nessas palavras, o I passa a soar como o nome da letra I em inglês. Ouça cada par e perceba a diferença!",
       "ordem": 2,
       "ativo": true
     }
@@ -264,10 +264,10 @@
     "pk": 11,
     "fields": {
       "modulo": 2,
-      "palavra": "can",
-      "traducao": "lata",
-      "imagem": "palavras/imagens/can.webp",
-      "audio": "palavras/audios/can.mp3",
+      "palavra": "kit",
+      "traducao": "conjunto",
+      "imagem": "palavras/imagens/kit.webp",
+      "audio": "palavras/audios/kit.mp3",
       "observacao": "",
       "ordem": 3,
       "ativa": true
@@ -278,10 +278,10 @@
     "pk": 12,
     "fields": {
       "modulo": 2,
-      "palavra": "cane",
-      "traducao": "cana",
-      "imagem": "palavras/imagens/cane.webp",
-      "audio": "palavras/audios/cane.mp3",
+      "palavra": "kite",
+      "traducao": "pipa",
+      "imagem": "palavras/imagens/kite.webp",
+      "audio": "palavras/audios/kite.mp3",
       "observacao": "",
       "ordem": 4,
       "ativa": true
@@ -1459,7 +1459,7 @@
       "modulo": 2,
       "palavra_base": 11,
       "palavra_comparada": 12,
-      "explicacao": "Compare can e cane: o E final de cane é silencioso e muda o som da vogal. Observe também as outras letras e o significado de cada palavra.",
+      "explicacao": "Compare kit e kite: o E final de kite é silencioso e muda o som da vogal. Observe também as outras letras e o significado de cada palavra.",
       "ordem": 2
     }
   },

@@ -64,21 +64,21 @@
       "motor": "edge-tts"
     },
     {
-      "palavra": "can",
-      "traducao": "lata",
-      "arquivo": "palavras/audios/can.mp3",
-      "texto_falado": "can",
+      "palavra": "kit",
+      "traducao": "conjunto",
+      "arquivo": "palavras/audios/kit.mp3",
+      "texto_falado": "kit",
       "voz": "en-US-JennyNeural",
-      "status": "pendente",
+      "status": "gerado",
       "motor": "edge-tts"
     },
     {
-      "palavra": "cane",
-      "traducao": "cana",
-      "arquivo": "palavras/audios/cane.mp3",
-      "texto_falado": "cane",
+      "palavra": "kite",
+      "traducao": "pipa",
+      "arquivo": "palavras/audios/kite.mp3",
+      "texto_falado": "kite",
       "voz": "en-US-JennyNeural",
-      "status": "pendente",
+      "status": "gerado",
       "motor": "edge-tts"
     },
     {

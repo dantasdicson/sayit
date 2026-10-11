@@ -62,18 +62,18 @@
       "status": "pendente"
     },
     {
-      "palavra": "can",
-      "traducao": "lata",
-      "arquivo": "palavras/imagens/can.webp",
+      "palavra": "kit",
+      "traducao": "conjunto",
+      "arquivo": "palavras/imagens/kit.webp",
       "descricao_visual": "Uma caixa aberta com um conjunto organizado de materiais de pintura: pincéis, tintas e lápis sem inscrições. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d'água ou logotipos.",
-      "status": "pendente"
+      "status": "gerado"
     },
     {
-      "palavra": "cane",
-      "traducao": "cana",
-      "arquivo": "palavras/imagens/cane.webp",
+      "palavra": "kite",
+      "traducao": "pipa",
+      "arquivo": "palavras/imagens/kite.webp",
       "descricao_visual": "Uma pipa colorida no ar, com linha e rabiola de laços. Ilustração infantil com formas arredondadas, cores suaves, composição centralizada e fundo simples, sem texto, marcas-d'água ou logotipos.",
-      "status": "pendente"
+      "status": "gerado"
     },
     {
       "palavra": "cap",

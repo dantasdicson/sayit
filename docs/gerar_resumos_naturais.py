@@ -19,7 +19,7 @@ PT = 'pt-BR-FranciscaNeural'
 EN = 'en-US-JennyNeural'
 EXEMPLOS = {
     1: 'cat, cake. cap, cape. tap, tape. mad, made.',
-    2: 'bit, bite. can, cane. pin, pine. sit, site.',
+    2: 'bit, bite. kit, kite. pin, pine. sit, site.',
     3: 'hop, hope. not, note. rob, robe.',
     4: 'cub, cube. tub, tube. cut, cute.',
     5: 'ship, fish. shark, sheep. shop, shovel.',
@@ -30,7 +30,7 @@ EXEMPLOS = {
 }
 EXPLICACOES = {
     1: 'Percebeu a diferença? Nessas palavras, o ê no final fica em silêncio, mas muda o som da vogal á. Ela passa a soar como o nome dessa letra em inglês.',
-    2: 'Percebeu a diferença? Nessas palavras, o ê no final fica em silêncio e muda o som da vogal anterior. Você comparou exemplos com as vogais i e á. Compare cada par e escute como uma letra muda o jeito de falar e o significado da palavra.',
+    2: 'Percebeu a diferença? Nessas palavras, o ê no final fica em silêncio e muda o som da vogal i. Ela passa a soar como o nome da letra i em inglês. Compare cada par e escute como uma letra muda o jeito de falar e o significado da palavra.',
     3: 'Percebeu a diferença? Nessas palavras, o ê no final fica em silêncio, mas muda o som da vogal ó. Ela passa a soar como o nome dessa letra em inglês.',
     4: 'Percebeu a diferença? Nessas palavras, o ê no final fica em silêncio e pode mudar o som da vogal u. Ela pode soar como o nome dessa letra em inglês.',
     5: 'Agora, pense nas letras ésse e agá. Juntas, elas fazem aquele som de pedir silêncio. Esse som pode aparecer no começo ou no final da palavra.',

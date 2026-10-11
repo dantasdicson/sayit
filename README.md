@@ -32,7 +32,7 @@ Instituição fictícia criada exclusivamente para fins acadêmicos.
 A trilha possui 10 módulos:
 
 1. Magic E: mudança do som do A
-2. Magic E — o efeito do E final
+2. Magic E: mudança do som do I
 3. Magic E: mudança do som do O
 4. Magic E: mudança do som do U
 5. SH
