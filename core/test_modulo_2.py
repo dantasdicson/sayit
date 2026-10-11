@@ -1,5 +1,9 @@
 from io import StringIO
 from unittest.mock import patch
+from importlib import import_module
+from types import SimpleNamespace
+from django.apps import apps
+from django.db import connection
 
 from django.contrib.auth import get_user_model
 from django.core.management import call_command
@@ -41,14 +45,31 @@ class Modulo2Tests(TestCase):
             self.assertEqual(self.acertar(i, True).status_code, 200)
 
     def test_catalogo_e_explicacao(self):
+        self.assertEqual(self.modulo.titulo, 'Magic E — o efeito do E final')
+        self.assertIn('I ou do A', self.modulo.conteudo_teorico)
         self.assertEqual([(p.palavra_base.palavra, p.palavra_comparada.palavra) for p in self.pares],
                          [('bit', 'bite'), ('can', 'cane'), ('pin', 'pine'), ('sit', 'site')])
         r = self.client.get(reverse('explicacao_modulo_2'))
-        self.assertContains(r, 'MAGIC E — SOM DO I')
+        self.assertContains(r, 'MAGIC E — O EFEITO DO E FINAL')
         self.assertContains(r, self.modulo.conteudo_teorico)
+        self.assertNotContains(r, 'kit e kite')
         self.assertContains(r, self.url(1))
         self.assertNotContains(self.client.get(reverse('trilha')), reverse('explicacao_modulo_2'))
 
+    def test_migracao_alinha_instalacao_existente_sem_apagar_progresso(self):
+        Modulo.objects.filter(pk=self.modulo.pk).update(titulo='Magic E: mudança do som do I', conteudo_teorico='Compare kit e kite.')
+        registro = Progresso.objects.create(usuario=self.usuario, modulo=self.modulo, percentual=33)
+        palavras = list(Palavra.objects.filter(modulo=self.modulo).values_list('pk', 'palavra'))
+        pares = list(Comparacao.objects.filter(modulo=self.modulo).values_list('pk', 'palavra_base_id', 'palavra_comparada_id'))
+        migration = import_module('core.migrations.0010_alinhar_modulo_2_magic_e')
+        migration.alinhar_modulo(apps, SimpleNamespace(connection=connection))
+        migration.alinhar_modulo(apps, SimpleNamespace(connection=connection))
+        self.modulo.refresh_from_db()
+        registro.refresh_from_db()
+        self.assertEqual(self.modulo.titulo, 'Magic E — o efeito do E final')
+        self.assertEqual(registro.percentual, 33)
+        self.assertEqual(palavras, list(Palavra.objects.filter(modulo=self.modulo).values_list('pk', 'palavra')))
+        self.assertEqual(pares, list(Comparacao.objects.filter(modulo=self.modulo).values_list('pk', 'palavra_base_id', 'palavra_comparada_id')))
     def test_substituicao_pin_pine_preserva_ids_e_associa_midias(self):
         par = self.pares[2]
         ids = (par.pk, par.palavra_base_id, par.palavra_comparada_id)
@@ -137,7 +158,7 @@ class Modulo2Tests(TestCase):
         self.completar()
         with patch('core.views.default_storage.exists', return_value=False):
             r = self.client.get(reverse('resumo_modulo_2'))
-        self.assertContains(r, 'Magic E — Som do I')
+        self.assertContains(r, 'Magic E — o efeito do E final')
         self.assertContains(r, 'method="post"')
         self.assertNotContains(r, '<audio')
         self.assertEqual(self.client.get(reverse('conclusao_modulo_2')).status_code, 409)

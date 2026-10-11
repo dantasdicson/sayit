@@ -30,7 +30,7 @@ EXEMPLOS = {
 }
 EXPLICACOES = {
     1: 'Percebeu a diferença? Nessas palavras, o ê no final fica em silêncio, mas muda o som da vogal á. Ela passa a soar como o nome dessa letra em inglês.',
-    2: 'Percebeu a diferença? Nessas palavras, o ê no final fica em silêncio e muda o som da vogal. Compare cada par e escute como uma letra muda o jeito de falar e o significado da palavra.',
+    2: 'Percebeu a diferença? Nessas palavras, o ê no final fica em silêncio e muda o som da vogal anterior. Você comparou exemplos com as vogais i e á. Compare cada par e escute como uma letra muda o jeito de falar e o significado da palavra.',
     3: 'Percebeu a diferença? Nessas palavras, o ê no final fica em silêncio, mas muda o som da vogal ó. Ela passa a soar como o nome dessa letra em inglês.',
     4: 'Percebeu a diferença? Nessas palavras, o ê no final fica em silêncio e pode mudar o som da vogal u. Ela pode soar como o nome dessa letra em inglês.',
     5: 'Agora, pense nas letras ésse e agá. Juntas, elas fazem aquele som de pedir silêncio. Esse som pode aparecer no começo ou no final da palavra.',

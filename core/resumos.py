@@ -84,13 +84,13 @@ RESUMOS = {
         'conclusao': 'conclusao_modulo_3',
     },
     2: {
-        'subtitulo': 'Magic E — Som do I',
+        'subtitulo': 'Magic E — o efeito do E final',
         'paragrafos': (
             'Você ouviu e falou BIT e BITE, CAN e CANE, PIN e PINE, SIT e SITE.',
-            'Nessas palavras, o E no final fica silencioso e faz o I soar como o nome da letra I em inglês.',
+            'Nesses exemplos, o E final fica silencioso e muda o som da vogal anterior: I em BIT/BITE, PIN/PINE e SIT/SITE; A em CAN/CANE.',
             'Compare CAN e CANE: uma letra no final muda o som e o significado da palavra!',
         ),
-        'reforco': 'Muito bem! Você terminou a revisão do Magic E — som do I.',
+        'reforco': 'Muito bem! Você terminou a revisão do Magic E — o efeito do E final.',
         'audio': 'modulos/2/resumo.mp3',
         'conclusao': 'conclusao_modulo_2',
     },

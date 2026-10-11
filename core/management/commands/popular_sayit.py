@@ -22,8 +22,8 @@ MODULOS = [
     },
     {
         "numero": 2,
-        "titulo": "Magic E: mudança do som do I",
-        "descricao": "Aprenda como o E final silencioso pode modificar a pronúncia da vogal I.",
+        "titulo": "Magic E — o efeito do E final",
+        "descricao": "Descubra como o E final silencioso pode mudar o som da vogal anterior.",
         "palavras": [
             ("bit", "pedaço", 1),
             ("bite", "mordida", 2),
@@ -154,7 +154,7 @@ MODULOS = [
 
 CONTEUDOS_TEORICOS = {
     1: "O E no final fica silencioso e pode mudar o som do A. Compare cat e cake: em cake, o A soa como seu nome em inglês. Escute e repita devagar!",
-    2: "O E silencioso pode mudar o som do I. Compare kit e kite: em kite, o I soa como seu nome em inglês. Vamos ouvir a diferença?",
+    2: "O E no final fica silencioso e pode mudar o som da vogal anterior. Compare bit e bite, can e cane, pin e pine, sit e site. Nestes exemplos, o E modifica o som do I ou do A. Ouça cada par e perceba a diferença!",
     3: "O E no final pode mudar o som do O sem ter um som próprio. Compare hop e hope e repita cada palavra com calma.",
     4: "O E silencioso pode mudar o som do U. Compare cub e cube, tub e tube, cut e cute. Escute cada palavra: a pronúncia também pode variar entre sotaques.",
     5: "S e H juntos fazem um som parecido com o pedido de silêncio: shhh! Procure esse som em ship e fish. Ele pode aparecer no começo ou no final.",

@@ -16,9 +16,9 @@
     "pk": 2,
     "fields": {
       "numero": 2,
-      "titulo": "Magic E: mudança do som do I",
-      "descricao": "Aprenda como o E final silencioso pode modificar a pronúncia da vogal I.",
-      "conteudo_teorico": "O E silencioso pode mudar o som do I. Compare kit e kite: em kite, o I soa como seu nome em inglês. Vamos ouvir a diferença?",
+      "titulo": "Magic E — o efeito do E final",
+      "descricao": "Descubra como o E final silencioso pode mudar o som da vogal anterior.",
+      "conteudo_teorico": "O E no final fica silencioso e pode mudar o som da vogal anterior. Compare bit e bite, can e cane, pin e pine, sit e site. Nestes exemplos, o E modifica o som do I ou do A. Ouça cada par e perceba a diferença!",
       "ordem": 2,
       "ativo": true
     }
