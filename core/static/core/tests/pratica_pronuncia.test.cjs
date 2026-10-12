@@ -4,6 +4,17 @@ const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
 
+test('beth aceita bath e exibe bath no retorno', () => {
+  const { element, recognition } = setup('bath');
+  const result = [{ transcript: 'Beth!' }]; result.isFinal = true;
+  recognition.onresult({ results: [result] }); recognition.onend();
+  assert.equal(element('feedback').dataset.result, 'correct');
+  assert.equal(element('feedback-text').textContent, 'Eu entendi: bath');
+  const other = setup('mother');
+  other.recognition.onresult({ results: [result] }); other.recognition.onend();
+  assert.equal(other.element('feedback').dataset.result, 'incorrect');
+});
+
 test('beach aceita a transcrição censurada exata e mostra beach', () => {
   const { element, recognition } = setup('beach');
   const result = [{ transcript: 'b****' }]; result.isFinal = true;

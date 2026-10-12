@@ -12,6 +12,13 @@ from core.pronuncia import VARIANTES, corresponde
 
 
 class PronunciaTests(SimpleTestCase):
+    def test_beth_aceito_apenas_para_bath(self):
+        for text in ['beth', 'Beth', ' BETH! ']:
+            normalized = progresso.normalizar_texto(text)
+            self.assertTrue(corresponde('bath', normalized))
+            self.assertFalse(corresponde('mother', normalized))
+        self.assertFalse(corresponde('bath', 'beth bath'))
+
     def test_excecao_bitch_para_beach(self):
         for text in ['bitch', 'Bitch', ' BITCH! ', 'b****', ' B****! ']:
             self.assertTrue(corresponde('beach', progresso.normalizar_texto(text)))
